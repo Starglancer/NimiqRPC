@@ -157,6 +157,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Nimiq.ico" />
+    <EmbeddedResource Include="Resources\Red.ico" />
+    <EmbeddedResource Include="Resources\Green.ico" />
     <EmbeddedResource Include="Resources\Nimiq.ico" />
     <EmbeddedResource Include="Resources\Red.png" />
     <EmbeddedResource Include="Resources\Green.png" />
