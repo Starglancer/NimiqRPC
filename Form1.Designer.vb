@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form1
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,32 +20,46 @@ Partial Class Form1
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.TabControl = New System.Windows.Forms.TabControl()
+        Me.tabStatus = New System.Windows.Forms.TabPage()
+        Me.TabControl.SuspendLayout()
         Me.SuspendLayout()
         '
-        'Label1
+        'TabControl
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(69, 34)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(39, 13)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Label1"
+        Me.TabControl.Controls.Add(Me.tabStatus)
+        Me.TabControl.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TabControl.Location = New System.Drawing.Point(0, 0)
+        Me.TabControl.Name = "TabControl"
+        Me.TabControl.SelectedIndex = 0
+        Me.TabControl.Size = New System.Drawing.Size(800, 450)
+        Me.TabControl.TabIndex = 0
+        '
+        'tabStatus
+        '
+        Me.tabStatus.Location = New System.Drawing.Point(4, 22)
+        Me.tabStatus.Name = "tabStatus"
+        Me.tabStatus.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabStatus.Size = New System.Drawing.Size(792, 424)
+        Me.tabStatus.TabIndex = 0
+        Me.tabStatus.Text = "Status"
+        Me.tabStatus.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.TabControl)
         Me.Name = "Form1"
-        Me.Text = "Form1"
+        Me.Text = "Nimiq Client"
+        Me.TabControl.ResumeLayout(False)
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
 
-    Friend WithEvents Label1 As Label
+    Friend WithEvents TabControl As TabControl
+    Friend WithEvents tabStatus As TabPage
 End Class
