@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel
+Imports System.Security.Cryptography
 Imports Nimiq
 
 Public Class Form1
@@ -8,6 +9,8 @@ Public Class Form1
     Dim Client As NimiqClient
     Dim Running As Boolean
     Dim ForceClose As Boolean
+    Dim DataArray(500, 1) As String
+    Dim DataPointer As Integer
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -24,7 +27,7 @@ Public Class Form1
         Update_Data()
 
         'Initiate data timer
-        timUpdateData.Interval = 10000 'Every 10 seconds
+        timUpdateData.Interval = 10000 'Every 10 second
         timUpdateData.Enabled = True
 
         'Centre Form on screen
@@ -33,9 +36,19 @@ Public Class Form1
         'Set default force close to false
         ForceClose = False
 
+        'Initialise Data Capture
+        DataPointer = 0
+
+
     End Sub
 
     Private Sub timUpdateData_Tick(sender As Object, e As EventArgs) Handles timUpdateData.Tick
+
+        'Increment pointer
+        DataPointer += 1
+
+        'Add timestamp
+        DataArray(DataPointer, 0) = Date.Now.ToString
 
         'Update all the data fields according to the timer
         Update_Data()
@@ -49,6 +62,7 @@ Public Class Form1
         'Only update the rest if the client is running
         If Running = True Then
 
+            Update_Blockchain()
 
         End If
 
@@ -84,6 +98,19 @@ Public Class Form1
             NotifyIcon.Icon = My.Resources.Nimiq
             NotifyIcon.Text = "Nimiq Establishing Concensus"
         End If
+
+    End Sub
+
+    Private Sub Update_Blockchain()
+
+        'Display current blocknumber
+        txtBlocknumber.Text = Client.BlockNumber()
+
+        'Store current blocknumber
+        DataArray(DataPointer, 1) = Client.BlockNumber.ToString
+
+        'Display Graph
+
 
     End Sub
 
