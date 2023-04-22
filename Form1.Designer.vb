@@ -26,6 +26,9 @@ Partial Class Form1
         Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.TabControl = New System.Windows.Forms.TabControl()
         Me.tabStatus = New System.Windows.Forms.TabPage()
@@ -37,16 +40,14 @@ Partial Class Form1
         Me.lblBy = New System.Windows.Forms.Label()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.pbxStatus = New System.Windows.Forms.PictureBox()
-        Me.tabBlockchain = New System.Windows.Forms.TabPage()
+        Me.tabBlockNumber = New System.Windows.Forms.TabPage()
         Me.chtBlocknumber = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.txtBlocknumber = New System.Windows.Forms.TextBox()
         Me.lblBlocknumber = New System.Windows.Forms.Label()
-        Me.tabNetwork = New System.Windows.Forms.TabPage()
-        Me.tabMiner = New System.Windows.Forms.TabPage()
-        Me.tabWallet = New System.Windows.Forms.TabPage()
-        Me.tabLog = New System.Windows.Forms.TabPage()
-        Me.tabSettings = New System.Windows.Forms.TabPage()
-        Me.tabHelp = New System.Windows.Forms.TabPage()
+        Me.tabPeerCount = New System.Windows.Forms.TabPage()
+        Me.chtPeerCount = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.txtTotalPeers = New System.Windows.Forms.TextBox()
+        Me.lblTotalPeers = New System.Windows.Forms.Label()
         Me.timUpdateData = New System.Windows.Forms.Timer(Me.components)
         Me.NotifyIcon = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.NotifyMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -54,21 +55,18 @@ Partial Class Form1
         Me.TabControl.SuspendLayout()
         Me.tabStatus.SuspendLayout()
         CType(Me.pbxStatus, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tabBlockchain.SuspendLayout()
+        Me.tabBlockNumber.SuspendLayout()
         CType(Me.chtBlocknumber, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tabPeerCount.SuspendLayout()
+        CType(Me.chtPeerCount, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.NotifyMenu.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl
         '
         Me.TabControl.Controls.Add(Me.tabStatus)
-        Me.TabControl.Controls.Add(Me.tabBlockchain)
-        Me.TabControl.Controls.Add(Me.tabNetwork)
-        Me.TabControl.Controls.Add(Me.tabMiner)
-        Me.TabControl.Controls.Add(Me.tabWallet)
-        Me.TabControl.Controls.Add(Me.tabLog)
-        Me.TabControl.Controls.Add(Me.tabSettings)
-        Me.TabControl.Controls.Add(Me.tabHelp)
+        Me.TabControl.Controls.Add(Me.tabBlockNumber)
+        Me.TabControl.Controls.Add(Me.tabPeerCount)
         Me.TabControl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControl.Location = New System.Drawing.Point(0, 0)
         Me.TabControl.Name = "TabControl"
@@ -168,17 +166,17 @@ Partial Class Form1
         Me.pbxStatus.TabIndex = 0
         Me.pbxStatus.TabStop = False
         '
-        'tabBlockchain
+        'tabBlockNumber
         '
-        Me.tabBlockchain.Controls.Add(Me.chtBlocknumber)
-        Me.tabBlockchain.Controls.Add(Me.txtBlocknumber)
-        Me.tabBlockchain.Controls.Add(Me.lblBlocknumber)
-        Me.tabBlockchain.Location = New System.Drawing.Point(4, 22)
-        Me.tabBlockchain.Name = "tabBlockchain"
-        Me.tabBlockchain.Size = New System.Drawing.Size(792, 424)
-        Me.tabBlockchain.TabIndex = 1
-        Me.tabBlockchain.Text = "Blockchain"
-        Me.tabBlockchain.UseVisualStyleBackColor = True
+        Me.tabBlockNumber.Controls.Add(Me.chtBlocknumber)
+        Me.tabBlockNumber.Controls.Add(Me.txtBlocknumber)
+        Me.tabBlockNumber.Controls.Add(Me.lblBlocknumber)
+        Me.tabBlockNumber.Location = New System.Drawing.Point(4, 22)
+        Me.tabBlockNumber.Name = "tabBlockNumber"
+        Me.tabBlockNumber.Size = New System.Drawing.Size(792, 424)
+        Me.tabBlockNumber.TabIndex = 1
+        Me.tabBlockNumber.Text = "Block Number"
+        Me.tabBlockNumber.UseVisualStyleBackColor = True
         '
         'chtBlocknumber
         '
@@ -201,8 +199,10 @@ Partial Class Form1
         '
         'txtBlocknumber
         '
+        Me.txtBlocknumber.BackColor = System.Drawing.Color.White
         Me.txtBlocknumber.Location = New System.Drawing.Point(375, 16)
         Me.txtBlocknumber.Name = "txtBlocknumber"
+        Me.txtBlocknumber.ReadOnly = True
         Me.txtBlocknumber.Size = New System.Drawing.Size(100, 20)
         Me.txtBlocknumber.TabIndex = 1
         Me.txtBlocknumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -216,59 +216,55 @@ Partial Class Form1
         Me.lblBlocknumber.TabIndex = 0
         Me.lblBlocknumber.Text = "Current Block Number"
         '
-        'tabNetwork
+        'tabPeerCount
         '
-        Me.tabNetwork.Location = New System.Drawing.Point(4, 22)
-        Me.tabNetwork.Name = "tabNetwork"
-        Me.tabNetwork.Size = New System.Drawing.Size(792, 424)
-        Me.tabNetwork.TabIndex = 2
-        Me.tabNetwork.Text = "Network"
-        Me.tabNetwork.UseVisualStyleBackColor = True
+        Me.tabPeerCount.Controls.Add(Me.chtPeerCount)
+        Me.tabPeerCount.Controls.Add(Me.txtTotalPeers)
+        Me.tabPeerCount.Controls.Add(Me.lblTotalPeers)
+        Me.tabPeerCount.Location = New System.Drawing.Point(4, 22)
+        Me.tabPeerCount.Name = "tabPeerCount"
+        Me.tabPeerCount.Size = New System.Drawing.Size(792, 424)
+        Me.tabPeerCount.TabIndex = 2
+        Me.tabPeerCount.Text = "Peer Count"
+        Me.tabPeerCount.UseVisualStyleBackColor = True
         '
-        'tabMiner
+        'chtPeerCount
         '
-        Me.tabMiner.Location = New System.Drawing.Point(4, 22)
-        Me.tabMiner.Name = "tabMiner"
-        Me.tabMiner.Size = New System.Drawing.Size(792, 424)
-        Me.tabMiner.TabIndex = 3
-        Me.tabMiner.Text = "Miner"
-        Me.tabMiner.UseVisualStyleBackColor = True
+        Me.chtPeerCount.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.chtPeerCount.BackColor = System.Drawing.Color.Transparent
+        ChartArea2.Name = "ChartArea1"
+        Me.chtPeerCount.ChartAreas.Add(ChartArea2)
+        Legend2.Name = "Legend1"
+        Me.chtPeerCount.Legends.Add(Legend2)
+        Me.chtPeerCount.Location = New System.Drawing.Point(3, 45)
+        Me.chtPeerCount.Name = "chtPeerCount"
+        Series2.ChartArea = "ChartArea1"
+        Series2.Legend = "Legend1"
+        Series2.Name = "Series1"
+        Me.chtPeerCount.Series.Add(Series2)
+        Me.chtPeerCount.Size = New System.Drawing.Size(789, 379)
+        Me.chtPeerCount.TabIndex = 3
+        Me.chtPeerCount.Text = "Chart1"
         '
-        'tabWallet
+        'txtTotalPeers
         '
-        Me.tabWallet.Location = New System.Drawing.Point(4, 22)
-        Me.tabWallet.Name = "tabWallet"
-        Me.tabWallet.Size = New System.Drawing.Size(792, 424)
-        Me.tabWallet.TabIndex = 4
-        Me.tabWallet.Text = "Wallet"
-        Me.tabWallet.UseVisualStyleBackColor = True
+        Me.txtTotalPeers.BackColor = System.Drawing.Color.White
+        Me.txtTotalPeers.Location = New System.Drawing.Point(372, 16)
+        Me.txtTotalPeers.Name = "txtTotalPeers"
+        Me.txtTotalPeers.ReadOnly = True
+        Me.txtTotalPeers.Size = New System.Drawing.Size(100, 20)
+        Me.txtTotalPeers.TabIndex = 1
+        Me.txtTotalPeers.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'tabLog
+        'lblTotalPeers
         '
-        Me.tabLog.Location = New System.Drawing.Point(4, 22)
-        Me.tabLog.Name = "tabLog"
-        Me.tabLog.Size = New System.Drawing.Size(792, 424)
-        Me.tabLog.TabIndex = 5
-        Me.tabLog.Text = "Log"
-        Me.tabLog.UseVisualStyleBackColor = True
-        '
-        'tabSettings
-        '
-        Me.tabSettings.Location = New System.Drawing.Point(4, 22)
-        Me.tabSettings.Name = "tabSettings"
-        Me.tabSettings.Size = New System.Drawing.Size(792, 424)
-        Me.tabSettings.TabIndex = 6
-        Me.tabSettings.Text = "Settings"
-        Me.tabSettings.UseVisualStyleBackColor = True
-        '
-        'tabHelp
-        '
-        Me.tabHelp.Location = New System.Drawing.Point(4, 22)
-        Me.tabHelp.Name = "tabHelp"
-        Me.tabHelp.Size = New System.Drawing.Size(792, 424)
-        Me.tabHelp.TabIndex = 7
-        Me.tabHelp.Text = "Help"
-        Me.tabHelp.UseVisualStyleBackColor = True
+        Me.lblTotalPeers.AutoSize = True
+        Me.lblTotalPeers.Location = New System.Drawing.Point(262, 19)
+        Me.lblTotalPeers.Name = "lblTotalPeers"
+        Me.lblTotalPeers.Size = New System.Drawing.Size(87, 13)
+        Me.lblTotalPeers.TabIndex = 0
+        Me.lblTotalPeers.Text = "Total Peer Count"
         '
         'timUpdateData
         '
@@ -307,9 +303,12 @@ Partial Class Form1
         Me.tabStatus.ResumeLayout(False)
         Me.tabStatus.PerformLayout()
         CType(Me.pbxStatus, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tabBlockchain.ResumeLayout(False)
-        Me.tabBlockchain.PerformLayout()
+        Me.tabBlockNumber.ResumeLayout(False)
+        Me.tabBlockNumber.PerformLayout()
         CType(Me.chtBlocknumber, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tabPeerCount.ResumeLayout(False)
+        Me.tabPeerCount.PerformLayout()
+        CType(Me.chtPeerCount, System.ComponentModel.ISupportInitialize).EndInit()
         Me.NotifyMenu.ResumeLayout(False)
         Me.ResumeLayout(False)
 
@@ -317,13 +316,8 @@ Partial Class Form1
 
     Friend WithEvents TabControl As TabControl
     Friend WithEvents tabStatus As TabPage
-    Friend WithEvents tabBlockchain As TabPage
-    Friend WithEvents tabNetwork As TabPage
-    Friend WithEvents tabMiner As TabPage
-    Friend WithEvents tabWallet As TabPage
-    Friend WithEvents tabLog As TabPage
-    Friend WithEvents tabSettings As TabPage
-    Friend WithEvents tabHelp As TabPage
+    Friend WithEvents tabBlockNumber As TabPage
+    Friend WithEvents tabPeerCount As TabPage
     Friend WithEvents timUpdateData As Timer
     Friend WithEvents pbxStatus As PictureBox
     Friend WithEvents lblStarglancer As Label
@@ -339,4 +333,7 @@ Partial Class Form1
     Friend WithEvents txtBlocknumber As TextBox
     Friend WithEvents lblBlocknumber As Label
     Friend WithEvents chtBlocknumber As DataVisualization.Charting.Chart
+    Friend WithEvents txtTotalPeers As TextBox
+    Friend WithEvents lblTotalPeers As Label
+    Friend WithEvents chtPeerCount As DataVisualization.Charting.Chart
 End Class

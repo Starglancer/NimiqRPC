@@ -23,7 +23,7 @@ Public Class Form1
         'Initialise Data Capture
         DataPointer = 0
         MaxDataPointer = Convert.ToInt16(TrendDurationMinutes * 60 / UpdateIntervalSeconds)
-        ReDim DataArray(MaxDataPointer + 1, 1)
+        ReDim DataArray(MaxDataPointer + 1, 2)
 
         'Configure client
         Cfg = New Config()
@@ -34,8 +34,11 @@ Public Class Form1
         'Create client
         Client = New NimiqClient(Cfg)
 
-        'Configure Blockchain Chart
-        Configure_Blockchain_Chart()
+        'Configure Block Number Chart
+        Configure_Block_Number_Chart()
+
+        'Configure Peer Count Chart
+        Configure_Peer_Count_Chart()
 
         'Initial data update
         Update_Data()
@@ -52,7 +55,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub Configure_Blockchain_Chart()
+    Private Sub Configure_Block_Number_Chart()
 
         With chtBlocknumber.ChartAreas(0)
             .AxisX.Title = "Time (minutes)"
@@ -60,6 +63,24 @@ Public Class Form1
             .AxisX.Minimum = 0
             .AxisY.Title = "Block Number"
             .AxisY.MajorGrid.LineColor = Color.Gainsboro
+            .AxisY.IsStartedFromZero = False
+            .BackColor = Color.White
+            .BorderColor = Color.Black
+            .BorderDashStyle = ChartDashStyle.Solid
+            .BorderWidth = 1
+        End With
+
+    End Sub
+
+    Private Sub Configure_Peer_Count_Chart()
+
+        With chtPeerCount.ChartAreas(0)
+            .AxisX.Title = "Time (minutes)"
+            .AxisX.MajorGrid.LineColor = Color.Gainsboro
+            .AxisX.Minimum = 0
+            .AxisY.Title = "Peer Count"
+            .AxisY.MajorGrid.LineColor = Color.Gainsboro
+            .AxisY.IsStartedFromZero = False
             .BackColor = Color.White
             .BorderColor = Color.Black
             .BorderDashStyle = ChartDashStyle.Solid
@@ -73,17 +94,6 @@ Public Class Form1
         'Update all the data fields according to the timer
         Update_Data()
 
-        'Increment pointer
-        DataPointer += 1
-
-        'Shift array contents once we reach maximum duration
-        If DataPointer > MaxDataPointer Then
-            DataPointer = MaxDataPointer
-            For N As Integer = 0 To MaxDataPointer - 1
-                DataArray(N, 0) = DataArray(N + 1, 0)
-            Next
-        End If
-
     End Sub
 
     Private Sub Update_Data()
@@ -93,7 +103,20 @@ Public Class Form1
         'Only update the rest if the client is running
         If Running = True Then
 
-            Update_Blockchain()
+            'Update individual tabs
+            Update_Block_Number()
+            Update_Peer_Count()
+
+            'Increment pointer
+            DataPointer += 1
+
+            'Shift array contents once we reach maximum duration
+            If DataPointer > MaxDataPointer Then
+                DataPointer = MaxDataPointer
+                For N As Integer = 0 To MaxDataPointer - 1
+                    DataArray(N, 0) = DataArray(N + 1, 0)
+                Next
+            End If
 
         End If
 
@@ -132,16 +155,20 @@ Public Class Form1
 
     End Sub
 
-    Private Sub Update_Blockchain()
+    Private Sub Update_Block_Number()
+
+        Dim BlockNumber As Integer
+
+        'Get current block number
+        BlockNumber = Client.BlockNumber
 
         'Display current blocknumber
-        txtBlocknumber.Text = Client.BlockNumber()
+        txtBlocknumber.Text = BlockNumber
 
         'Store current blocknumber
-        DataArray(DataPointer, 0) = Client.BlockNumber.ToString
+        DataArray(DataPointer, 0) = BlockNumber
 
         'Display Graph
-        chtBlocknumber.ChartAreas(0).AxisY.Minimum = DataArray(0, 0) - 5
         chtBlocknumber.Series.Clear()
         chtBlocknumber.Series.Add("Block Number")
 
@@ -154,6 +181,38 @@ Public Class Form1
 
             For N As Integer = 0 To DataPointer
                 .Points.AddXY(N * UpdateIntervalSeconds / 60, DataArray(N, 0))
+            Next
+
+        End With
+
+    End Sub
+
+    Private Sub Update_Peer_Count()
+
+        Dim PeerCount As Integer
+
+        'Get current peer count
+        PeerCount = Client.PeerCount
+
+        'Display current peer count
+        txtTotalPeers.Text = PeerCount
+
+        'Store current peer count
+        DataArray(DataPointer, 1) = PeerCount
+
+        'Display Graph
+        chtPeerCount.Series.Clear()
+        chtPeerCount.Series.Add("Peer Count")
+
+        With chtPeerCount.Series(0)
+            .IsVisibleInLegend = False
+            .ChartType = DataVisualization.Charting.SeriesChartType.Line
+            .BorderWidth = 3
+            .Color = Color.DarkGray
+            .BorderDashStyle = ChartDashStyle.Solid
+
+            For N As Integer = 0 To DataPointer
+                .Points.AddXY(N * UpdateIntervalSeconds / 60, DataArray(N, 1))
             Next
 
         End With
