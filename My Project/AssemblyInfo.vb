@@ -8,10 +8,10 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("Nimiq Client")>
-<Assembly: AssemblyDescription("Windows interface to the Nimiq Node js client")>
+<Assembly: AssemblyTitle("Nimiq RPC")>
+<Assembly: AssemblyDescription("Windows interface to the Nimiq Node js client using RPC")>
 <Assembly: AssemblyCompany("Starglancer")>
-<Assembly: AssemblyProduct("Nimiq Client")>
+<Assembly: AssemblyProduct("Nimiq RPC")>
 <Assembly: AssemblyCopyright("Copyright © Starglancer 2023")>
 <Assembly: AssemblyTrademark("")>
 

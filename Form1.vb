@@ -1,5 +1,4 @@
-﻿Imports System.ComponentModel
-Imports System.Security.Cryptography
+﻿Imports System.Windows.Forms.DataVisualization.Charting
 Imports Nimiq
 
 Public Class Form1
@@ -9,10 +8,22 @@ Public Class Form1
     Dim Client As NimiqClient
     Dim Running As Boolean
     Dim ForceClose As Boolean
-    Dim DataArray(500, 1) As String
+    Dim DataArray(,) As Integer
     Dim DataPointer As Integer
+    Dim MaxDataPointer As Integer
+    Dim TrendDurationMinutes As Integer
+    Dim UpdateIntervalSeconds As Integer
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        'Set constants
+        TrendDurationMinutes = 60
+        UpdateIntervalSeconds = 10
+
+        'Initialise Data Capture
+        DataPointer = 0
+        MaxDataPointer = Convert.ToInt16(TrendDurationMinutes * 60 / UpdateIntervalSeconds)
+        ReDim DataArray(MaxDataPointer + 1, 1)
 
         'Configure client
         Cfg = New Config()
@@ -23,11 +34,14 @@ Public Class Form1
         'Create client
         Client = New NimiqClient(Cfg)
 
+        'Configure Blockchain Chart
+        Configure_Blockchain_Chart()
+
         'Initial data update
         Update_Data()
 
         'Initiate data timer
-        timUpdateData.Interval = 10000 'Every 10 second
+        timUpdateData.Interval = UpdateIntervalSeconds * 1000
         timUpdateData.Enabled = True
 
         'Centre Form on screen
@@ -36,22 +50,39 @@ Public Class Form1
         'Set default force close to false
         ForceClose = False
 
-        'Initialise Data Capture
-        DataPointer = 0
+    End Sub
 
+    Private Sub Configure_Blockchain_Chart()
+
+        With chtBlocknumber.ChartAreas(0)
+            .AxisX.Title = "Time (minutes)"
+            .AxisX.MajorGrid.LineColor = Color.Gainsboro
+            .AxisX.Minimum = 0
+            .AxisY.Title = "Block Number"
+            .AxisY.MajorGrid.LineColor = Color.Gainsboro
+            .BackColor = Color.White
+            .BorderColor = Color.Black
+            .BorderDashStyle = ChartDashStyle.Solid
+            .BorderWidth = 1
+        End With
 
     End Sub
 
     Private Sub timUpdateData_Tick(sender As Object, e As EventArgs) Handles timUpdateData.Tick
 
+        'Update all the data fields according to the timer
+        Update_Data()
+
         'Increment pointer
         DataPointer += 1
 
-        'Add timestamp
-        DataArray(DataPointer, 0) = Date.Now.ToString
-
-        'Update all the data fields according to the timer
-        Update_Data()
+        'Shift array contents once we reach maximum duration
+        If DataPointer > MaxDataPointer Then
+            DataPointer = MaxDataPointer
+            For N As Integer = 0 To MaxDataPointer - 1
+                DataArray(N, 0) = DataArray(N + 1, 0)
+            Next
+        End If
 
     End Sub
 
@@ -107,10 +138,25 @@ Public Class Form1
         txtBlocknumber.Text = Client.BlockNumber()
 
         'Store current blocknumber
-        DataArray(DataPointer, 1) = Client.BlockNumber.ToString
+        DataArray(DataPointer, 0) = Client.BlockNumber.ToString
 
         'Display Graph
+        chtBlocknumber.ChartAreas(0).AxisY.Minimum = DataArray(0, 0) - 5
+        chtBlocknumber.Series.Clear()
+        chtBlocknumber.Series.Add("Block Number")
 
+        With chtBlocknumber.Series(0)
+            .IsVisibleInLegend = False
+            .ChartType = DataVisualization.Charting.SeriesChartType.Line
+            .BorderWidth = 3
+            .Color = Color.DarkGray
+            .BorderDashStyle = ChartDashStyle.Solid
+
+            For N As Integer = 0 To DataPointer
+                .Points.AddXY(N * UpdateIntervalSeconds / 60, DataArray(N, 0))
+            Next
+
+        End With
 
     End Sub
 

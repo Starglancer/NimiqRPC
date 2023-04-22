@@ -38,6 +38,9 @@ Partial Class Form1
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.pbxStatus = New System.Windows.Forms.PictureBox()
         Me.tabBlockchain = New System.Windows.Forms.TabPage()
+        Me.chtBlocknumber = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.txtBlocknumber = New System.Windows.Forms.TextBox()
+        Me.lblBlocknumber = New System.Windows.Forms.Label()
         Me.tabNetwork = New System.Windows.Forms.TabPage()
         Me.tabMiner = New System.Windows.Forms.TabPage()
         Me.tabWallet = New System.Windows.Forms.TabPage()
@@ -48,15 +51,12 @@ Partial Class Form1
         Me.NotifyIcon = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.NotifyMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuExit = New System.Windows.Forms.ToolStripMenuItem()
-        Me.lblBlocknumber = New System.Windows.Forms.Label()
-        Me.txtBlocknumber = New System.Windows.Forms.TextBox()
-        Me.Blocknumber = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.TabControl.SuspendLayout()
         Me.tabStatus.SuspendLayout()
         CType(Me.pbxStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabBlockchain.SuspendLayout()
+        CType(Me.chtBlocknumber, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.NotifyMenu.SuspendLayout()
-        CType(Me.Blocknumber, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControl
@@ -170,7 +170,7 @@ Partial Class Form1
         '
         'tabBlockchain
         '
-        Me.tabBlockchain.Controls.Add(Me.Blocknumber)
+        Me.tabBlockchain.Controls.Add(Me.chtBlocknumber)
         Me.tabBlockchain.Controls.Add(Me.txtBlocknumber)
         Me.tabBlockchain.Controls.Add(Me.lblBlocknumber)
         Me.tabBlockchain.Location = New System.Drawing.Point(4, 22)
@@ -179,6 +179,42 @@ Partial Class Form1
         Me.tabBlockchain.TabIndex = 1
         Me.tabBlockchain.Text = "Blockchain"
         Me.tabBlockchain.UseVisualStyleBackColor = True
+        '
+        'chtBlocknumber
+        '
+        Me.chtBlocknumber.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.chtBlocknumber.BackColor = System.Drawing.Color.Transparent
+        ChartArea1.Name = "ChartArea1"
+        Me.chtBlocknumber.ChartAreas.Add(ChartArea1)
+        Legend1.Name = "Legend1"
+        Me.chtBlocknumber.Legends.Add(Legend1)
+        Me.chtBlocknumber.Location = New System.Drawing.Point(0, 42)
+        Me.chtBlocknumber.Name = "chtBlocknumber"
+        Series1.ChartArea = "ChartArea1"
+        Series1.Legend = "Legend1"
+        Series1.Name = "Series1"
+        Me.chtBlocknumber.Series.Add(Series1)
+        Me.chtBlocknumber.Size = New System.Drawing.Size(789, 379)
+        Me.chtBlocknumber.TabIndex = 2
+        Me.chtBlocknumber.Text = "Chart1"
+        '
+        'txtBlocknumber
+        '
+        Me.txtBlocknumber.Location = New System.Drawing.Point(375, 16)
+        Me.txtBlocknumber.Name = "txtBlocknumber"
+        Me.txtBlocknumber.Size = New System.Drawing.Size(100, 20)
+        Me.txtBlocknumber.TabIndex = 1
+        Me.txtBlocknumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblBlocknumber
+        '
+        Me.lblBlocknumber.AutoSize = True
+        Me.lblBlocknumber.Location = New System.Drawing.Point(238, 19)
+        Me.lblBlocknumber.Name = "lblBlocknumber"
+        Me.lblBlocknumber.Size = New System.Drawing.Size(111, 13)
+        Me.lblBlocknumber.TabIndex = 0
+        Me.lblBlocknumber.Text = "Current Block Number"
         '
         'tabNetwork
         '
@@ -255,39 +291,6 @@ Partial Class Form1
         Me.mnuExit.Size = New System.Drawing.Size(93, 22)
         Me.mnuExit.Text = "Exit"
         '
-        'lblBlocknumber
-        '
-        Me.lblBlocknumber.AutoSize = True
-        Me.lblBlocknumber.Location = New System.Drawing.Point(238, 19)
-        Me.lblBlocknumber.Name = "lblBlocknumber"
-        Me.lblBlocknumber.Size = New System.Drawing.Size(106, 13)
-        Me.lblBlocknumber.TabIndex = 0
-        Me.lblBlocknumber.Text = "Current Blocknumber"
-        '
-        'txtBlocknumber
-        '
-        Me.txtBlocknumber.Location = New System.Drawing.Point(375, 16)
-        Me.txtBlocknumber.Name = "txtBlocknumber"
-        Me.txtBlocknumber.Size = New System.Drawing.Size(100, 20)
-        Me.txtBlocknumber.TabIndex = 1
-        Me.txtBlocknumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Blocknumber
-        '
-        ChartArea1.Name = "ChartArea1"
-        Me.Blocknumber.ChartAreas.Add(ChartArea1)
-        Legend1.Name = "Legend1"
-        Me.Blocknumber.Legends.Add(Legend1)
-        Me.Blocknumber.Location = New System.Drawing.Point(27, 57)
-        Me.Blocknumber.Name = "Blocknumber"
-        Series1.ChartArea = "ChartArea1"
-        Series1.Legend = "Legend1"
-        Series1.Name = "Series1"
-        Me.Blocknumber.Series.Add(Series1)
-        Me.Blocknumber.Size = New System.Drawing.Size(741, 339)
-        Me.Blocknumber.TabIndex = 2
-        Me.Blocknumber.Text = "Chart1"
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -306,8 +309,8 @@ Partial Class Form1
         CType(Me.pbxStatus, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabBlockchain.ResumeLayout(False)
         Me.tabBlockchain.PerformLayout()
+        CType(Me.chtBlocknumber, System.ComponentModel.ISupportInitialize).EndInit()
         Me.NotifyMenu.ResumeLayout(False)
-        CType(Me.Blocknumber, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -335,5 +338,5 @@ Partial Class Form1
     Friend WithEvents mnuExit As ToolStripMenuItem
     Friend WithEvents txtBlocknumber As TextBox
     Friend WithEvents lblBlocknumber As Label
-    Friend WithEvents Blocknumber As DataVisualization.Charting.Chart
+    Friend WithEvents chtBlocknumber As DataVisualization.Charting.Chart
 End Class
