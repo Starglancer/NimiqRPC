@@ -53,6 +53,30 @@ Namespace My
                 Return defaultInstance
             End Get
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PoolList() As String
+            Get
+                Return CType(Me("PoolList"),String)
+            End Get
+            Set
+                Me("PoolList") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property AddressList() As String
+            Get
+                Return CType(Me("AddressList"),String)
+            End Get
+            Set
+                Me("AddressList") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

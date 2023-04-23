@@ -1,4 +1,5 @@
-﻿Imports System.Windows.Forms.DataVisualization.Charting
+﻿Imports System.Configuration
+Imports System.Windows.Forms.DataVisualization.Charting
 Imports Nimiq
 
 Public Class Form1
@@ -13,8 +14,26 @@ Public Class Form1
     Dim MaxDataPointer As Integer
     Dim TrendDurationMinutes As Integer
     Dim UpdateIntervalSeconds As Integer
+    Dim UserUpdate As Boolean
+    Dim PoolList As String
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        'Load Persistent Variables
+        txtPoolList.Text = My.Settings.PoolList
+        txtAddressList.Text = My.Settings.AddressList
+
+        'Populate default reer list options
+        cmbType.Text = "--all--"
+        cmbConnection.Text = "established"
+        cmbColumn.Text = "bytes recieved"
+        cmbDirection.Text = "descending"
+
+        'Populate pool dropdown
+        Populate_Pool_Dropdown()
+
+        'Populate mining address dropdown
+        Populate_Address_Dropdown()
 
         'Set constants
         TrendDurationMinutes = 60
@@ -23,13 +42,17 @@ Public Class Form1
         'Initialise Data Capture
         DataPointer = 0
         MaxDataPointer = Convert.ToInt16(TrendDurationMinutes * 60 / UpdateIntervalSeconds)
-        ReDim DataArray(MaxDataPointer + 1, 2)
+        ReDim DataArray(MaxDataPointer + 1, 3)
 
         'Configure client
         Cfg = New Config()
         Cfg.Scheme = "http"
         Cfg.Host = "localhost"
         Cfg.Port = 8648
+
+        'Set thread parameters
+        tbrThreads.Minimum = 1
+        tbrThreads.Maximum = Environment.ProcessorCount
 
         'Create client
         Client = New NimiqClient(Cfg)
@@ -39,6 +62,9 @@ Public Class Form1
 
         'Configure Peer Count Chart
         Configure_Peer_Count_Chart()
+
+        'Configure hashrate chart
+        Configure_Hashrate_Chart()
 
         'Initial data update
         Update_Data()
@@ -89,6 +115,47 @@ Public Class Form1
 
     End Sub
 
+    Private Sub Configure_Hashrate_Chart()
+
+        With chtHashRate.ChartAreas(0)
+            .AxisX.Title = "Time (minutes)"
+            .AxisX.MajorGrid.LineColor = Color.Gainsboro
+            .AxisX.Minimum = 0
+            .AxisY.Title = "Hash Rate"
+            .AxisY.MajorGrid.LineColor = Color.Gainsboro
+            .AxisY.IsStartedFromZero = False
+            .BackColor = Color.White
+            .BorderColor = Color.Black
+            .BorderDashStyle = ChartDashStyle.Solid
+            .BorderWidth = 1
+        End With
+
+    End Sub
+
+    Private Sub Populate_Pool_Dropdown()
+
+        Dim Pools() As String
+
+        Pools = txtPoolList.Text.Split(New String() {Environment.NewLine}, StringSplitOptions.None)
+        cmbPool.Items.Clear()
+        For N As Integer = 0 To Pools.Length - 1
+            cmbPool.Items.Add(Pools(N))
+        Next
+
+    End Sub
+
+    Private Sub Populate_Address_Dropdown()
+
+        Dim Addresses() As String
+
+        Addresses = txtAddressList.Text.Split(New String() {Environment.NewLine}, StringSplitOptions.None)
+        cmbMiningAddress.Items.Clear()
+        For N As Integer = 0 To Addresses.Length - 1
+            cmbMiningAddress.Items.Add(Addresses(N))
+        Next
+
+    End Sub
+
     Private Sub timUpdateData_Tick(sender As Object, e As EventArgs) Handles timUpdateData.Tick
 
         'Update all the data fields according to the timer
@@ -107,6 +174,7 @@ Public Class Form1
             Update_Block_Number()
             Update_Peer_Count()
             Update_Peer_List()
+            Update_Mining()
 
             'Increment pointer
             DataPointer += 1
@@ -284,6 +352,73 @@ Public Class Form1
 
     End Sub
 
+    Private Sub Update_Mining()
+
+        Dim Hashrate As Integer
+        Dim PoolBalance As Double
+        Dim Threads As Integer
+
+        'Display mining enabled
+        UserUpdate = False
+        chkMiner.Checked = Client.IsMining
+        UserUpdate = True
+
+        'Display threads
+        Threads = Client.MinerThreads
+        UserUpdate = False
+        txtThreads.Text = Threads
+        tbrThreads.Value = Threads
+        UserUpdate = True
+
+        'Display mining address
+        UserUpdate = False
+        cmbMiningAddress.Text = Client.MinerAddress.ToString
+        UserUpdate = True
+
+        'Display Pool
+        cmbPool.Text = Client.Pool.ToString
+
+        'Populate pool dropdown
+        Populate_Pool_Dropdown()
+
+        'Populate address dropdown
+        Populate_Address_Dropdown()
+
+        'Display pool connection
+        txtPoolConnection.Text = Client.PoolConnectionState.ToString
+
+        'Display pool balance
+        PoolBalance = Client.PoolConfirmedBalance / 100000
+        txtPoolBalance.Text = PoolBalance.ToString
+
+        'Get current hash rate
+        Hashrate = Client.Hashrate
+
+        'Display current hash rate
+        txtHashRate.Text = Hashrate
+
+        'Store current hash rate
+        DataArray(DataPointer, 2) = Hashrate
+
+        'Display Graph
+        chtHashRate.Series.Clear()
+        chtHashRate.Series.Add("Hashrate (H/s)")
+
+        With chtHashRate.Series(0)
+            .IsVisibleInLegend = False
+            .ChartType = DataVisualization.Charting.SeriesChartType.Line
+            .BorderWidth = 3
+            .Color = Color.DarkGray
+            .BorderDashStyle = ChartDashStyle.Solid
+
+            For N As Integer = 0 To DataPointer
+                .Points.AddXY(N * UpdateIntervalSeconds / 60, DataArray(N, 2))
+            Next
+
+        End With
+
+    End Sub
+
     Private Sub NotifyIcon_MouseClick(sender As Object, e As MouseEventArgs) Handles NotifyIcon.MouseClick
 
         'Only handle left mouse click
@@ -314,11 +449,52 @@ Public Class Form1
         ForceClose = False
 
     End Sub
+    Private Sub Form1_Closed(sender As Object, e As EventArgs) Handles Me.Closed
+
+        'Save persistent variables
+        My.Settings.PoolList = txtPoolList.Text
+        My.Settings.AddressList = txtAddressList.Text
+
+    End Sub
 
     Private Sub mnuExit_Click(sender As Object, e As EventArgs) Handles mnuExit.Click
 
         ForceClose = True
         Me.Close()
+
+    End Sub
+
+    Private Sub chkMiner_CheckStateChanged(sender As Object, e As EventArgs) Handles chkMiner.CheckStateChanged
+
+        'Ignore system update of checkbox
+        If UserUpdate = True Then
+            If chkMiner.Checked = True Then
+                Client.SetMining(True)
+            Else
+                Client.SetMining(False)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub tbrThreads_ValueChanged(sender As Object, e As EventArgs) Handles tbrThreads.ValueChanged
+
+        'Keep textbox in sync
+        txtThreads.Text = tbrThreads.Value
+
+        'Ignore system update of slider
+        If UserUpdate = True Then
+            Client.SetMinerThreads(tbrThreads.Value)
+        End If
+
+    End Sub
+
+    Private Sub cmbPool_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbPool.SelectedValueChanged
+
+        'Ignore system update of value
+        'If UserUpdate = True Then
+        'Client.SetPool(cmbPool.Text)
+        'End If
 
     End Sub
 
