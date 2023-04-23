@@ -31,6 +31,9 @@ Partial Class Form1
         Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.TabControl = New System.Windows.Forms.TabControl()
         Me.tabStatus = New System.Windows.Forms.TabPage()
@@ -71,6 +74,24 @@ Partial Class Form1
         Me.Tx = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Latency = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.lblRowCount = New System.Windows.Forms.Label()
+        Me.tabMining = New System.Windows.Forms.TabPage()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.TrackBar1 = New System.Windows.Forms.TrackBar()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.TextBox5 = New System.Windows.Forms.TextBox()
+        Me.TextBox6 = New System.Windows.Forms.TextBox()
         Me.TabControl.SuspendLayout()
         Me.tabStatus.SuspendLayout()
         CType(Me.pbxStatus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -83,6 +104,11 @@ Partial Class Form1
         Me.NotifyMenu.SuspendLayout()
         Me.gbxFilter.SuspendLayout()
         Me.gbxSort.SuspendLayout()
+        Me.tabMining.SuspendLayout()
+        CType(Me.TrackBar1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Chart1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl
@@ -91,6 +117,7 @@ Partial Class Form1
         Me.TabControl.Controls.Add(Me.tabBlockNumber)
         Me.TabControl.Controls.Add(Me.tabPeerCount)
         Me.TabControl.Controls.Add(Me.tabPeerList)
+        Me.TabControl.Controls.Add(Me.tabMining)
         Me.TabControl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControl.Location = New System.Drawing.Point(0, 0)
         Me.TabControl.Name = "TabControl"
@@ -118,16 +145,20 @@ Partial Class Form1
         '
         'txtConsensus
         '
+        Me.txtConsensus.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtConsensus.Location = New System.Drawing.Point(542, 321)
         Me.txtConsensus.Name = "txtConsensus"
+        Me.txtConsensus.ReadOnly = True
         Me.txtConsensus.Size = New System.Drawing.Size(100, 20)
         Me.txtConsensus.TabIndex = 7
         Me.txtConsensus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'txtStatus
         '
+        Me.txtStatus.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtStatus.Location = New System.Drawing.Point(168, 321)
         Me.txtStatus.Name = "txtStatus"
+        Me.txtStatus.ReadOnly = True
         Me.txtStatus.Size = New System.Drawing.Size(100, 20)
         Me.txtStatus.TabIndex = 6
         Me.txtStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -223,7 +254,7 @@ Partial Class Form1
         '
         'txtBlocknumber
         '
-        Me.txtBlocknumber.BackColor = System.Drawing.Color.White
+        Me.txtBlocknumber.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtBlocknumber.Location = New System.Drawing.Point(375, 16)
         Me.txtBlocknumber.Name = "txtBlocknumber"
         Me.txtBlocknumber.ReadOnly = True
@@ -273,7 +304,7 @@ Partial Class Form1
         '
         'txtTotalPeers
         '
-        Me.txtTotalPeers.BackColor = System.Drawing.Color.White
+        Me.txtTotalPeers.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtTotalPeers.Location = New System.Drawing.Point(372, 16)
         Me.txtTotalPeers.Name = "txtTotalPeers"
         Me.txtTotalPeers.ReadOnly = True
@@ -495,13 +526,186 @@ Partial Class Form1
         Me.lblRowCount.Size = New System.Drawing.Size(0, 13)
         Me.lblRowCount.TabIndex = 3
         '
+        'tabMining
+        '
+        Me.tabMining.Controls.Add(Me.GroupBox2)
+        Me.tabMining.Controls.Add(Me.GroupBox1)
+        Me.tabMining.Location = New System.Drawing.Point(4, 22)
+        Me.tabMining.Name = "tabMining"
+        Me.tabMining.Size = New System.Drawing.Size(792, 424)
+        Me.tabMining.TabIndex = 4
+        Me.tabMining.Text = "Mining"
+        Me.tabMining.UseVisualStyleBackColor = True
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(66, 21)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(94, 17)
+        Me.CheckBox1.TabIndex = 0
+        Me.CheckBox1.Text = "Miner Enabled"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
+        'TrackBar1
+        '
+        Me.TrackBar1.Location = New System.Drawing.Point(269, 17)
+        Me.TrackBar1.Name = "TrackBar1"
+        Me.TrackBar1.Size = New System.Drawing.Size(126, 45)
+        Me.TrackBar1.TabIndex = 1
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(401, 19)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(26, 20)
+        Me.TextBox1.TabIndex = 2
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Location = New System.Drawing.Point(569, 19)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(100, 20)
+        Me.TextBox2.TabIndex = 3
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(224, 22)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(46, 13)
+        Me.Label1.TabIndex = 4
+        Me.Label1.Text = "Threads"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(512, 22)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(50, 13)
+        Me.Label2.TabIndex = 5
+        Me.Label2.Text = "Hashrate"
+        '
+        'Chart1
+        '
+        ChartArea3.Name = "ChartArea1"
+        Me.Chart1.ChartAreas.Add(ChartArea3)
+        Legend3.Name = "Legend1"
+        Me.Chart1.Legends.Add(Legend3)
+        Me.Chart1.Location = New System.Drawing.Point(18, 61)
+        Me.Chart1.Name = "Chart1"
+        Series3.ChartArea = "ChartArea1"
+        Series3.Legend = "Legend1"
+        Series3.Name = "Series1"
+        Me.Chart1.Series.Add(Series3)
+        Me.Chart1.Size = New System.Drawing.Size(739, 209)
+        Me.Chart1.TabIndex = 6
+        Me.Chart1.Text = "Chart1"
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.TextBox3)
+        Me.GroupBox1.Controls.Add(Me.Label3)
+        Me.GroupBox1.Controls.Add(Me.Chart1)
+        Me.GroupBox1.Controls.Add(Me.Label2)
+        Me.GroupBox1.Controls.Add(Me.Label1)
+        Me.GroupBox1.Controls.Add(Me.TextBox2)
+        Me.GroupBox1.Controls.Add(Me.TextBox1)
+        Me.GroupBox1.Controls.Add(Me.TrackBar1)
+        Me.GroupBox1.Controls.Add(Me.CheckBox1)
+        Me.GroupBox1.Location = New System.Drawing.Point(16, 14)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(768, 323)
+        Me.GroupBox1.TabIndex = 7
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Miner"
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.TextBox6)
+        Me.GroupBox2.Controls.Add(Me.TextBox5)
+        Me.GroupBox2.Controls.Add(Me.TextBox4)
+        Me.GroupBox2.Controls.Add(Me.Label6)
+        Me.GroupBox2.Controls.Add(Me.Label5)
+        Me.GroupBox2.Controls.Add(Me.Label4)
+        Me.GroupBox2.Location = New System.Drawing.Point(18, 343)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(765, 73)
+        Me.GroupBox2.TabIndex = 8
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Mining Pool"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(154, 288)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(79, 13)
+        Me.Label3.TabIndex = 7
+        Me.Label3.Text = "Mining Address"
+        '
+        'TextBox3
+        '
+        Me.TextBox3.Location = New System.Drawing.Point(239, 285)
+        Me.TextBox3.Name = "TextBox3"
+        Me.TextBox3.Size = New System.Drawing.Size(356, 20)
+        Me.TextBox3.TabIndex = 8
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(39, 33)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(28, 13)
+        Me.Label4.TabIndex = 0
+        Me.Label4.Text = "Pool"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(293, 33)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(85, 13)
+        Me.Label5.TabIndex = 1
+        Me.Label5.Text = "Pool Connection"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(537, 33)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(70, 13)
+        Me.Label6.TabIndex = 2
+        Me.Label6.Text = "Pool Balance"
+        '
+        'TextBox4
+        '
+        Me.TextBox4.Location = New System.Drawing.Point(77, 30)
+        Me.TextBox4.Name = "TextBox4"
+        Me.TextBox4.Size = New System.Drawing.Size(178, 20)
+        Me.TextBox4.TabIndex = 3
+        '
+        'TextBox5
+        '
+        Me.TextBox5.Location = New System.Drawing.Point(384, 30)
+        Me.TextBox5.Name = "TextBox5"
+        Me.TextBox5.Size = New System.Drawing.Size(100, 20)
+        Me.TextBox5.TabIndex = 4
+        '
+        'TextBox6
+        '
+        Me.TextBox6.Location = New System.Drawing.Point(613, 30)
+        Me.TextBox6.Name = "TextBox6"
+        Me.TextBox6.Size = New System.Drawing.Size(100, 20)
+        Me.TextBox6.TabIndex = 5
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Controls.Add(Me.TabControl)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "Form1"
@@ -524,6 +728,13 @@ Partial Class Form1
         Me.gbxFilter.ResumeLayout(False)
         Me.gbxFilter.PerformLayout()
         Me.gbxSort.ResumeLayout(False)
+        Me.tabMining.ResumeLayout(False)
+        CType(Me.TrackBar1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Chart1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -567,4 +778,22 @@ Partial Class Form1
     Friend WithEvents Tx As DataGridViewTextBoxColumn
     Friend WithEvents Latency As DataGridViewTextBoxColumn
     Friend WithEvents lblRowCount As Label
+    Friend WithEvents tabMining As TabPage
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents TextBox6 As TextBox
+    Friend WithEvents TextBox5 As TextBox
+    Friend WithEvents TextBox4 As TextBox
+    Friend WithEvents Label6 As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Chart1 As DataVisualization.Charting.Chart
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents TrackBar1 As TrackBar
+    Friend WithEvents CheckBox1 As CheckBox
 End Class
