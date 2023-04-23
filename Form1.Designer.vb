@@ -29,6 +29,8 @@ Partial Class Form1
         Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.TabControl = New System.Windows.Forms.TabControl()
         Me.tabStatus = New System.Windows.Forms.TabPage()
@@ -48,10 +50,27 @@ Partial Class Form1
         Me.chtPeerCount = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.txtTotalPeers = New System.Windows.Forms.TextBox()
         Me.lblTotalPeers = New System.Windows.Forms.Label()
+        Me.tabPeerList = New System.Windows.Forms.TabPage()
+        Me.grdPeers = New System.Windows.Forms.DataGridView()
         Me.timUpdateData = New System.Windows.Forms.Timer(Me.components)
         Me.NotifyIcon = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.NotifyMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuExit = New System.Windows.Forms.ToolStripMenuItem()
+        Me.gbxFilter = New System.Windows.Forms.GroupBox()
+        Me.gbxSort = New System.Windows.Forms.GroupBox()
+        Me.lblType = New System.Windows.Forms.Label()
+        Me.lblConnection = New System.Windows.Forms.Label()
+        Me.cmbType = New System.Windows.Forms.ComboBox()
+        Me.cmbConnection = New System.Windows.Forms.ComboBox()
+        Me.cmbColumn = New System.Windows.Forms.ComboBox()
+        Me.cmbDirection = New System.Windows.Forms.ComboBox()
+        Me.Address = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Type = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Connection = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Rx = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Tx = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Latency = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.lblRowCount = New System.Windows.Forms.Label()
         Me.TabControl.SuspendLayout()
         Me.tabStatus.SuspendLayout()
         CType(Me.pbxStatus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -59,7 +78,11 @@ Partial Class Form1
         CType(Me.chtBlocknumber, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabPeerCount.SuspendLayout()
         CType(Me.chtPeerCount, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tabPeerList.SuspendLayout()
+        CType(Me.grdPeers, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.NotifyMenu.SuspendLayout()
+        Me.gbxFilter.SuspendLayout()
+        Me.gbxSort.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl
@@ -67,6 +90,7 @@ Partial Class Form1
         Me.TabControl.Controls.Add(Me.tabStatus)
         Me.TabControl.Controls.Add(Me.tabBlockNumber)
         Me.TabControl.Controls.Add(Me.tabPeerCount)
+        Me.TabControl.Controls.Add(Me.tabPeerList)
         Me.TabControl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControl.Location = New System.Drawing.Point(0, 0)
         Me.TabControl.Name = "TabControl"
@@ -266,6 +290,52 @@ Partial Class Form1
         Me.lblTotalPeers.TabIndex = 0
         Me.lblTotalPeers.Text = "Total Peer Count"
         '
+        'tabPeerList
+        '
+        Me.tabPeerList.Controls.Add(Me.lblRowCount)
+        Me.tabPeerList.Controls.Add(Me.gbxSort)
+        Me.tabPeerList.Controls.Add(Me.gbxFilter)
+        Me.tabPeerList.Controls.Add(Me.grdPeers)
+        Me.tabPeerList.Location = New System.Drawing.Point(4, 22)
+        Me.tabPeerList.Name = "tabPeerList"
+        Me.tabPeerList.Size = New System.Drawing.Size(792, 424)
+        Me.tabPeerList.TabIndex = 3
+        Me.tabPeerList.Text = "Peer List"
+        Me.tabPeerList.UseVisualStyleBackColor = True
+        '
+        'grdPeers
+        '
+        Me.grdPeers.AllowUserToAddRows = False
+        Me.grdPeers.AllowUserToDeleteRows = False
+        Me.grdPeers.AllowUserToResizeColumns = False
+        Me.grdPeers.AllowUserToResizeRows = False
+        Me.grdPeers.BackgroundColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdPeers.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        Me.grdPeers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.grdPeers.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Address, Me.Type, Me.Connection, Me.Rx, Me.Tx, Me.Latency})
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.grdPeers.DefaultCellStyle = DataGridViewCellStyle2
+        Me.grdPeers.GridColor = System.Drawing.Color.White
+        Me.grdPeers.Location = New System.Drawing.Point(8, 61)
+        Me.grdPeers.Name = "grdPeers"
+        Me.grdPeers.ReadOnly = True
+        Me.grdPeers.RowHeadersVisible = False
+        Me.grdPeers.Size = New System.Drawing.Size(776, 343)
+        Me.grdPeers.TabIndex = 0
+        '
         'timUpdateData
         '
         '
@@ -286,6 +356,144 @@ Partial Class Form1
         Me.mnuExit.Name = "mnuExit"
         Me.mnuExit.Size = New System.Drawing.Size(93, 22)
         Me.mnuExit.Text = "Exit"
+        '
+        'gbxFilter
+        '
+        Me.gbxFilter.Controls.Add(Me.cmbConnection)
+        Me.gbxFilter.Controls.Add(Me.cmbType)
+        Me.gbxFilter.Controls.Add(Me.lblConnection)
+        Me.gbxFilter.Controls.Add(Me.lblType)
+        Me.gbxFilter.Location = New System.Drawing.Point(17, 4)
+        Me.gbxFilter.Name = "gbxFilter"
+        Me.gbxFilter.Size = New System.Drawing.Size(457, 51)
+        Me.gbxFilter.TabIndex = 1
+        Me.gbxFilter.TabStop = False
+        Me.gbxFilter.Text = "Filter"
+        '
+        'gbxSort
+        '
+        Me.gbxSort.Controls.Add(Me.cmbDirection)
+        Me.gbxSort.Controls.Add(Me.cmbColumn)
+        Me.gbxSort.Location = New System.Drawing.Point(490, 4)
+        Me.gbxSort.Name = "gbxSort"
+        Me.gbxSort.Size = New System.Drawing.Size(284, 50)
+        Me.gbxSort.TabIndex = 2
+        Me.gbxSort.TabStop = False
+        Me.gbxSort.Text = "Sort"
+        '
+        'lblType
+        '
+        Me.lblType.AutoSize = True
+        Me.lblType.Location = New System.Drawing.Point(37, 22)
+        Me.lblType.Name = "lblType"
+        Me.lblType.Size = New System.Drawing.Size(31, 13)
+        Me.lblType.TabIndex = 0
+        Me.lblType.Text = "Type"
+        '
+        'lblConnection
+        '
+        Me.lblConnection.AutoSize = True
+        Me.lblConnection.Location = New System.Drawing.Point(232, 22)
+        Me.lblConnection.Name = "lblConnection"
+        Me.lblConnection.Size = New System.Drawing.Size(61, 13)
+        Me.lblConnection.TabIndex = 1
+        Me.lblConnection.Text = "Connection"
+        '
+        'cmbType
+        '
+        Me.cmbType.FormattingEnabled = True
+        Me.cmbType.Items.AddRange(New Object() {"--all--", "ws", "wss", "rtc", "dumb"})
+        Me.cmbType.Location = New System.Drawing.Point(74, 19)
+        Me.cmbType.Name = "cmbType"
+        Me.cmbType.Size = New System.Drawing.Size(121, 21)
+        Me.cmbType.TabIndex = 2
+        Me.cmbType.Text = "--all--"
+        '
+        'cmbConnection
+        '
+        Me.cmbConnection.FormattingEnabled = True
+        Me.cmbConnection.Items.AddRange(New Object() {"--all--", "established", "failed", "new"})
+        Me.cmbConnection.Location = New System.Drawing.Point(299, 19)
+        Me.cmbConnection.Name = "cmbConnection"
+        Me.cmbConnection.Size = New System.Drawing.Size(121, 21)
+        Me.cmbConnection.TabIndex = 3
+        Me.cmbConnection.Text = "established"
+        '
+        'cmbColumn
+        '
+        Me.cmbColumn.FormattingEnabled = True
+        Me.cmbColumn.Items.AddRange(New Object() {"bytes recieved", "bytes sent", "latency"})
+        Me.cmbColumn.Location = New System.Drawing.Point(18, 19)
+        Me.cmbColumn.Name = "cmbColumn"
+        Me.cmbColumn.Size = New System.Drawing.Size(121, 21)
+        Me.cmbColumn.TabIndex = 0
+        Me.cmbColumn.Text = "bytes recieved"
+        '
+        'cmbDirection
+        '
+        Me.cmbDirection.FormattingEnabled = True
+        Me.cmbDirection.Items.AddRange(New Object() {"ascending", "descending"})
+        Me.cmbDirection.Location = New System.Drawing.Point(145, 19)
+        Me.cmbDirection.Name = "cmbDirection"
+        Me.cmbDirection.Size = New System.Drawing.Size(121, 21)
+        Me.cmbDirection.TabIndex = 1
+        Me.cmbDirection.Text = "descending"
+        '
+        'Address
+        '
+        Me.Address.HeaderText = "Address"
+        Me.Address.Name = "Address"
+        Me.Address.ReadOnly = True
+        Me.Address.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.Address.Width = 400
+        '
+        'Type
+        '
+        Me.Type.HeaderText = "Type"
+        Me.Type.Name = "Type"
+        Me.Type.ReadOnly = True
+        Me.Type.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.Type.Width = 50
+        '
+        'Connection
+        '
+        Me.Connection.HeaderText = "Connection"
+        Me.Connection.Name = "Connection"
+        Me.Connection.ReadOnly = True
+        Me.Connection.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.Connection.Width = 70
+        '
+        'Rx
+        '
+        Me.Rx.HeaderText = "Bytes Received"
+        Me.Rx.Name = "Rx"
+        Me.Rx.ReadOnly = True
+        Me.Rx.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        Me.Rx.Width = 80
+        '
+        'Tx
+        '
+        Me.Tx.HeaderText = "Bytes Sent"
+        Me.Tx.Name = "Tx"
+        Me.Tx.ReadOnly = True
+        Me.Tx.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        Me.Tx.Width = 80
+        '
+        'Latency
+        '
+        Me.Latency.HeaderText = "Latency (ms)"
+        Me.Latency.Name = "Latency"
+        Me.Latency.ReadOnly = True
+        Me.Latency.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        Me.Latency.Width = 75
+        '
+        'lblRowCount
+        '
+        Me.lblRowCount.AutoSize = True
+        Me.lblRowCount.Location = New System.Drawing.Point(355, 407)
+        Me.lblRowCount.Name = "lblRowCount"
+        Me.lblRowCount.Size = New System.Drawing.Size(0, 13)
+        Me.lblRowCount.TabIndex = 3
         '
         'Form1
         '
@@ -309,7 +517,13 @@ Partial Class Form1
         Me.tabPeerCount.ResumeLayout(False)
         Me.tabPeerCount.PerformLayout()
         CType(Me.chtPeerCount, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tabPeerList.ResumeLayout(False)
+        Me.tabPeerList.PerformLayout()
+        CType(Me.grdPeers, System.ComponentModel.ISupportInitialize).EndInit()
         Me.NotifyMenu.ResumeLayout(False)
+        Me.gbxFilter.ResumeLayout(False)
+        Me.gbxFilter.PerformLayout()
+        Me.gbxSort.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -336,4 +550,21 @@ Partial Class Form1
     Friend WithEvents txtTotalPeers As TextBox
     Friend WithEvents lblTotalPeers As Label
     Friend WithEvents chtPeerCount As DataVisualization.Charting.Chart
+    Friend WithEvents tabPeerList As TabPage
+    Friend WithEvents grdPeers As DataGridView
+    Friend WithEvents gbxSort As GroupBox
+    Friend WithEvents cmbDirection As ComboBox
+    Friend WithEvents cmbColumn As ComboBox
+    Friend WithEvents gbxFilter As GroupBox
+    Friend WithEvents cmbConnection As ComboBox
+    Friend WithEvents cmbType As ComboBox
+    Friend WithEvents lblConnection As Label
+    Friend WithEvents lblType As Label
+    Friend WithEvents Address As DataGridViewTextBoxColumn
+    Friend WithEvents Type As DataGridViewTextBoxColumn
+    Friend WithEvents Connection As DataGridViewTextBoxColumn
+    Friend WithEvents Rx As DataGridViewTextBoxColumn
+    Friend WithEvents Tx As DataGridViewTextBoxColumn
+    Friend WithEvents Latency As DataGridViewTextBoxColumn
+    Friend WithEvents lblRowCount As Label
 End Class

@@ -106,6 +106,7 @@ Public Class Form1
             'Update individual tabs
             Update_Block_Number()
             Update_Peer_Count()
+            Update_Peer_List()
 
             'Increment pointer
             DataPointer += 1
@@ -216,6 +217,70 @@ Public Class Form1
             Next
 
         End With
+
+    End Sub
+
+    Private Sub Update_Peer_List()
+
+        Dim Peers() As Models.Peer
+        Dim Address() As String
+        Dim Include As Boolean
+        Dim Row As Integer
+
+        Peers = Client.PeerList()
+
+        grdPeers.Rows.Clear()
+        Row = 0
+
+        For N = 0 To Peers.Count - 1
+            'Get Type
+            Address = Peers(N).Address.Split(New Char() {":"c})
+
+            'Filter
+            Include = True
+            If cmbType.Text <> "--all--" And cmbType.Text <> Address(0) Then Include = False
+            If cmbConnection.Text <> "--all--" And cmbConnection.Text <> Peers(N).AddressState.ToString Then Include = False
+
+            'Add Peer data to grid
+            If Include = True Then
+                grdPeers.Rows.Add()
+                grdPeers.Rows(Row).Cells(0).Value = Peers(N).Address
+                grdPeers.Rows(Row).Cells(1).Value = Address(0)
+                grdPeers.Rows(Row).Cells(2).Value = Peers(N).AddressState.ToString
+                grdPeers.Rows(Row).Cells(3).Value = Peers(N).Rx
+                grdPeers.Rows(Row).Cells(4).Value = Peers(N).Tx
+                grdPeers.Rows(Row).Cells(5).Value = Peers(N).Latency
+
+                Row += 1
+
+            End If
+
+        Next
+
+        'Sort Grid
+        Select Case cmbColumn.Text
+            Case "bytes recieved"
+                If cmbDirection.Text = "ascending" Then
+                    grdPeers.Sort(grdPeers.Columns(3), System.ComponentModel.ListSortDirection.Ascending)
+                Else
+                    grdPeers.Sort(grdPeers.Columns(3), System.ComponentModel.ListSortDirection.Descending)
+                End If
+            Case "bytes sent"
+                If cmbDirection.Text = "ascending" Then
+                    grdPeers.Sort(grdPeers.Columns(4), System.ComponentModel.ListSortDirection.Ascending)
+                Else
+                    grdPeers.Sort(grdPeers.Columns(4), System.ComponentModel.ListSortDirection.Descending)
+                End If
+            Case "latency"
+                If cmbDirection.Text = "ascending" Then
+                    grdPeers.Sort(grdPeers.Columns(5), System.ComponentModel.ListSortDirection.Ascending)
+                Else
+                    grdPeers.Sort(grdPeers.Columns(5), System.ComponentModel.ListSortDirection.Descending)
+                End If
+        End Select
+
+        'Display row count
+        lblRowCount.Text = Row.ToString + " Peers Listed"
 
     End Sub
 
