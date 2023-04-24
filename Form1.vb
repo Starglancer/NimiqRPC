@@ -280,7 +280,7 @@ Public Class Form1
             'Add block data to grid
             grdBlocks.Rows.Add()
             grdBlocks.Rows(Row).Cells(0).Value = N
-            grdBlocks.Rows(Row).Cells(1).Value = Block.Confirmations
+            grdBlocks.Rows(Row).Cells(1).Value = Client.GetBlockTransactionCountByNumber(N)
             grdBlocks.Rows(Row).Cells(2).Value = Block.Size
             grdBlocks.Rows(Row).Cells(3).Value = DateTimeOffset.FromUnixTimeSeconds(Block.Timestamp).LocalDateTime
             grdBlocks.Rows(Row).Cells(4).Value = Block.MinerAddress
@@ -577,6 +577,10 @@ Public Class Form1
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
 
         If Me.WindowState = FormWindowState.Minimized Then Me.Hide()
+
+    End Sub
+
+    Private Sub btnBlockSearch_Click(sender As Object, e As EventArgs) Handles btnBlockSearch.Click
 
     End Sub
 

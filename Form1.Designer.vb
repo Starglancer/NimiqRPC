@@ -26,6 +26,8 @@ Partial Class Form1
         Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
@@ -34,8 +36,6 @@ Partial Class Form1
         Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.TabControl = New System.Windows.Forms.TabControl()
         Me.tabStatus = New System.Windows.Forms.TabPage()
@@ -51,6 +51,16 @@ Partial Class Form1
         Me.chtBlocknumber = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.txtBlocknumber = New System.Windows.Forms.TextBox()
         Me.lblBlocknumber = New System.Windows.Forms.Label()
+        Me.tabBlockList = New System.Windows.Forms.TabPage()
+        Me.grdBlocks = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Timestamp = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.tabBlockDetail = New System.Windows.Forms.TabPage()
+        Me.gbxSearch = New System.Windows.Forms.GroupBox()
+        Me.btnBlockSearch = New System.Windows.Forms.Button()
         Me.tabPeerCount = New System.Windows.Forms.TabPage()
         Me.chtPeerCount = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.txtTotalPeers = New System.Windows.Forms.TextBox()
@@ -113,18 +123,19 @@ Partial Class Form1
         Me.NotifyIcon = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.NotifyMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuExit = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tabBlockList = New System.Windows.Forms.TabPage()
-        Me.grdBlocks = New System.Windows.Forms.DataGridView()
-        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Timestamp = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.lblBlock_Number = New System.Windows.Forms.Label()
+        Me.lblBlock_Hash = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.TabControl.SuspendLayout()
         Me.tabStatus.SuspendLayout()
         CType(Me.pbxStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabBlockNumber.SuspendLayout()
         CType(Me.chtBlocknumber, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tabBlockList.SuspendLayout()
+        CType(Me.grdBlocks, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tabBlockDetail.SuspendLayout()
+        Me.gbxSearch.SuspendLayout()
         Me.tabPeerCount.SuspendLayout()
         CType(Me.chtPeerCount, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabPeerList.SuspendLayout()
@@ -141,8 +152,6 @@ Partial Class Form1
         Me.gbxPool.SuspendLayout()
         Me.gbxLogin.SuspendLayout()
         Me.NotifyMenu.SuspendLayout()
-        Me.tabBlockList.SuspendLayout()
-        CType(Me.grdBlocks, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControl
@@ -150,6 +159,7 @@ Partial Class Form1
         Me.TabControl.Controls.Add(Me.tabStatus)
         Me.TabControl.Controls.Add(Me.tabBlockNumber)
         Me.TabControl.Controls.Add(Me.tabBlockList)
+        Me.TabControl.Controls.Add(Me.tabBlockDetail)
         Me.TabControl.Controls.Add(Me.tabPeerCount)
         Me.TabControl.Controls.Add(Me.tabPeerList)
         Me.TabControl.Controls.Add(Me.tabMining)
@@ -306,6 +316,117 @@ Partial Class Form1
         Me.lblBlocknumber.Size = New System.Drawing.Size(111, 13)
         Me.lblBlocknumber.TabIndex = 0
         Me.lblBlocknumber.Text = "Current Block Number"
+        '
+        'tabBlockList
+        '
+        Me.tabBlockList.Controls.Add(Me.grdBlocks)
+        Me.tabBlockList.Location = New System.Drawing.Point(4, 22)
+        Me.tabBlockList.Name = "tabBlockList"
+        Me.tabBlockList.Size = New System.Drawing.Size(792, 424)
+        Me.tabBlockList.TabIndex = 7
+        Me.tabBlockList.Text = "Block List"
+        Me.tabBlockList.UseVisualStyleBackColor = True
+        '
+        'grdBlocks
+        '
+        Me.grdBlocks.AllowUserToAddRows = False
+        Me.grdBlocks.AllowUserToDeleteRows = False
+        Me.grdBlocks.AllowUserToResizeColumns = False
+        Me.grdBlocks.AllowUserToResizeRows = False
+        Me.grdBlocks.BackgroundColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdBlocks.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        Me.grdBlocks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.grdBlocks.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.Column1, Me.Timestamp, Me.Column2})
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.grdBlocks.DefaultCellStyle = DataGridViewCellStyle2
+        Me.grdBlocks.GridColor = System.Drawing.Color.White
+        Me.grdBlocks.Location = New System.Drawing.Point(8, 15)
+        Me.grdBlocks.Name = "grdBlocks"
+        Me.grdBlocks.ReadOnly = True
+        Me.grdBlocks.RowHeadersVisible = False
+        Me.grdBlocks.Size = New System.Drawing.Size(776, 401)
+        Me.grdBlocks.TabIndex = 1
+        '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.HeaderText = "Block Number"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.HeaderText = "Transactions"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        Me.DataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'Column1
+        '
+        Me.Column1.HeaderText = "Size"
+        Me.Column1.Name = "Column1"
+        Me.Column1.ReadOnly = True
+        Me.Column1.Width = 75
+        '
+        'Timestamp
+        '
+        Me.Timestamp.HeaderText = "Local Time"
+        Me.Timestamp.Name = "Timestamp"
+        Me.Timestamp.ReadOnly = True
+        Me.Timestamp.Width = 150
+        '
+        'Column2
+        '
+        Me.Column2.HeaderText = "Miner Address"
+        Me.Column2.Name = "Column2"
+        Me.Column2.ReadOnly = True
+        Me.Column2.Width = 330
+        '
+        'tabBlockDetail
+        '
+        Me.tabBlockDetail.Controls.Add(Me.gbxSearch)
+        Me.tabBlockDetail.Location = New System.Drawing.Point(4, 22)
+        Me.tabBlockDetail.Name = "tabBlockDetail"
+        Me.tabBlockDetail.Size = New System.Drawing.Size(792, 424)
+        Me.tabBlockDetail.TabIndex = 8
+        Me.tabBlockDetail.Text = "Block Detail"
+        Me.tabBlockDetail.UseVisualStyleBackColor = True
+        '
+        'gbxSearch
+        '
+        Me.gbxSearch.Controls.Add(Me.TextBox2)
+        Me.gbxSearch.Controls.Add(Me.TextBox1)
+        Me.gbxSearch.Controls.Add(Me.lblBlock_Hash)
+        Me.gbxSearch.Controls.Add(Me.lblBlock_Number)
+        Me.gbxSearch.Controls.Add(Me.btnBlockSearch)
+        Me.gbxSearch.Location = New System.Drawing.Point(12, 11)
+        Me.gbxSearch.Name = "gbxSearch"
+        Me.gbxSearch.Size = New System.Drawing.Size(764, 58)
+        Me.gbxSearch.TabIndex = 0
+        Me.gbxSearch.TabStop = False
+        Me.gbxSearch.Text = "Search"
+        '
+        'btnBlockSearch
+        '
+        Me.btnBlockSearch.Location = New System.Drawing.Point(661, 22)
+        Me.btnBlockSearch.Name = "btnBlockSearch"
+        Me.btnBlockSearch.Size = New System.Drawing.Size(75, 23)
+        Me.btnBlockSearch.TabIndex = 0
+        Me.btnBlockSearch.Text = "Search"
+        Me.btnBlockSearch.UseVisualStyleBackColor = True
         '
         'tabPeerCount
         '
@@ -936,83 +1057,37 @@ Partial Class Form1
         Me.mnuExit.Size = New System.Drawing.Size(93, 22)
         Me.mnuExit.Text = "Exit"
         '
-        'tabBlockList
+        'lblBlock_Number
         '
-        Me.tabBlockList.Controls.Add(Me.grdBlocks)
-        Me.tabBlockList.Location = New System.Drawing.Point(4, 22)
-        Me.tabBlockList.Name = "tabBlockList"
-        Me.tabBlockList.Size = New System.Drawing.Size(792, 424)
-        Me.tabBlockList.TabIndex = 7
-        Me.tabBlockList.Text = "Block List"
-        Me.tabBlockList.UseVisualStyleBackColor = True
+        Me.lblBlock_Number.AutoSize = True
+        Me.lblBlock_Number.Location = New System.Drawing.Point(30, 26)
+        Me.lblBlock_Number.Name = "lblBlock_Number"
+        Me.lblBlock_Number.Size = New System.Drawing.Size(74, 13)
+        Me.lblBlock_Number.TabIndex = 1
+        Me.lblBlock_Number.Text = "Block Number"
         '
-        'grdBlocks
+        'lblBlock_Hash
         '
-        Me.grdBlocks.AllowUserToAddRows = False
-        Me.grdBlocks.AllowUserToDeleteRows = False
-        Me.grdBlocks.AllowUserToResizeColumns = False
-        Me.grdBlocks.AllowUserToResizeRows = False
-        Me.grdBlocks.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdBlocks.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.grdBlocks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdBlocks.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.Column1, Me.Timestamp, Me.Column2})
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.grdBlocks.DefaultCellStyle = DataGridViewCellStyle2
-        Me.grdBlocks.GridColor = System.Drawing.Color.White
-        Me.grdBlocks.Location = New System.Drawing.Point(8, 15)
-        Me.grdBlocks.Name = "grdBlocks"
-        Me.grdBlocks.ReadOnly = True
-        Me.grdBlocks.RowHeadersVisible = False
-        Me.grdBlocks.Size = New System.Drawing.Size(776, 401)
-        Me.grdBlocks.TabIndex = 1
+        Me.lblBlock_Hash.AutoSize = True
+        Me.lblBlock_Hash.Location = New System.Drawing.Point(249, 27)
+        Me.lblBlock_Hash.Name = "lblBlock_Hash"
+        Me.lblBlock_Hash.Size = New System.Drawing.Size(62, 13)
+        Me.lblBlock_Hash.TabIndex = 2
+        Me.lblBlock_Hash.Text = "Block Hash"
         '
-        'DataGridViewTextBoxColumn1
+        'TextBox1
         '
-        Me.DataGridViewTextBoxColumn1.HeaderText = "Block Number"
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        Me.DataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.TextBox1.Location = New System.Drawing.Point(110, 24)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(100, 20)
+        Me.TextBox1.TabIndex = 3
         '
-        'DataGridViewTextBoxColumn2
+        'TextBox2
         '
-        Me.DataGridViewTextBoxColumn2.HeaderText = "Confirmations"
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.ReadOnly = True
-        Me.DataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'Column1
-        '
-        Me.Column1.HeaderText = "Size"
-        Me.Column1.Name = "Column1"
-        Me.Column1.ReadOnly = True
-        Me.Column1.Width = 75
-        '
-        'Timestamp
-        '
-        Me.Timestamp.HeaderText = "Timestamp"
-        Me.Timestamp.Name = "Timestamp"
-        Me.Timestamp.ReadOnly = True
-        Me.Timestamp.Width = 150
-        '
-        'Column2
-        '
-        Me.Column2.HeaderText = "Miner Address"
-        Me.Column2.Name = "Column2"
-        Me.Column2.ReadOnly = True
-        Me.Column2.Width = 330
+        Me.TextBox2.Location = New System.Drawing.Point(317, 24)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(318, 20)
+        Me.TextBox2.TabIndex = 4
         '
         'Form1
         '
@@ -1033,6 +1108,11 @@ Partial Class Form1
         Me.tabBlockNumber.ResumeLayout(False)
         Me.tabBlockNumber.PerformLayout()
         CType(Me.chtBlocknumber, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tabBlockList.ResumeLayout(False)
+        CType(Me.grdBlocks, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tabBlockDetail.ResumeLayout(False)
+        Me.gbxSearch.ResumeLayout(False)
+        Me.gbxSearch.PerformLayout()
         Me.tabPeerCount.ResumeLayout(False)
         Me.tabPeerCount.PerformLayout()
         CType(Me.chtPeerCount, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1057,8 +1137,6 @@ Partial Class Form1
         Me.gbxLogin.ResumeLayout(False)
         Me.gbxLogin.PerformLayout()
         Me.NotifyMenu.ResumeLayout(False)
-        Me.tabBlockList.ResumeLayout(False)
-        CType(Me.grdBlocks, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1141,9 +1219,16 @@ Partial Class Form1
     Friend WithEvents gbxPool As GroupBox
     Friend WithEvents tabBlockList As TabPage
     Friend WithEvents grdBlocks As DataGridView
+    Friend WithEvents tabBlockDetail As TabPage
     Friend WithEvents DataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn2 As DataGridViewTextBoxColumn
     Friend WithEvents Column1 As DataGridViewTextBoxColumn
     Friend WithEvents Timestamp As DataGridViewTextBoxColumn
     Friend WithEvents Column2 As DataGridViewTextBoxColumn
+    Friend WithEvents gbxSearch As GroupBox
+    Friend WithEvents btnBlockSearch As Button
+    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents lblBlock_Hash As Label
+    Friend WithEvents lblBlock_Number As Label
 End Class
