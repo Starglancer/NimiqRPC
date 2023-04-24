@@ -438,6 +438,7 @@ Public Class Form1
     Private Sub Display_Form()
 
         If Me.WindowState = FormWindowState.Minimized Then
+            Me.Show()
             Me.WindowState = FormWindowState.Normal
         Else
             Me.WindowState = FormWindowState.Minimized
@@ -543,6 +544,12 @@ Public Class Form1
         End Select
 
         Client.SetLog("*", LogLevel)
+
+    End Sub
+
+    Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+
+        If Me.WindowState = FormWindowState.Minimized Then Me.Hide()
 
     End Sub
 
