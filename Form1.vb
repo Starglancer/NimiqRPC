@@ -27,7 +27,7 @@ Public Class Form1
         txtUser.Text = My.Settings.User
         txtPassword.Text = My.Settings.Password
 
-        'Populate default peer list options
+        'Populate default peer list dropdown options
         cmbType.Text = "--all--"
         cmbConnection.Text = "established"
         cmbColumn.Text = "bytes recieved"
@@ -47,6 +47,10 @@ Public Class Form1
 
         'Configure client
         Configure_Client()
+
+        'Set logging level
+        cmbLoggingLevel.Text = My.Settings.LoggingLevel
+        If cmbLoggingLevel.Text = "" Then cmbLoggingLevel.Text = "info"
 
         'Set thread parameters
         tbrThreads.Minimum = 1
@@ -461,6 +465,7 @@ Public Class Form1
         My.Settings.Port = txtPort.Text
         My.Settings.User = txtUser.Text
         My.Settings.Password = txtPassword.Text
+        My.Settings.LoggingLevel = cmbLoggingLevel.Text
 
     End Sub
 
@@ -513,6 +518,31 @@ Public Class Form1
         'Clear trend data as no longer relevant
         Array.Clear(DataArray, 0, DataArray.Length)
         DataPointer = 0
+
+    End Sub
+
+    Private Sub cmbLoggingLevel_TextChanged(sender As Object, e As EventArgs) Handles cmbLoggingLevel.TextChanged
+
+        Dim LogLevel As Models.LogLevel = New Models.LogLevel
+
+        Select Case cmbLoggingLevel.Text
+            Case "trace"
+                LogLevel = Models.LogLevel.Trace
+            Case "verbose"
+                LogLevel = Models.LogLevel.Verbose
+            Case "debug"
+                LogLevel = Models.LogLevel.Debug
+            Case "info"
+                LogLevel = Models.LogLevel.Info
+            Case "warning"
+                LogLevel = Models.LogLevel.Warn
+            Case "error"
+                LogLevel = Models.LogLevel.Error
+            Case "assert"
+                LogLevel = Models.LogLevel.Assert
+        End Select
+
+        Client.SetLog("*", LogLevel)
 
     End Sub
 

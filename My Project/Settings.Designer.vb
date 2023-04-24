@@ -125,6 +125,18 @@ Namespace My
                 Me("Password") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property LoggingLevel() As String
+            Get
+                Return CType(Me("LoggingLevel"),String)
+            End Get
+            Set
+                Me("LoggingLevel") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

@@ -107,6 +107,10 @@ Partial Class Form1
         Me.txtUser = New System.Windows.Forms.TextBox()
         Me.txtPassword = New System.Windows.Forms.TextBox()
         Me.btnSaveLogin = New System.Windows.Forms.Button()
+        Me.gbxPool = New System.Windows.Forms.GroupBox()
+        Me.gbxLogging = New System.Windows.Forms.GroupBox()
+        Me.lblLoggingLevel = New System.Windows.Forms.Label()
+        Me.cmbLoggingLevel = New System.Windows.Forms.ComboBox()
         Me.TabControl.SuspendLayout()
         Me.tabStatus.SuspendLayout()
         CType(Me.pbxStatus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -126,6 +130,8 @@ Partial Class Form1
         Me.tabSettings.SuspendLayout()
         Me.NotifyMenu.SuspendLayout()
         Me.gbxLogin.SuspendLayout()
+        Me.gbxPool.SuspendLayout()
+        Me.gbxLogging.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl
@@ -705,9 +711,9 @@ Partial Class Form1
         '
         'tabSettings
         '
+        Me.tabSettings.Controls.Add(Me.gbxLogging)
+        Me.tabSettings.Controls.Add(Me.gbxPool)
         Me.tabSettings.Controls.Add(Me.gbxLogin)
-        Me.tabSettings.Controls.Add(Me.txtPoolList)
-        Me.tabSettings.Controls.Add(Me.lblPoolList)
         Me.tabSettings.Location = New System.Drawing.Point(4, 22)
         Me.tabSettings.Name = "tabSettings"
         Me.tabSettings.Size = New System.Drawing.Size(792, 424)
@@ -717,7 +723,7 @@ Partial Class Form1
         '
         'txtPoolList
         '
-        Me.txtPoolList.Location = New System.Drawing.Point(469, 28)
+        Me.txtPoolList.Location = New System.Drawing.Point(91, 16)
         Me.txtPoolList.Multiline = True
         Me.txtPoolList.Name = "txtPoolList"
         Me.txtPoolList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -727,7 +733,7 @@ Partial Class Form1
         'lblPoolList
         '
         Me.lblPoolList.AutoSize = True
-        Me.lblPoolList.Location = New System.Drawing.Point(397, 29)
+        Me.lblPoolList.Location = New System.Drawing.Point(38, 45)
         Me.lblPoolList.Name = "lblPoolList"
         Me.lblPoolList.Size = New System.Drawing.Size(47, 13)
         Me.lblPoolList.TabIndex = 0
@@ -878,6 +884,46 @@ Partial Class Form1
         Me.btnSaveLogin.Text = "Save"
         Me.btnSaveLogin.UseVisualStyleBackColor = True
         '
+        'gbxPool
+        '
+        Me.gbxPool.Controls.Add(Me.txtPoolList)
+        Me.gbxPool.Controls.Add(Me.lblPoolList)
+        Me.gbxPool.Location = New System.Drawing.Point(377, 19)
+        Me.gbxPool.Name = "gbxPool"
+        Me.gbxPool.Size = New System.Drawing.Size(391, 112)
+        Me.gbxPool.TabIndex = 8
+        Me.gbxPool.TabStop = False
+        Me.gbxPool.Text = "Pool"
+        '
+        'gbxLogging
+        '
+        Me.gbxLogging.Controls.Add(Me.cmbLoggingLevel)
+        Me.gbxLogging.Controls.Add(Me.lblLoggingLevel)
+        Me.gbxLogging.Location = New System.Drawing.Point(377, 147)
+        Me.gbxLogging.Name = "gbxLogging"
+        Me.gbxLogging.Size = New System.Drawing.Size(391, 51)
+        Me.gbxLogging.TabIndex = 9
+        Me.gbxLogging.TabStop = False
+        Me.gbxLogging.Text = "Logging"
+        '
+        'lblLoggingLevel
+        '
+        Me.lblLoggingLevel.AutoSize = True
+        Me.lblLoggingLevel.Location = New System.Drawing.Point(85, 22)
+        Me.lblLoggingLevel.Name = "lblLoggingLevel"
+        Me.lblLoggingLevel.Size = New System.Drawing.Size(103, 13)
+        Me.lblLoggingLevel.TabIndex = 0
+        Me.lblLoggingLevel.Text = "Client Logging Level"
+        '
+        'cmbLoggingLevel
+        '
+        Me.cmbLoggingLevel.FormattingEnabled = True
+        Me.cmbLoggingLevel.Items.AddRange(New Object() {"trace", "verbose", "debug", "info", "warning", "error", "assert"})
+        Me.cmbLoggingLevel.Location = New System.Drawing.Point(208, 19)
+        Me.cmbLoggingLevel.Name = "cmbLoggingLevel"
+        Me.cmbLoggingLevel.Size = New System.Drawing.Size(121, 21)
+        Me.cmbLoggingLevel.TabIndex = 1
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -914,10 +960,13 @@ Partial Class Form1
         CType(Me.chtHashRate, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbrThreads, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabSettings.ResumeLayout(False)
-        Me.tabSettings.PerformLayout()
         Me.NotifyMenu.ResumeLayout(False)
         Me.gbxLogin.ResumeLayout(False)
         Me.gbxLogin.PerformLayout()
+        Me.gbxPool.ResumeLayout(False)
+        Me.gbxPool.PerformLayout()
+        Me.gbxLogging.ResumeLayout(False)
+        Me.gbxLogging.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -994,4 +1043,8 @@ Partial Class Form1
     Friend WithEvents lblHost As Label
     Friend WithEvents lblScheme As Label
     Friend WithEvents btnSaveLogin As Button
+    Friend WithEvents gbxLogging As GroupBox
+    Friend WithEvents cmbLoggingLevel As ComboBox
+    Friend WithEvents lblLoggingLevel As Label
+    Friend WithEvents gbxPool As GroupBox
 End Class
