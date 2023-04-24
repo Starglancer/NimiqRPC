@@ -79,7 +79,6 @@ Partial Class Form1
         Me.lblPoolConnection = New System.Windows.Forms.Label()
         Me.lblPool = New System.Windows.Forms.Label()
         Me.gbxMiner = New System.Windows.Forms.GroupBox()
-        Me.cmbMiningAddress = New System.Windows.Forms.ComboBox()
         Me.lblMiningAddress = New System.Windows.Forms.Label()
         Me.chtHashRate = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -95,8 +94,19 @@ Partial Class Form1
         Me.NotifyIcon = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.NotifyMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuExit = New System.Windows.Forms.ToolStripMenuItem()
-        Me.lblAddressList = New System.Windows.Forms.Label()
-        Me.txtAddressList = New System.Windows.Forms.TextBox()
+        Me.txtMiningAddress = New System.Windows.Forms.TextBox()
+        Me.lblScheme = New System.Windows.Forms.Label()
+        Me.lblHost = New System.Windows.Forms.Label()
+        Me.lblPort = New System.Windows.Forms.Label()
+        Me.lblUser = New System.Windows.Forms.Label()
+        Me.lblPassword = New System.Windows.Forms.Label()
+        Me.gbxLogin = New System.Windows.Forms.GroupBox()
+        Me.txtScheme = New System.Windows.Forms.TextBox()
+        Me.txtHost = New System.Windows.Forms.TextBox()
+        Me.txtPort = New System.Windows.Forms.TextBox()
+        Me.txtUser = New System.Windows.Forms.TextBox()
+        Me.txtPassword = New System.Windows.Forms.TextBox()
+        Me.btnSaveLogin = New System.Windows.Forms.Button()
         Me.TabControl.SuspendLayout()
         Me.tabStatus.SuspendLayout()
         CType(Me.pbxStatus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -115,6 +125,7 @@ Partial Class Form1
         CType(Me.tbrThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabSettings.SuspendLayout()
         Me.NotifyMenu.SuspendLayout()
+        Me.gbxLogin.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl
@@ -595,7 +606,7 @@ Partial Class Form1
         '
         'gbxMiner
         '
-        Me.gbxMiner.Controls.Add(Me.cmbMiningAddress)
+        Me.gbxMiner.Controls.Add(Me.txtMiningAddress)
         Me.gbxMiner.Controls.Add(Me.lblMiningAddress)
         Me.gbxMiner.Controls.Add(Me.chtHashRate)
         Me.gbxMiner.Controls.Add(Me.Label2)
@@ -610,14 +621,6 @@ Partial Class Form1
         Me.gbxMiner.TabIndex = 7
         Me.gbxMiner.TabStop = False
         Me.gbxMiner.Text = "Miner"
-        '
-        'cmbMiningAddress
-        '
-        Me.cmbMiningAddress.FormattingEnabled = True
-        Me.cmbMiningAddress.Location = New System.Drawing.Point(239, 285)
-        Me.cmbMiningAddress.Name = "cmbMiningAddress"
-        Me.cmbMiningAddress.Size = New System.Drawing.Size(304, 21)
-        Me.cmbMiningAddress.TabIndex = 8
         '
         'lblMiningAddress
         '
@@ -702,8 +705,7 @@ Partial Class Form1
         '
         'tabSettings
         '
-        Me.tabSettings.Controls.Add(Me.txtAddressList)
-        Me.tabSettings.Controls.Add(Me.lblAddressList)
+        Me.tabSettings.Controls.Add(Me.gbxLogin)
         Me.tabSettings.Controls.Add(Me.txtPoolList)
         Me.tabSettings.Controls.Add(Me.lblPoolList)
         Me.tabSettings.Location = New System.Drawing.Point(4, 22)
@@ -715,17 +717,17 @@ Partial Class Form1
         '
         'txtPoolList
         '
-        Me.txtPoolList.Location = New System.Drawing.Point(98, 19)
+        Me.txtPoolList.Location = New System.Drawing.Point(469, 28)
         Me.txtPoolList.Multiline = True
         Me.txtPoolList.Name = "txtPoolList"
         Me.txtPoolList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtPoolList.Size = New System.Drawing.Size(229, 86)
+        Me.txtPoolList.Size = New System.Drawing.Size(255, 86)
         Me.txtPoolList.TabIndex = 1
         '
         'lblPoolList
         '
         Me.lblPoolList.AutoSize = True
-        Me.lblPoolList.Location = New System.Drawing.Point(26, 20)
+        Me.lblPoolList.Location = New System.Drawing.Point(397, 29)
         Me.lblPoolList.Name = "lblPoolList"
         Me.lblPoolList.Size = New System.Drawing.Size(47, 13)
         Me.lblPoolList.TabIndex = 0
@@ -752,23 +754,129 @@ Partial Class Form1
         Me.mnuExit.Size = New System.Drawing.Size(93, 22)
         Me.mnuExit.Text = "Exit"
         '
-        'lblAddressList
+        'txtMiningAddress
         '
-        Me.lblAddressList.AutoSize = True
-        Me.lblAddressList.Location = New System.Drawing.Point(349, 20)
-        Me.lblAddressList.Name = "lblAddressList"
-        Me.lblAddressList.Size = New System.Drawing.Size(64, 13)
-        Me.lblAddressList.TabIndex = 2
-        Me.lblAddressList.Text = "Address List"
+        Me.txtMiningAddress.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtMiningAddress.Location = New System.Drawing.Point(239, 285)
+        Me.txtMiningAddress.Name = "txtMiningAddress"
+        Me.txtMiningAddress.ReadOnly = True
+        Me.txtMiningAddress.Size = New System.Drawing.Size(312, 20)
+        Me.txtMiningAddress.TabIndex = 8
+        Me.txtMiningAddress.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'txtAddressList
+        'lblScheme
         '
-        Me.txtAddressList.Location = New System.Drawing.Point(438, 20)
-        Me.txtAddressList.Multiline = True
-        Me.txtAddressList.Name = "txtAddressList"
-        Me.txtAddressList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtAddressList.Size = New System.Drawing.Size(322, 86)
-        Me.txtAddressList.TabIndex = 3
+        Me.lblScheme.AutoSize = True
+        Me.lblScheme.Location = New System.Drawing.Point(21, 32)
+        Me.lblScheme.Name = "lblScheme"
+        Me.lblScheme.Size = New System.Drawing.Size(46, 13)
+        Me.lblScheme.TabIndex = 2
+        Me.lblScheme.Text = "Scheme"
+        '
+        'lblHost
+        '
+        Me.lblHost.AutoSize = True
+        Me.lblHost.Location = New System.Drawing.Point(38, 61)
+        Me.lblHost.Name = "lblHost"
+        Me.lblHost.Size = New System.Drawing.Size(29, 13)
+        Me.lblHost.TabIndex = 3
+        Me.lblHost.Text = "Host"
+        '
+        'lblPort
+        '
+        Me.lblPort.AutoSize = True
+        Me.lblPort.Location = New System.Drawing.Point(41, 88)
+        Me.lblPort.Name = "lblPort"
+        Me.lblPort.Size = New System.Drawing.Size(26, 13)
+        Me.lblPort.TabIndex = 4
+        Me.lblPort.Text = "Port"
+        '
+        'lblUser
+        '
+        Me.lblUser.AutoSize = True
+        Me.lblUser.Location = New System.Drawing.Point(38, 115)
+        Me.lblUser.Name = "lblUser"
+        Me.lblUser.Size = New System.Drawing.Size(29, 13)
+        Me.lblUser.TabIndex = 5
+        Me.lblUser.Text = "User"
+        '
+        'lblPassword
+        '
+        Me.lblPassword.AutoSize = True
+        Me.lblPassword.Location = New System.Drawing.Point(14, 143)
+        Me.lblPassword.Name = "lblPassword"
+        Me.lblPassword.Size = New System.Drawing.Size(53, 13)
+        Me.lblPassword.TabIndex = 6
+        Me.lblPassword.Text = "Password"
+        '
+        'gbxLogin
+        '
+        Me.gbxLogin.Controls.Add(Me.btnSaveLogin)
+        Me.gbxLogin.Controls.Add(Me.txtPassword)
+        Me.gbxLogin.Controls.Add(Me.txtUser)
+        Me.gbxLogin.Controls.Add(Me.txtPort)
+        Me.gbxLogin.Controls.Add(Me.txtHost)
+        Me.gbxLogin.Controls.Add(Me.txtScheme)
+        Me.gbxLogin.Controls.Add(Me.lblPassword)
+        Me.gbxLogin.Controls.Add(Me.lblUser)
+        Me.gbxLogin.Controls.Add(Me.lblPort)
+        Me.gbxLogin.Controls.Add(Me.lblHost)
+        Me.gbxLogin.Controls.Add(Me.lblScheme)
+        Me.gbxLogin.Location = New System.Drawing.Point(28, 19)
+        Me.gbxLogin.Name = "gbxLogin"
+        Me.gbxLogin.Size = New System.Drawing.Size(320, 179)
+        Me.gbxLogin.TabIndex = 7
+        Me.gbxLogin.TabStop = False
+        Me.gbxLogin.Text = "Login"
+        '
+        'txtScheme
+        '
+        Me.txtScheme.Location = New System.Drawing.Point(95, 29)
+        Me.txtScheme.Name = "txtScheme"
+        Me.txtScheme.Size = New System.Drawing.Size(137, 20)
+        Me.txtScheme.TabIndex = 7
+        Me.txtScheme.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'txtHost
+        '
+        Me.txtHost.Location = New System.Drawing.Point(95, 58)
+        Me.txtHost.Name = "txtHost"
+        Me.txtHost.Size = New System.Drawing.Size(137, 20)
+        Me.txtHost.TabIndex = 8
+        Me.txtHost.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'txtPort
+        '
+        Me.txtPort.Location = New System.Drawing.Point(95, 85)
+        Me.txtPort.Name = "txtPort"
+        Me.txtPort.Size = New System.Drawing.Size(137, 20)
+        Me.txtPort.TabIndex = 9
+        Me.txtPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'txtUser
+        '
+        Me.txtUser.Location = New System.Drawing.Point(95, 112)
+        Me.txtUser.Name = "txtUser"
+        Me.txtUser.Size = New System.Drawing.Size(137, 20)
+        Me.txtUser.TabIndex = 10
+        Me.txtUser.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'txtPassword
+        '
+        Me.txtPassword.Location = New System.Drawing.Point(95, 140)
+        Me.txtPassword.Name = "txtPassword"
+        Me.txtPassword.Size = New System.Drawing.Size(137, 20)
+        Me.txtPassword.TabIndex = 11
+        Me.txtPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'btnSaveLogin
+        '
+        Me.btnSaveLogin.Location = New System.Drawing.Point(248, 82)
+        Me.btnSaveLogin.Name = "btnSaveLogin"
+        Me.btnSaveLogin.Size = New System.Drawing.Size(52, 23)
+        Me.btnSaveLogin.TabIndex = 12
+        Me.btnSaveLogin.Text = "Save"
+        Me.btnSaveLogin.UseVisualStyleBackColor = True
         '
         'Form1
         '
@@ -808,6 +916,8 @@ Partial Class Form1
         Me.tabSettings.ResumeLayout(False)
         Me.tabSettings.PerformLayout()
         Me.NotifyMenu.ResumeLayout(False)
+        Me.gbxLogin.ResumeLayout(False)
+        Me.gbxLogin.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -868,10 +978,20 @@ Partial Class Form1
     Friend WithEvents tbrThreads As TrackBar
     Friend WithEvents chkMiner As CheckBox
     Friend WithEvents cmbPool As ComboBox
-    Friend WithEvents cmbMiningAddress As ComboBox
     Friend WithEvents tabSettings As TabPage
     Friend WithEvents txtPoolList As TextBox
     Friend WithEvents lblPoolList As Label
-    Friend WithEvents txtAddressList As TextBox
-    Friend WithEvents lblAddressList As Label
+    Friend WithEvents txtMiningAddress As TextBox
+    Friend WithEvents gbxLogin As GroupBox
+    Friend WithEvents txtPassword As TextBox
+    Friend WithEvents txtUser As TextBox
+    Friend WithEvents txtPort As TextBox
+    Friend WithEvents txtHost As TextBox
+    Friend WithEvents txtScheme As TextBox
+    Friend WithEvents lblPassword As Label
+    Friend WithEvents lblUser As Label
+    Friend WithEvents lblPort As Label
+    Friend WithEvents lblHost As Label
+    Friend WithEvents lblScheme As Label
+    Friend WithEvents btnSaveLogin As Button
 End Class

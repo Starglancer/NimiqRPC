@@ -21,9 +21,13 @@ Public Class Form1
 
         'Load Persistent Variables
         txtPoolList.Text = My.Settings.PoolList
-        txtAddressList.Text = My.Settings.AddressList
+        txtScheme.Text = My.Settings.Scheme
+        txtHost.Text = My.Settings.Host
+        txtPort.Text = My.Settings.Port
+        txtUser.Text = My.Settings.User
+        txtPassword.Text = My.Settings.Password
 
-        'Populate default reer list options
+        'Populate default peer list options
         cmbType.Text = "--all--"
         cmbConnection.Text = "established"
         cmbColumn.Text = "bytes recieved"
@@ -31,9 +35,6 @@ Public Class Form1
 
         'Populate pool dropdown
         Populate_Pool_Dropdown()
-
-        'Populate mining address dropdown
-        Populate_Address_Dropdown()
 
         'Set constants
         TrendDurationMinutes = 60
@@ -45,17 +46,11 @@ Public Class Form1
         ReDim DataArray(MaxDataPointer + 1, 3)
 
         'Configure client
-        Cfg = New Config()
-        Cfg.Scheme = "http"
-        Cfg.Host = "localhost"
-        Cfg.Port = 8648
+        Configure_Client()
 
         'Set thread parameters
         tbrThreads.Minimum = 1
         tbrThreads.Maximum = Environment.ProcessorCount
-
-        'Create client
-        Client = New NimiqClient(Cfg)
 
         'Configure Block Number Chart
         Configure_Block_Number_Chart()
@@ -78,6 +73,27 @@ Public Class Form1
 
         'Set default force close to false
         ForceClose = False
+
+    End Sub
+
+    Private Sub Configure_Client()
+
+        'If required fields are blank, set to default
+        If txtScheme.Text = "" Then txtScheme.Text = "http"
+        If txtHost.Text = "" Then txtHost.Text = "localhost"
+        If txtPort.Text = "" Then txtPort.Text = "8648"
+
+        'Set configuration
+        Cfg = New Config With {
+            .Scheme = txtScheme.Text,
+            .Host = txtHost.Text,
+            .Port = Convert.ToInt16(txtPort.Text),
+            .User = txtUser.Text,
+            .Password = txtPassword.Text
+        }
+
+        'Create client
+        Client = New NimiqClient(Cfg)
 
     End Sub
 
@@ -140,18 +156,6 @@ Public Class Form1
         cmbPool.Items.Clear()
         For N As Integer = 0 To Pools.Length - 1
             cmbPool.Items.Add(Pools(N))
-        Next
-
-    End Sub
-
-    Private Sub Populate_Address_Dropdown()
-
-        Dim Addresses() As String
-
-        Addresses = txtAddressList.Text.Split(New String() {Environment.NewLine}, StringSplitOptions.None)
-        cmbMiningAddress.Items.Clear()
-        For N As Integer = 0 To Addresses.Length - 1
-            cmbMiningAddress.Items.Add(Addresses(N))
         Next
 
     End Sub
@@ -372,17 +376,16 @@ Public Class Form1
 
         'Display mining address
         UserUpdate = False
-        cmbMiningAddress.Text = Client.MinerAddress.ToString
+        txtMiningAddress.Text = Client.MinerAddress.ToString
         UserUpdate = True
 
         'Display Pool
+        UserUpdate = False
         cmbPool.Text = Client.Pool.ToString
+        UserUpdate = True
 
         'Populate pool dropdown
         Populate_Pool_Dropdown()
-
-        'Populate address dropdown
-        Populate_Address_Dropdown()
 
         'Display pool connection
         txtPoolConnection.Text = Client.PoolConnectionState.ToString
@@ -453,7 +456,11 @@ Public Class Form1
 
         'Save persistent variables
         My.Settings.PoolList = txtPoolList.Text
-        My.Settings.AddressList = txtAddressList.Text
+        My.Settings.Scheme = txtScheme.Text
+        My.Settings.Host = txtHost.Text
+        My.Settings.Port = txtPort.Text
+        My.Settings.User = txtUser.Text
+        My.Settings.Password = txtPassword.Text
 
     End Sub
 
@@ -489,12 +496,23 @@ Public Class Form1
 
     End Sub
 
-    Private Sub cmbPool_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbPool.SelectedValueChanged
+    Private Sub cmbPool_TextChanged(sender As Object, e As EventArgs) Handles cmbPool.TextChanged
 
         'Ignore system update of value
-        'If UserUpdate = True Then
-        'Client.SetPool(cmbPool.Text)
-        'End If
+        If UserUpdate = True Then
+            Client.SetPool(cmbPool.Text)
+        End If
+
+    End Sub
+
+    Private Sub btnSaveLogin_Click(sender As Object, e As EventArgs) Handles btnSaveLogin.Click
+
+        'Reconfigure client
+        Configure_Client()
+
+        'Clear trend data as no longer relevant
+        Array.Clear(DataArray, 0, DataArray.Length)
+        DataPointer = 0
 
     End Sub
 

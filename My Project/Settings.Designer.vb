@@ -69,12 +69,60 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property AddressList() As String
+        Public Property Scheme() As String
             Get
-                Return CType(Me("AddressList"),String)
+                Return CType(Me("Scheme"),String)
             End Get
             Set
-                Me("AddressList") = value
+                Me("Scheme") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property Host() As String
+            Get
+                Return CType(Me("Host"),String)
+            End Get
+            Set
+                Me("Host") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property Port() As String
+            Get
+                Return CType(Me("Port"),String)
+            End Get
+            Set
+                Me("Port") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property User() As String
+            Get
+                Return CType(Me("User"),String)
+            End Get
+            Set
+                Me("User") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property Password() As String
+            Get
+                Return CType(Me("Password"),String)
+            End Get
+            Set
+                Me("Password") = value
             End Set
         End Property
     End Class
