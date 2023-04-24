@@ -16,6 +16,7 @@ Public Class Form1
     Dim UpdateIntervalSeconds As Integer
     Dim UserUpdate As Boolean
     Dim PoolList As String
+    Dim BlockNumber As Integer
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -180,6 +181,7 @@ Public Class Form1
 
             'Update individual tabs
             Update_Block_Number()
+            Update_Block_List()
             Update_Peer_Count()
             Update_Peer_List()
             Update_Mining()
@@ -234,8 +236,6 @@ Public Class Form1
 
     Private Sub Update_Block_Number()
 
-        Dim BlockNumber As Integer
-
         'Get current block number
         BlockNumber = Client.BlockNumber
 
@@ -261,6 +261,32 @@ Public Class Form1
             Next
 
         End With
+
+    End Sub
+
+    Private Sub Update_Block_List()
+
+        Dim Block As Models.Block
+        Dim Row As Integer
+
+        grdBlocks.Rows.Clear()
+
+        Row = 0
+
+        For N As Integer = BlockNumber To BlockNumber - 50 Step -1
+
+            Block = Client.GetBlockByNumber(N)
+
+            'Add block data to grid
+            grdBlocks.Rows.Add()
+            grdBlocks.Rows(Row).Cells(0).Value = N
+            grdBlocks.Rows(Row).Cells(1).Value = Block.Confirmations
+            grdBlocks.Rows(Row).Cells(2).Value = Block.Size
+            grdBlocks.Rows(Row).Cells(3).Value = DateTimeOffset.FromUnixTimeSeconds(Block.Timestamp).LocalDateTime
+            grdBlocks.Rows(Row).Cells(4).Value = Block.MinerAddress
+
+            Row += 1
+        Next
 
     End Sub
 
@@ -308,7 +334,7 @@ Public Class Form1
         grdPeers.Rows.Clear()
         Row = 0
 
-        For N = 0 To Peers.Count - 1
+        For N As Integer = 0 To Peers.Count - 1
             'Get Type
             Address = Peers(N).Address.Split(New Char() {":"c})
 
@@ -440,6 +466,7 @@ Public Class Form1
         If Me.WindowState = FormWindowState.Minimized Then
             Me.Show()
             Me.WindowState = FormWindowState.Normal
+            Me.TopMost = True
         Else
             Me.WindowState = FormWindowState.Minimized
         End If

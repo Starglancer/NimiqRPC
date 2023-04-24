@@ -29,11 +29,13 @@ Partial Class Form1
         Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.TabControl = New System.Windows.Forms.TabControl()
         Me.tabStatus = New System.Windows.Forms.TabPage()
@@ -79,6 +81,7 @@ Partial Class Form1
         Me.lblPoolConnection = New System.Windows.Forms.Label()
         Me.lblPool = New System.Windows.Forms.Label()
         Me.gbxMiner = New System.Windows.Forms.GroupBox()
+        Me.txtMiningAddress = New System.Windows.Forms.TextBox()
         Me.lblMiningAddress = New System.Windows.Forms.Label()
         Me.chtHashRate = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -88,29 +91,35 @@ Partial Class Form1
         Me.tbrThreads = New System.Windows.Forms.TrackBar()
         Me.chkMiner = New System.Windows.Forms.CheckBox()
         Me.tabSettings = New System.Windows.Forms.TabPage()
+        Me.gbxLogging = New System.Windows.Forms.GroupBox()
+        Me.cmbLoggingLevel = New System.Windows.Forms.ComboBox()
+        Me.lblLoggingLevel = New System.Windows.Forms.Label()
+        Me.gbxPool = New System.Windows.Forms.GroupBox()
         Me.txtPoolList = New System.Windows.Forms.TextBox()
         Me.lblPoolList = New System.Windows.Forms.Label()
+        Me.gbxLogin = New System.Windows.Forms.GroupBox()
+        Me.btnSaveLogin = New System.Windows.Forms.Button()
+        Me.txtPassword = New System.Windows.Forms.TextBox()
+        Me.txtUser = New System.Windows.Forms.TextBox()
+        Me.txtPort = New System.Windows.Forms.TextBox()
+        Me.txtHost = New System.Windows.Forms.TextBox()
+        Me.txtScheme = New System.Windows.Forms.TextBox()
+        Me.lblPassword = New System.Windows.Forms.Label()
+        Me.lblUser = New System.Windows.Forms.Label()
+        Me.lblPort = New System.Windows.Forms.Label()
+        Me.lblHost = New System.Windows.Forms.Label()
+        Me.lblScheme = New System.Windows.Forms.Label()
         Me.timUpdateData = New System.Windows.Forms.Timer(Me.components)
         Me.NotifyIcon = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.NotifyMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuExit = New System.Windows.Forms.ToolStripMenuItem()
-        Me.txtMiningAddress = New System.Windows.Forms.TextBox()
-        Me.lblScheme = New System.Windows.Forms.Label()
-        Me.lblHost = New System.Windows.Forms.Label()
-        Me.lblPort = New System.Windows.Forms.Label()
-        Me.lblUser = New System.Windows.Forms.Label()
-        Me.lblPassword = New System.Windows.Forms.Label()
-        Me.gbxLogin = New System.Windows.Forms.GroupBox()
-        Me.txtScheme = New System.Windows.Forms.TextBox()
-        Me.txtHost = New System.Windows.Forms.TextBox()
-        Me.txtPort = New System.Windows.Forms.TextBox()
-        Me.txtUser = New System.Windows.Forms.TextBox()
-        Me.txtPassword = New System.Windows.Forms.TextBox()
-        Me.btnSaveLogin = New System.Windows.Forms.Button()
-        Me.gbxPool = New System.Windows.Forms.GroupBox()
-        Me.gbxLogging = New System.Windows.Forms.GroupBox()
-        Me.lblLoggingLevel = New System.Windows.Forms.Label()
-        Me.cmbLoggingLevel = New System.Windows.Forms.ComboBox()
+        Me.tabBlockList = New System.Windows.Forms.TabPage()
+        Me.grdBlocks = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Timestamp = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TabControl.SuspendLayout()
         Me.tabStatus.SuspendLayout()
         CType(Me.pbxStatus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -128,16 +137,19 @@ Partial Class Form1
         CType(Me.chtHashRate, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbrThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabSettings.SuspendLayout()
-        Me.NotifyMenu.SuspendLayout()
-        Me.gbxLogin.SuspendLayout()
-        Me.gbxPool.SuspendLayout()
         Me.gbxLogging.SuspendLayout()
+        Me.gbxPool.SuspendLayout()
+        Me.gbxLogin.SuspendLayout()
+        Me.NotifyMenu.SuspendLayout()
+        Me.tabBlockList.SuspendLayout()
+        CType(Me.grdBlocks, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControl
         '
         Me.TabControl.Controls.Add(Me.tabStatus)
         Me.TabControl.Controls.Add(Me.tabBlockNumber)
+        Me.TabControl.Controls.Add(Me.tabBlockList)
         Me.TabControl.Controls.Add(Me.tabPeerCount)
         Me.TabControl.Controls.Add(Me.tabPeerList)
         Me.TabControl.Controls.Add(Me.tabMining)
@@ -455,24 +467,24 @@ Partial Class Form1
         Me.grdPeers.AllowUserToResizeColumns = False
         Me.grdPeers.AllowUserToResizeRows = False
         Me.grdPeers.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdPeers.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdPeers.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.grdPeers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdPeers.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Address, Me.Type, Me.Connection, Me.Rx, Me.Tx, Me.Latency})
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.grdPeers.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.grdPeers.DefaultCellStyle = DataGridViewCellStyle4
         Me.grdPeers.GridColor = System.Drawing.Color.White
         Me.grdPeers.Location = New System.Drawing.Point(8, 61)
         Me.grdPeers.Name = "grdPeers"
@@ -628,6 +640,16 @@ Partial Class Form1
         Me.gbxMiner.TabStop = False
         Me.gbxMiner.Text = "Miner"
         '
+        'txtMiningAddress
+        '
+        Me.txtMiningAddress.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtMiningAddress.Location = New System.Drawing.Point(239, 285)
+        Me.txtMiningAddress.Name = "txtMiningAddress"
+        Me.txtMiningAddress.ReadOnly = True
+        Me.txtMiningAddress.Size = New System.Drawing.Size(312, 20)
+        Me.txtMiningAddress.TabIndex = 8
+        Me.txtMiningAddress.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
         'lblMiningAddress
         '
         Me.lblMiningAddress.AutoSize = True
@@ -721,6 +743,46 @@ Partial Class Form1
         Me.tabSettings.Text = "Settings"
         Me.tabSettings.UseVisualStyleBackColor = True
         '
+        'gbxLogging
+        '
+        Me.gbxLogging.Controls.Add(Me.cmbLoggingLevel)
+        Me.gbxLogging.Controls.Add(Me.lblLoggingLevel)
+        Me.gbxLogging.Location = New System.Drawing.Point(377, 147)
+        Me.gbxLogging.Name = "gbxLogging"
+        Me.gbxLogging.Size = New System.Drawing.Size(391, 51)
+        Me.gbxLogging.TabIndex = 9
+        Me.gbxLogging.TabStop = False
+        Me.gbxLogging.Text = "Logging"
+        '
+        'cmbLoggingLevel
+        '
+        Me.cmbLoggingLevel.FormattingEnabled = True
+        Me.cmbLoggingLevel.Items.AddRange(New Object() {"trace", "verbose", "debug", "info", "warning", "error", "assert"})
+        Me.cmbLoggingLevel.Location = New System.Drawing.Point(208, 19)
+        Me.cmbLoggingLevel.Name = "cmbLoggingLevel"
+        Me.cmbLoggingLevel.Size = New System.Drawing.Size(121, 21)
+        Me.cmbLoggingLevel.TabIndex = 1
+        '
+        'lblLoggingLevel
+        '
+        Me.lblLoggingLevel.AutoSize = True
+        Me.lblLoggingLevel.Location = New System.Drawing.Point(85, 22)
+        Me.lblLoggingLevel.Name = "lblLoggingLevel"
+        Me.lblLoggingLevel.Size = New System.Drawing.Size(103, 13)
+        Me.lblLoggingLevel.TabIndex = 0
+        Me.lblLoggingLevel.Text = "Client Logging Level"
+        '
+        'gbxPool
+        '
+        Me.gbxPool.Controls.Add(Me.txtPoolList)
+        Me.gbxPool.Controls.Add(Me.lblPoolList)
+        Me.gbxPool.Location = New System.Drawing.Point(377, 19)
+        Me.gbxPool.Name = "gbxPool"
+        Me.gbxPool.Size = New System.Drawing.Size(391, 112)
+        Me.gbxPool.TabIndex = 8
+        Me.gbxPool.TabStop = False
+        Me.gbxPool.Text = "Pool"
+        '
         'txtPoolList
         '
         Me.txtPoolList.Location = New System.Drawing.Point(91, 16)
@@ -738,6 +800,120 @@ Partial Class Form1
         Me.lblPoolList.Size = New System.Drawing.Size(47, 13)
         Me.lblPoolList.TabIndex = 0
         Me.lblPoolList.Text = "Pool List"
+        '
+        'gbxLogin
+        '
+        Me.gbxLogin.Controls.Add(Me.btnSaveLogin)
+        Me.gbxLogin.Controls.Add(Me.txtPassword)
+        Me.gbxLogin.Controls.Add(Me.txtUser)
+        Me.gbxLogin.Controls.Add(Me.txtPort)
+        Me.gbxLogin.Controls.Add(Me.txtHost)
+        Me.gbxLogin.Controls.Add(Me.txtScheme)
+        Me.gbxLogin.Controls.Add(Me.lblPassword)
+        Me.gbxLogin.Controls.Add(Me.lblUser)
+        Me.gbxLogin.Controls.Add(Me.lblPort)
+        Me.gbxLogin.Controls.Add(Me.lblHost)
+        Me.gbxLogin.Controls.Add(Me.lblScheme)
+        Me.gbxLogin.Location = New System.Drawing.Point(28, 19)
+        Me.gbxLogin.Name = "gbxLogin"
+        Me.gbxLogin.Size = New System.Drawing.Size(320, 179)
+        Me.gbxLogin.TabIndex = 7
+        Me.gbxLogin.TabStop = False
+        Me.gbxLogin.Text = "Login"
+        '
+        'btnSaveLogin
+        '
+        Me.btnSaveLogin.Location = New System.Drawing.Point(248, 82)
+        Me.btnSaveLogin.Name = "btnSaveLogin"
+        Me.btnSaveLogin.Size = New System.Drawing.Size(52, 23)
+        Me.btnSaveLogin.TabIndex = 12
+        Me.btnSaveLogin.Text = "Save"
+        Me.btnSaveLogin.UseVisualStyleBackColor = True
+        '
+        'txtPassword
+        '
+        Me.txtPassword.Location = New System.Drawing.Point(95, 140)
+        Me.txtPassword.Name = "txtPassword"
+        Me.txtPassword.Size = New System.Drawing.Size(137, 20)
+        Me.txtPassword.TabIndex = 11
+        Me.txtPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'txtUser
+        '
+        Me.txtUser.Location = New System.Drawing.Point(95, 112)
+        Me.txtUser.Name = "txtUser"
+        Me.txtUser.Size = New System.Drawing.Size(137, 20)
+        Me.txtUser.TabIndex = 10
+        Me.txtUser.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'txtPort
+        '
+        Me.txtPort.Location = New System.Drawing.Point(95, 85)
+        Me.txtPort.Name = "txtPort"
+        Me.txtPort.Size = New System.Drawing.Size(137, 20)
+        Me.txtPort.TabIndex = 9
+        Me.txtPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'txtHost
+        '
+        Me.txtHost.Location = New System.Drawing.Point(95, 58)
+        Me.txtHost.Name = "txtHost"
+        Me.txtHost.Size = New System.Drawing.Size(137, 20)
+        Me.txtHost.TabIndex = 8
+        Me.txtHost.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'txtScheme
+        '
+        Me.txtScheme.Location = New System.Drawing.Point(95, 29)
+        Me.txtScheme.Name = "txtScheme"
+        Me.txtScheme.Size = New System.Drawing.Size(137, 20)
+        Me.txtScheme.TabIndex = 7
+        Me.txtScheme.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblPassword
+        '
+        Me.lblPassword.AutoSize = True
+        Me.lblPassword.Location = New System.Drawing.Point(14, 143)
+        Me.lblPassword.Name = "lblPassword"
+        Me.lblPassword.Size = New System.Drawing.Size(53, 13)
+        Me.lblPassword.TabIndex = 6
+        Me.lblPassword.Text = "Password"
+        '
+        'lblUser
+        '
+        Me.lblUser.AutoSize = True
+        Me.lblUser.Location = New System.Drawing.Point(38, 115)
+        Me.lblUser.Name = "lblUser"
+        Me.lblUser.Size = New System.Drawing.Size(29, 13)
+        Me.lblUser.TabIndex = 5
+        Me.lblUser.Text = "User"
+        '
+        'lblPort
+        '
+        Me.lblPort.AutoSize = True
+        Me.lblPort.Location = New System.Drawing.Point(41, 88)
+        Me.lblPort.Name = "lblPort"
+        Me.lblPort.Size = New System.Drawing.Size(26, 13)
+        Me.lblPort.TabIndex = 4
+        Me.lblPort.Text = "Port"
+        '
+        'lblHost
+        '
+        Me.lblHost.AutoSize = True
+        Me.lblHost.Location = New System.Drawing.Point(38, 61)
+        Me.lblHost.Name = "lblHost"
+        Me.lblHost.Size = New System.Drawing.Size(29, 13)
+        Me.lblHost.TabIndex = 3
+        Me.lblHost.Text = "Host"
+        '
+        'lblScheme
+        '
+        Me.lblScheme.AutoSize = True
+        Me.lblScheme.Location = New System.Drawing.Point(21, 32)
+        Me.lblScheme.Name = "lblScheme"
+        Me.lblScheme.Size = New System.Drawing.Size(46, 13)
+        Me.lblScheme.TabIndex = 2
+        Me.lblScheme.Text = "Scheme"
         '
         'timUpdateData
         '
@@ -760,169 +936,83 @@ Partial Class Form1
         Me.mnuExit.Size = New System.Drawing.Size(93, 22)
         Me.mnuExit.Text = "Exit"
         '
-        'txtMiningAddress
+        'tabBlockList
         '
-        Me.txtMiningAddress.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.txtMiningAddress.Location = New System.Drawing.Point(239, 285)
-        Me.txtMiningAddress.Name = "txtMiningAddress"
-        Me.txtMiningAddress.ReadOnly = True
-        Me.txtMiningAddress.Size = New System.Drawing.Size(312, 20)
-        Me.txtMiningAddress.TabIndex = 8
-        Me.txtMiningAddress.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.tabBlockList.Controls.Add(Me.grdBlocks)
+        Me.tabBlockList.Location = New System.Drawing.Point(4, 22)
+        Me.tabBlockList.Name = "tabBlockList"
+        Me.tabBlockList.Size = New System.Drawing.Size(792, 424)
+        Me.tabBlockList.TabIndex = 7
+        Me.tabBlockList.Text = "Block List"
+        Me.tabBlockList.UseVisualStyleBackColor = True
         '
-        'lblScheme
+        'grdBlocks
         '
-        Me.lblScheme.AutoSize = True
-        Me.lblScheme.Location = New System.Drawing.Point(21, 32)
-        Me.lblScheme.Name = "lblScheme"
-        Me.lblScheme.Size = New System.Drawing.Size(46, 13)
-        Me.lblScheme.TabIndex = 2
-        Me.lblScheme.Text = "Scheme"
+        Me.grdBlocks.AllowUserToAddRows = False
+        Me.grdBlocks.AllowUserToDeleteRows = False
+        Me.grdBlocks.AllowUserToResizeColumns = False
+        Me.grdBlocks.AllowUserToResizeRows = False
+        Me.grdBlocks.BackgroundColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdBlocks.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        Me.grdBlocks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.grdBlocks.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.Column1, Me.Timestamp, Me.Column2})
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.grdBlocks.DefaultCellStyle = DataGridViewCellStyle2
+        Me.grdBlocks.GridColor = System.Drawing.Color.White
+        Me.grdBlocks.Location = New System.Drawing.Point(8, 15)
+        Me.grdBlocks.Name = "grdBlocks"
+        Me.grdBlocks.ReadOnly = True
+        Me.grdBlocks.RowHeadersVisible = False
+        Me.grdBlocks.Size = New System.Drawing.Size(776, 401)
+        Me.grdBlocks.TabIndex = 1
         '
-        'lblHost
+        'DataGridViewTextBoxColumn1
         '
-        Me.lblHost.AutoSize = True
-        Me.lblHost.Location = New System.Drawing.Point(38, 61)
-        Me.lblHost.Name = "lblHost"
-        Me.lblHost.Size = New System.Drawing.Size(29, 13)
-        Me.lblHost.TabIndex = 3
-        Me.lblHost.Text = "Host"
+        Me.DataGridViewTextBoxColumn1.HeaderText = "Block Number"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         '
-        'lblPort
+        'DataGridViewTextBoxColumn2
         '
-        Me.lblPort.AutoSize = True
-        Me.lblPort.Location = New System.Drawing.Point(41, 88)
-        Me.lblPort.Name = "lblPort"
-        Me.lblPort.Size = New System.Drawing.Size(26, 13)
-        Me.lblPort.TabIndex = 4
-        Me.lblPort.Text = "Port"
+        Me.DataGridViewTextBoxColumn2.HeaderText = "Confirmations"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        Me.DataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         '
-        'lblUser
+        'Column1
         '
-        Me.lblUser.AutoSize = True
-        Me.lblUser.Location = New System.Drawing.Point(38, 115)
-        Me.lblUser.Name = "lblUser"
-        Me.lblUser.Size = New System.Drawing.Size(29, 13)
-        Me.lblUser.TabIndex = 5
-        Me.lblUser.Text = "User"
+        Me.Column1.HeaderText = "Size"
+        Me.Column1.Name = "Column1"
+        Me.Column1.ReadOnly = True
+        Me.Column1.Width = 75
         '
-        'lblPassword
+        'Timestamp
         '
-        Me.lblPassword.AutoSize = True
-        Me.lblPassword.Location = New System.Drawing.Point(14, 143)
-        Me.lblPassword.Name = "lblPassword"
-        Me.lblPassword.Size = New System.Drawing.Size(53, 13)
-        Me.lblPassword.TabIndex = 6
-        Me.lblPassword.Text = "Password"
+        Me.Timestamp.HeaderText = "Timestamp"
+        Me.Timestamp.Name = "Timestamp"
+        Me.Timestamp.ReadOnly = True
+        Me.Timestamp.Width = 150
         '
-        'gbxLogin
+        'Column2
         '
-        Me.gbxLogin.Controls.Add(Me.btnSaveLogin)
-        Me.gbxLogin.Controls.Add(Me.txtPassword)
-        Me.gbxLogin.Controls.Add(Me.txtUser)
-        Me.gbxLogin.Controls.Add(Me.txtPort)
-        Me.gbxLogin.Controls.Add(Me.txtHost)
-        Me.gbxLogin.Controls.Add(Me.txtScheme)
-        Me.gbxLogin.Controls.Add(Me.lblPassword)
-        Me.gbxLogin.Controls.Add(Me.lblUser)
-        Me.gbxLogin.Controls.Add(Me.lblPort)
-        Me.gbxLogin.Controls.Add(Me.lblHost)
-        Me.gbxLogin.Controls.Add(Me.lblScheme)
-        Me.gbxLogin.Location = New System.Drawing.Point(28, 19)
-        Me.gbxLogin.Name = "gbxLogin"
-        Me.gbxLogin.Size = New System.Drawing.Size(320, 179)
-        Me.gbxLogin.TabIndex = 7
-        Me.gbxLogin.TabStop = False
-        Me.gbxLogin.Text = "Login"
-        '
-        'txtScheme
-        '
-        Me.txtScheme.Location = New System.Drawing.Point(95, 29)
-        Me.txtScheme.Name = "txtScheme"
-        Me.txtScheme.Size = New System.Drawing.Size(137, 20)
-        Me.txtScheme.TabIndex = 7
-        Me.txtScheme.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtHost
-        '
-        Me.txtHost.Location = New System.Drawing.Point(95, 58)
-        Me.txtHost.Name = "txtHost"
-        Me.txtHost.Size = New System.Drawing.Size(137, 20)
-        Me.txtHost.TabIndex = 8
-        Me.txtHost.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtPort
-        '
-        Me.txtPort.Location = New System.Drawing.Point(95, 85)
-        Me.txtPort.Name = "txtPort"
-        Me.txtPort.Size = New System.Drawing.Size(137, 20)
-        Me.txtPort.TabIndex = 9
-        Me.txtPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtUser
-        '
-        Me.txtUser.Location = New System.Drawing.Point(95, 112)
-        Me.txtUser.Name = "txtUser"
-        Me.txtUser.Size = New System.Drawing.Size(137, 20)
-        Me.txtUser.TabIndex = 10
-        Me.txtUser.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtPassword
-        '
-        Me.txtPassword.Location = New System.Drawing.Point(95, 140)
-        Me.txtPassword.Name = "txtPassword"
-        Me.txtPassword.Size = New System.Drawing.Size(137, 20)
-        Me.txtPassword.TabIndex = 11
-        Me.txtPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'btnSaveLogin
-        '
-        Me.btnSaveLogin.Location = New System.Drawing.Point(248, 82)
-        Me.btnSaveLogin.Name = "btnSaveLogin"
-        Me.btnSaveLogin.Size = New System.Drawing.Size(52, 23)
-        Me.btnSaveLogin.TabIndex = 12
-        Me.btnSaveLogin.Text = "Save"
-        Me.btnSaveLogin.UseVisualStyleBackColor = True
-        '
-        'gbxPool
-        '
-        Me.gbxPool.Controls.Add(Me.txtPoolList)
-        Me.gbxPool.Controls.Add(Me.lblPoolList)
-        Me.gbxPool.Location = New System.Drawing.Point(377, 19)
-        Me.gbxPool.Name = "gbxPool"
-        Me.gbxPool.Size = New System.Drawing.Size(391, 112)
-        Me.gbxPool.TabIndex = 8
-        Me.gbxPool.TabStop = False
-        Me.gbxPool.Text = "Pool"
-        '
-        'gbxLogging
-        '
-        Me.gbxLogging.Controls.Add(Me.cmbLoggingLevel)
-        Me.gbxLogging.Controls.Add(Me.lblLoggingLevel)
-        Me.gbxLogging.Location = New System.Drawing.Point(377, 147)
-        Me.gbxLogging.Name = "gbxLogging"
-        Me.gbxLogging.Size = New System.Drawing.Size(391, 51)
-        Me.gbxLogging.TabIndex = 9
-        Me.gbxLogging.TabStop = False
-        Me.gbxLogging.Text = "Logging"
-        '
-        'lblLoggingLevel
-        '
-        Me.lblLoggingLevel.AutoSize = True
-        Me.lblLoggingLevel.Location = New System.Drawing.Point(85, 22)
-        Me.lblLoggingLevel.Name = "lblLoggingLevel"
-        Me.lblLoggingLevel.Size = New System.Drawing.Size(103, 13)
-        Me.lblLoggingLevel.TabIndex = 0
-        Me.lblLoggingLevel.Text = "Client Logging Level"
-        '
-        'cmbLoggingLevel
-        '
-        Me.cmbLoggingLevel.FormattingEnabled = True
-        Me.cmbLoggingLevel.Items.AddRange(New Object() {"trace", "verbose", "debug", "info", "warning", "error", "assert"})
-        Me.cmbLoggingLevel.Location = New System.Drawing.Point(208, 19)
-        Me.cmbLoggingLevel.Name = "cmbLoggingLevel"
-        Me.cmbLoggingLevel.Size = New System.Drawing.Size(121, 21)
-        Me.cmbLoggingLevel.TabIndex = 1
+        Me.Column2.HeaderText = "Miner Address"
+        Me.Column2.Name = "Column2"
+        Me.Column2.ReadOnly = True
+        Me.Column2.Width = 330
         '
         'Form1
         '
@@ -960,13 +1050,15 @@ Partial Class Form1
         CType(Me.chtHashRate, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbrThreads, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabSettings.ResumeLayout(False)
-        Me.NotifyMenu.ResumeLayout(False)
-        Me.gbxLogin.ResumeLayout(False)
-        Me.gbxLogin.PerformLayout()
-        Me.gbxPool.ResumeLayout(False)
-        Me.gbxPool.PerformLayout()
         Me.gbxLogging.ResumeLayout(False)
         Me.gbxLogging.PerformLayout()
+        Me.gbxPool.ResumeLayout(False)
+        Me.gbxPool.PerformLayout()
+        Me.gbxLogin.ResumeLayout(False)
+        Me.gbxLogin.PerformLayout()
+        Me.NotifyMenu.ResumeLayout(False)
+        Me.tabBlockList.ResumeLayout(False)
+        CType(Me.grdBlocks, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1047,4 +1139,11 @@ Partial Class Form1
     Friend WithEvents cmbLoggingLevel As ComboBox
     Friend WithEvents lblLoggingLevel As Label
     Friend WithEvents gbxPool As GroupBox
+    Friend WithEvents tabBlockList As TabPage
+    Friend WithEvents grdBlocks As DataGridView
+    Friend WithEvents DataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn2 As DataGridViewTextBoxColumn
+    Friend WithEvents Column1 As DataGridViewTextBoxColumn
+    Friend WithEvents Timestamp As DataGridViewTextBoxColumn
+    Friend WithEvents Column2 As DataGridViewTextBoxColumn
 End Class
