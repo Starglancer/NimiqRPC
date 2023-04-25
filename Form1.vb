@@ -194,6 +194,8 @@ Public Class Form1
                 DataPointer = MaxDataPointer
                 For N As Integer = 0 To MaxDataPointer - 1
                     DataArray(N, 0) = DataArray(N + 1, 0)
+                    DataArray(N, 1) = DataArray(N + 1, 1)
+                    DataArray(N, 2) = DataArray(N + 1, 2)
                 Next
             End If
 
