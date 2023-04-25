@@ -1,4 +1,4 @@
-﻿Imports System.Configuration
+﻿Imports System.Text.RegularExpressions
 Imports System.Windows.Forms.DataVisualization.Charting
 Imports Nimiq
 
@@ -43,7 +43,7 @@ Public Class Form1
 
         'Initialise Data Capture
         DataPointer = 0
-        MaxDataPointer = Convert.ToInt16(TrendDurationMinutes * 60 / UpdateIntervalSeconds)
+        MaxDataPointer = Convert.ToInt32(TrendDurationMinutes * 60 / UpdateIntervalSeconds)
         ReDim DataArray(MaxDataPointer + 1, 3)
 
         'Configure client
@@ -92,7 +92,7 @@ Public Class Form1
         Cfg = New Config With {
             .Scheme = txtScheme.Text,
             .Host = txtHost.Text,
-            .Port = Convert.ToInt16(txtPort.Text),
+            .Port = Convert.ToInt32(txtPort.Text),
             .User = txtUser.Text,
             .Password = txtPassword.Text
         }
@@ -584,6 +584,87 @@ Public Class Form1
 
     Private Sub btnBlockSearch_Click(sender As Object, e As EventArgs) Handles btnBlockSearch.Click
 
+        Dim Block As Models.Block
+
+        'Clear all search results
+        txtBlockDetailsNumber.Text = ""
+        txtBlockDetailsHash.Text = ""
+        txtBlockDetailsParentHash.Text = ""
+        txtBlockDetailsMiner.Text = ""
+        txtBlockDetailsMinerAddress.Text = ""
+        txtBlockDetailsExtraData.Text = ""
+        txtBlockDetailsNonce.Text = ""
+        txtBlockDetailsAccountsHash.Text = ""
+
+
+        'Check for valid search parameters and do search
+        If Validate_BlockNumber(txtBlock_Number.Text) Then
+
+            'Valid number supplied, so use that
+            Block = Client.GetBlockByNumber(txtBlock_Number.Text)
+
+        ElseIf Validate_BlockHash(txtBlock_Hash.Text) Then
+
+            'No number supplied but valid hash is, so use that
+            Block = Client.GetBlockByHash(txtBlock_Hash.Text)
+
+        Else
+            Block = Nothing
+        End If
+
+        'Only do the following if Block has been found
+        If Not Block Is Nothing Then
+
+            txtBlockDetailsNumber.Text = Block.Number
+            txtBlockDetailsHash.Text = Block.Hash
+            txtBlockDetailsParentHash.Text = Block.ParentHash
+            txtBlockDetailsMiner.Text = Block.Miner
+            txtBlockDetailsMinerAddress.Text = Block.MinerAddress
+            txtBlockDetailsExtraData.Text = Block.ExtraData
+            txtBlockDetailsNonce.Text = Block.Nonce
+            txtBlockDetailsAccountsHash.Text = Block.AccountsHash
+
+        End If
+
     End Sub
+
+    Private Function Validate_BlockNumber(Input As String) As Boolean
+
+        Dim Valid As Boolean
+
+        If Input = "" Then
+            'its an empty string
+            Valid = False
+        ElseIf Not Regex.IsMatch(Input, "^[1-9]\d*$") Then
+            'Its not numeric
+            Valid = False
+        ElseIf Input > BlockNumber Then
+            'Its larger than the current block number
+            Valid = False
+        Else
+            Valid = True
+        End If
+
+        Return Valid
+
+    End Function
+
+    Private Function Validate_BlockHash(Input As String) As Boolean
+
+        Dim Valid As Boolean
+
+        If Input = "" Then
+            'Its an empty string
+            Valid = False
+        ElseIf Not Regex.IsMatch(Input, "[A-Fa-f0-9]{64}") Then
+            'Its not a valid sha256 hash
+            Valid = False
+        Else
+            Valid = True
+        End If
+
+        Return Valid
+
+    End Function
 
 End Class
