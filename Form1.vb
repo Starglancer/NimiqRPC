@@ -1,6 +1,7 @@
 ﻿Imports System.Text.RegularExpressions
 Imports System.Windows.Forms.DataVisualization.Charting
 Imports Nimiq
+Imports Nimiq.Models
 
 Public Class Form1
 
@@ -649,6 +650,68 @@ Public Class Form1
 
     End Sub
 
+    Private Sub btnTransactionSearch_Click(sender As Object, e As EventArgs) Handles btnTransactionSearch.Click
+
+        Dim Account As Models.Account
+        Dim TransactionCount As Integer
+        Dim Transactions() As Models.Transaction
+        Dim Transaction As Models.Transaction
+
+        'Clear all previous search results
+        txtAccountID.Text = ""
+        txtAccountType.Text = ""
+        txtBalance.Text = ""
+        grdTransactions.Rows.Clear()
+
+        'Check for valid search parameters and do search
+        If Validate_BlockNumber(txtBlockNumberSearch.Text) Then
+
+            'Valid number supplied, so use that to populate the transaction table
+            TransactionCount = Client.GetBlockTransactionCountByNumber(txtBlockNumberSearch.Text)
+            For N As Integer = 0 To TransactionCount - 1
+                Transaction = Client.GetTransactionByBlockNumberAndIndex(txtBlockNumberSearch.Text, N)
+                grdTransactions.Rows.Add()
+                grdTransactions.Rows(N).Cells(0).Value = DateTimeOffset.FromUnixTimeSeconds(Transaction.Timestamp).UtcDateTime
+                grdTransactions.Rows(N).Cells(1).Value = Transaction.FromAddress
+                grdTransactions.Rows(N).Cells(2).Value = Transaction.ToAddress
+                grdTransactions.Rows(N).Cells(3).Value = Transaction.Value / 100000
+                grdTransactions.Rows(N).Cells(4).Value = Transaction.Fee / 100000
+                grdTransactions.Rows(N).Cells(5).Value = Transaction.Confirmations
+                grdTransactions.Rows(N).Cells(6).Value = Transaction.BlockNumber
+            Next
+
+        ElseIf Validate_Address(txtAccountAddress.Text) Then
+
+            'No number supplied but valid address is, so use that
+
+            'Get account details
+            Account = Client.GetAccount(txtAccountAddress.Text)
+            txtAccountID.Text = Account.Id
+            txtAccountType.Text = Account.Type.ToString
+            txtBalance.Text = Account.Balance / 100000
+
+            'Get Transaction details
+            Transactions = Client.GetTransactionsByAddress(txtAccountAddress.Text)
+            TransactionCount = Transactions.Count
+            For N As Integer = 0 To TransactionCount - 1
+                grdTransactions.Rows.Add()
+                grdTransactions.Rows(N).Cells(0).Value = DateTimeOffset.FromUnixTimeSeconds(Transactions(N).Timestamp).UtcDateTime
+                grdTransactions.Rows(N).Cells(1).Value = Transactions(N).FromAddress
+                grdTransactions.Rows(N).Cells(2).Value = Transactions(N).ToAddress
+                grdTransactions.Rows(N).Cells(3).Value = Transactions(N).Value / 100000
+                grdTransactions.Rows(N).Cells(4).Value = Transactions(N).Fee / 100000
+                grdTransactions.Rows(N).Cells(5).Value = Transactions(N).Confirmations
+                grdTransactions.Rows(N).Cells(6).Value = Transactions(N).BlockNumber
+            Next
+        Else
+            'Do nothing as no valid search parameters
+        End If
+
+        'Display transaction count
+        lblTransactionCount.Text = TransactionCount.ToString + " transactions"
+
+    End Sub
+
     Private Function Validate_BlockNumber(Input As String) As Boolean
 
         Dim Valid As Boolean
@@ -688,24 +751,27 @@ Public Class Form1
 
     End Function
 
+    Private Function Validate_Address(Input As String) As Boolean
+
+        Dim Valid As Boolean
+
+        If Input = "" Then
+            'Its an empty string
+            Valid = False
+        ElseIf Not Regex.IsMatch(Input, "N{1}Q{1}\d{2}(\s[A-Z0-9]{4}){8}") Then
+            'Its not a valid wallet address
+            Valid = False
+        Else
+            Valid = True
+        End If
+
+        Return Valid
+
+    End Function
+
     Private Sub btnDownloadNimiqCore_Click(sender As Object, e As EventArgs) Handles btnDownloadNimiqCore.Click
 
         Process.Start(My.Settings.DownloadCore)
-
-    End Sub
-
-    Private Sub btnTransactionSearch_Click(sender As Object, e As EventArgs) Handles btnTransactionSearch.Click
-
-        Dim Account As Models.Account
-        Dim Transaction() As Models.Transaction
-
-        'Account = Client.GetAccount("NQ38 L178 KX6V XDCT 0SJQ KRVA 2N8P S6U6 3ECU")
-
-        'abel1.Text = Account.
-
-        Transaction = Client.GetTransactionsByAddress("NQ38 L178 KX6V XDCT 0SJQ KRVA 2N8P S6U6 3ECU")
-
-        'Label1.Text = Transaction(0).
 
     End Sub
 
