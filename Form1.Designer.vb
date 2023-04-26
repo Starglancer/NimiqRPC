@@ -39,6 +39,7 @@ Partial Class Form1
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.TabControl = New System.Windows.Forms.TabControl()
         Me.tabStatus = New System.Windows.Forms.TabPage()
+        Me.btnDownloadNimiqCore = New System.Windows.Forms.Button()
         Me.txtConsensus = New System.Windows.Forms.TextBox()
         Me.txtStatus = New System.Windows.Forms.TextBox()
         Me.lblConsensus = New System.Windows.Forms.Label()
@@ -59,6 +60,37 @@ Partial Class Form1
         Me.Timestamp = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tabBlockDetail = New System.Windows.Forms.TabPage()
+        Me.gbxBlockDetails = New System.Windows.Forms.GroupBox()
+        Me.txtBlockDetailsTimestamp = New System.Windows.Forms.TextBox()
+        Me.lblBlockDetailsTimestamp = New System.Windows.Forms.Label()
+        Me.txtBlockDetailsTransactions = New System.Windows.Forms.TextBox()
+        Me.lblBlockDetailsTransactions = New System.Windows.Forms.Label()
+        Me.txtBlockDetailsSize = New System.Windows.Forms.TextBox()
+        Me.lblBlockDetailsSize = New System.Windows.Forms.Label()
+        Me.txtBlockDetailsPow = New System.Windows.Forms.TextBox()
+        Me.lblBlockDetailsPow = New System.Windows.Forms.Label()
+        Me.txtBlockDetailsDifficulty = New System.Windows.Forms.TextBox()
+        Me.lblBlockDetailsDifficulty = New System.Windows.Forms.Label()
+        Me.txtBlockDetailsConfirmations = New System.Windows.Forms.TextBox()
+        Me.lblBlockDetailsConfirmations = New System.Windows.Forms.Label()
+        Me.txtBlockDetailsBodyHash = New System.Windows.Forms.TextBox()
+        Me.lblBlockDetailsBodyHash = New System.Windows.Forms.Label()
+        Me.txtBlockDetailsAccountsHash = New System.Windows.Forms.TextBox()
+        Me.lblBlockDetailsAccountsHash = New System.Windows.Forms.Label()
+        Me.txtBlockDetailsNonce = New System.Windows.Forms.TextBox()
+        Me.lblBlockDetailsNonce = New System.Windows.Forms.Label()
+        Me.txtBlockDetailsExtraData = New System.Windows.Forms.TextBox()
+        Me.lblBlockDetailsExtraData = New System.Windows.Forms.Label()
+        Me.txtBlockDetailsParentHash = New System.Windows.Forms.TextBox()
+        Me.lblBlockDetailsParentHash = New System.Windows.Forms.Label()
+        Me.txtBlockDetailsMinerAddress = New System.Windows.Forms.TextBox()
+        Me.lblBlockDetalsMinerAddress = New System.Windows.Forms.Label()
+        Me.txtBlockDetailsMiner = New System.Windows.Forms.TextBox()
+        Me.lblBlockDetailsMiner = New System.Windows.Forms.Label()
+        Me.txtBlockDetailsHash = New System.Windows.Forms.TextBox()
+        Me.lblBlockDetailsHash = New System.Windows.Forms.Label()
+        Me.txtBlockDetailsNumber = New System.Windows.Forms.TextBox()
+        Me.lblBlockDetailsNumber = New System.Windows.Forms.Label()
         Me.gbxSearch = New System.Windows.Forms.GroupBox()
         Me.txtBlock_Hash = New System.Windows.Forms.TextBox()
         Me.txtBlock_Number = New System.Windows.Forms.TextBox()
@@ -127,23 +159,6 @@ Partial Class Form1
         Me.NotifyIcon = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.NotifyMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuExit = New System.Windows.Forms.ToolStripMenuItem()
-        Me.gbxBlockDetails = New System.Windows.Forms.GroupBox()
-        Me.lblBlockDetailsNumber = New System.Windows.Forms.Label()
-        Me.txtBlockDetailsNumber = New System.Windows.Forms.TextBox()
-        Me.lblBlockDetailsHash = New System.Windows.Forms.Label()
-        Me.txtBlockDetailsHash = New System.Windows.Forms.TextBox()
-        Me.lblBlockDetailsMiner = New System.Windows.Forms.Label()
-        Me.txtBlockDetailsMiner = New System.Windows.Forms.TextBox()
-        Me.txtBlockDetailsMinerAddress = New System.Windows.Forms.TextBox()
-        Me.lblBlockDetalsMinerAddress = New System.Windows.Forms.Label()
-        Me.txtBlockDetailsParentHash = New System.Windows.Forms.TextBox()
-        Me.lblBlockDetailsParentHash = New System.Windows.Forms.Label()
-        Me.txtBlockDetailsExtraData = New System.Windows.Forms.TextBox()
-        Me.lblBlockDetailsExtraData = New System.Windows.Forms.Label()
-        Me.txtBlockDetailsNonce = New System.Windows.Forms.TextBox()
-        Me.lblBlockDetailsNonce = New System.Windows.Forms.Label()
-        Me.txtBlockDetailsAccountsHash = New System.Windows.Forms.TextBox()
-        Me.lblBlockDetailsAccountsHash = New System.Windows.Forms.Label()
         Me.TabControl.SuspendLayout()
         Me.tabStatus.SuspendLayout()
         CType(Me.pbxStatus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -152,6 +167,7 @@ Partial Class Form1
         Me.tabBlockList.SuspendLayout()
         CType(Me.grdBlocks, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabBlockDetail.SuspendLayout()
+        Me.gbxBlockDetails.SuspendLayout()
         Me.gbxSearch.SuspendLayout()
         Me.tabPeerCount.SuspendLayout()
         CType(Me.chtPeerCount, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -169,7 +185,6 @@ Partial Class Form1
         Me.gbxPool.SuspendLayout()
         Me.gbxLogin.SuspendLayout()
         Me.NotifyMenu.SuspendLayout()
-        Me.gbxBlockDetails.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl
@@ -191,6 +206,7 @@ Partial Class Form1
         '
         'tabStatus
         '
+        Me.tabStatus.Controls.Add(Me.btnDownloadNimiqCore)
         Me.tabStatus.Controls.Add(Me.txtConsensus)
         Me.tabStatus.Controls.Add(Me.txtStatus)
         Me.tabStatus.Controls.Add(Me.lblConsensus)
@@ -207,10 +223,19 @@ Partial Class Form1
         Me.tabStatus.Text = "Status"
         Me.tabStatus.UseVisualStyleBackColor = True
         '
+        'btnDownloadNimiqCore
+        '
+        Me.btnDownloadNimiqCore.Location = New System.Drawing.Point(72, 326)
+        Me.btnDownloadNimiqCore.Name = "btnDownloadNimiqCore"
+        Me.btnDownloadNimiqCore.Size = New System.Drawing.Size(126, 23)
+        Me.btnDownloadNimiqCore.TabIndex = 8
+        Me.btnDownloadNimiqCore.Text = "Download Nimiq Core"
+        Me.btnDownloadNimiqCore.UseVisualStyleBackColor = True
+        '
         'txtConsensus
         '
         Me.txtConsensus.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.txtConsensus.Location = New System.Drawing.Point(542, 321)
+        Me.txtConsensus.Location = New System.Drawing.Point(608, 329)
         Me.txtConsensus.Name = "txtConsensus"
         Me.txtConsensus.ReadOnly = True
         Me.txtConsensus.Size = New System.Drawing.Size(100, 20)
@@ -220,7 +245,7 @@ Partial Class Form1
         'txtStatus
         '
         Me.txtStatus.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.txtStatus.Location = New System.Drawing.Point(168, 321)
+        Me.txtStatus.Location = New System.Drawing.Point(393, 329)
         Me.txtStatus.Name = "txtStatus"
         Me.txtStatus.ReadOnly = True
         Me.txtStatus.Size = New System.Drawing.Size(100, 20)
@@ -230,7 +255,7 @@ Partial Class Form1
         'lblConsensus
         '
         Me.lblConsensus.AutoSize = True
-        Me.lblConsensus.Location = New System.Drawing.Point(454, 324)
+        Me.lblConsensus.Location = New System.Drawing.Point(533, 332)
         Me.lblConsensus.Name = "lblConsensus"
         Me.lblConsensus.Size = New System.Drawing.Size(59, 13)
         Me.lblConsensus.TabIndex = 5
@@ -239,7 +264,7 @@ Partial Class Form1
         'lblStatus
         '
         Me.lblStatus.AutoSize = True
-        Me.lblStatus.Location = New System.Drawing.Point(109, 324)
+        Me.lblStatus.Location = New System.Drawing.Point(334, 332)
         Me.lblStatus.Name = "lblStatus"
         Me.lblStatus.Size = New System.Drawing.Size(37, 13)
         Me.lblStatus.TabIndex = 4
@@ -424,6 +449,330 @@ Partial Class Form1
         Me.tabBlockDetail.Text = "Block Detail"
         Me.tabBlockDetail.UseVisualStyleBackColor = True
         '
+        'gbxBlockDetails
+        '
+        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsTimestamp)
+        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetailsTimestamp)
+        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsTransactions)
+        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetailsTransactions)
+        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsSize)
+        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetailsSize)
+        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsPow)
+        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetailsPow)
+        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsDifficulty)
+        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetailsDifficulty)
+        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsConfirmations)
+        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetailsConfirmations)
+        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsBodyHash)
+        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetailsBodyHash)
+        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsAccountsHash)
+        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetailsAccountsHash)
+        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsNonce)
+        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetailsNonce)
+        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsExtraData)
+        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetailsExtraData)
+        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsParentHash)
+        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetailsParentHash)
+        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsMinerAddress)
+        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetalsMinerAddress)
+        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsMiner)
+        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetailsMiner)
+        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsHash)
+        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetailsHash)
+        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsNumber)
+        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetailsNumber)
+        Me.gbxBlockDetails.Location = New System.Drawing.Point(12, 75)
+        Me.gbxBlockDetails.Name = "gbxBlockDetails"
+        Me.gbxBlockDetails.Size = New System.Drawing.Size(764, 330)
+        Me.gbxBlockDetails.TabIndex = 1
+        Me.gbxBlockDetails.TabStop = False
+        Me.gbxBlockDetails.Text = "Block Details"
+        '
+        'txtBlockDetailsTimestamp
+        '
+        Me.txtBlockDetailsTimestamp.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsTimestamp.Location = New System.Drawing.Point(536, 56)
+        Me.txtBlockDetailsTimestamp.Name = "txtBlockDetailsTimestamp"
+        Me.txtBlockDetailsTimestamp.ReadOnly = True
+        Me.txtBlockDetailsTimestamp.Size = New System.Drawing.Size(152, 20)
+        Me.txtBlockDetailsTimestamp.TabIndex = 29
+        Me.txtBlockDetailsTimestamp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblBlockDetailsTimestamp
+        '
+        Me.lblBlockDetailsTimestamp.AutoSize = True
+        Me.lblBlockDetailsTimestamp.Location = New System.Drawing.Point(444, 59)
+        Me.lblBlockDetailsTimestamp.Name = "lblBlockDetailsTimestamp"
+        Me.lblBlockDetailsTimestamp.Size = New System.Drawing.Size(86, 13)
+        Me.lblBlockDetailsTimestamp.TabIndex = 28
+        Me.lblBlockDetailsTimestamp.Text = "UTC Timestamp "
+        '
+        'txtBlockDetailsTransactions
+        '
+        Me.txtBlockDetailsTransactions.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsTransactions.Location = New System.Drawing.Point(322, 56)
+        Me.txtBlockDetailsTransactions.Name = "txtBlockDetailsTransactions"
+        Me.txtBlockDetailsTransactions.ReadOnly = True
+        Me.txtBlockDetailsTransactions.Size = New System.Drawing.Size(100, 20)
+        Me.txtBlockDetailsTransactions.TabIndex = 27
+        Me.txtBlockDetailsTransactions.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblBlockDetailsTransactions
+        '
+        Me.lblBlockDetailsTransactions.AutoSize = True
+        Me.lblBlockDetailsTransactions.Location = New System.Drawing.Point(246, 59)
+        Me.lblBlockDetailsTransactions.Name = "lblBlockDetailsTransactions"
+        Me.lblBlockDetailsTransactions.Size = New System.Drawing.Size(68, 13)
+        Me.lblBlockDetailsTransactions.TabIndex = 26
+        Me.lblBlockDetailsTransactions.Text = "Transactions"
+        '
+        'txtBlockDetailsSize
+        '
+        Me.txtBlockDetailsSize.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsSize.Location = New System.Drawing.Point(126, 56)
+        Me.txtBlockDetailsSize.Name = "txtBlockDetailsSize"
+        Me.txtBlockDetailsSize.ReadOnly = True
+        Me.txtBlockDetailsSize.Size = New System.Drawing.Size(100, 20)
+        Me.txtBlockDetailsSize.TabIndex = 25
+        Me.txtBlockDetailsSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblBlockDetailsSize
+        '
+        Me.lblBlockDetailsSize.AutoSize = True
+        Me.lblBlockDetailsSize.Location = New System.Drawing.Point(91, 59)
+        Me.lblBlockDetailsSize.Name = "lblBlockDetailsSize"
+        Me.lblBlockDetailsSize.Size = New System.Drawing.Size(27, 13)
+        Me.lblBlockDetailsSize.TabIndex = 24
+        Me.lblBlockDetailsSize.Text = "Size"
+        '
+        'txtBlockDetailsPow
+        '
+        Me.txtBlockDetailsPow.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsPow.Location = New System.Drawing.Point(126, 296)
+        Me.txtBlockDetailsPow.Name = "txtBlockDetailsPow"
+        Me.txtBlockDetailsPow.ReadOnly = True
+        Me.txtBlockDetailsPow.Size = New System.Drawing.Size(562, 20)
+        Me.txtBlockDetailsPow.TabIndex = 23
+        Me.txtBlockDetailsPow.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblBlockDetailsPow
+        '
+        Me.lblBlockDetailsPow.AutoSize = True
+        Me.lblBlockDetailsPow.Location = New System.Drawing.Point(91, 299)
+        Me.lblBlockDetailsPow.Name = "lblBlockDetailsPow"
+        Me.lblBlockDetailsPow.Size = New System.Drawing.Size(28, 13)
+        Me.lblBlockDetailsPow.TabIndex = 22
+        Me.lblBlockDetailsPow.Text = "Pow"
+        '
+        'txtBlockDetailsDifficulty
+        '
+        Me.txtBlockDetailsDifficulty.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsDifficulty.Location = New System.Drawing.Point(536, 26)
+        Me.txtBlockDetailsDifficulty.Name = "txtBlockDetailsDifficulty"
+        Me.txtBlockDetailsDifficulty.ReadOnly = True
+        Me.txtBlockDetailsDifficulty.Size = New System.Drawing.Size(152, 20)
+        Me.txtBlockDetailsDifficulty.TabIndex = 21
+        Me.txtBlockDetailsDifficulty.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblBlockDetailsDifficulty
+        '
+        Me.lblBlockDetailsDifficulty.AutoSize = True
+        Me.lblBlockDetailsDifficulty.Location = New System.Drawing.Point(479, 29)
+        Me.lblBlockDetailsDifficulty.Name = "lblBlockDetailsDifficulty"
+        Me.lblBlockDetailsDifficulty.Size = New System.Drawing.Size(47, 13)
+        Me.lblBlockDetailsDifficulty.TabIndex = 20
+        Me.lblBlockDetailsDifficulty.Text = "Difficulty"
+        '
+        'txtBlockDetailsConfirmations
+        '
+        Me.txtBlockDetailsConfirmations.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsConfirmations.Location = New System.Drawing.Point(322, 26)
+        Me.txtBlockDetailsConfirmations.Name = "txtBlockDetailsConfirmations"
+        Me.txtBlockDetailsConfirmations.ReadOnly = True
+        Me.txtBlockDetailsConfirmations.Size = New System.Drawing.Size(100, 20)
+        Me.txtBlockDetailsConfirmations.TabIndex = 19
+        Me.txtBlockDetailsConfirmations.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblBlockDetailsConfirmations
+        '
+        Me.lblBlockDetailsConfirmations.AutoSize = True
+        Me.lblBlockDetailsConfirmations.Location = New System.Drawing.Point(246, 29)
+        Me.lblBlockDetailsConfirmations.Name = "lblBlockDetailsConfirmations"
+        Me.lblBlockDetailsConfirmations.Size = New System.Drawing.Size(70, 13)
+        Me.lblBlockDetailsConfirmations.TabIndex = 18
+        Me.lblBlockDetailsConfirmations.Text = "Confirmations"
+        '
+        'txtBlockDetailsBodyHash
+        '
+        Me.txtBlockDetailsBodyHash.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsBodyHash.Location = New System.Drawing.Point(126, 270)
+        Me.txtBlockDetailsBodyHash.Name = "txtBlockDetailsBodyHash"
+        Me.txtBlockDetailsBodyHash.ReadOnly = True
+        Me.txtBlockDetailsBodyHash.Size = New System.Drawing.Size(562, 20)
+        Me.txtBlockDetailsBodyHash.TabIndex = 17
+        Me.txtBlockDetailsBodyHash.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblBlockDetailsBodyHash
+        '
+        Me.lblBlockDetailsBodyHash.AutoSize = True
+        Me.lblBlockDetailsBodyHash.Location = New System.Drawing.Point(60, 273)
+        Me.lblBlockDetailsBodyHash.Name = "lblBlockDetailsBodyHash"
+        Me.lblBlockDetailsBodyHash.Size = New System.Drawing.Size(59, 13)
+        Me.lblBlockDetailsBodyHash.TabIndex = 16
+        Me.lblBlockDetailsBodyHash.Text = "Body Hash"
+        '
+        'txtBlockDetailsAccountsHash
+        '
+        Me.txtBlockDetailsAccountsHash.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsAccountsHash.Location = New System.Drawing.Point(126, 244)
+        Me.txtBlockDetailsAccountsHash.Name = "txtBlockDetailsAccountsHash"
+        Me.txtBlockDetailsAccountsHash.ReadOnly = True
+        Me.txtBlockDetailsAccountsHash.Size = New System.Drawing.Size(562, 20)
+        Me.txtBlockDetailsAccountsHash.TabIndex = 15
+        Me.txtBlockDetailsAccountsHash.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblBlockDetailsAccountsHash
+        '
+        Me.lblBlockDetailsAccountsHash.AutoSize = True
+        Me.lblBlockDetailsAccountsHash.Location = New System.Drawing.Point(40, 247)
+        Me.lblBlockDetailsAccountsHash.Name = "lblBlockDetailsAccountsHash"
+        Me.lblBlockDetailsAccountsHash.Size = New System.Drawing.Size(80, 13)
+        Me.lblBlockDetailsAccountsHash.TabIndex = 14
+        Me.lblBlockDetailsAccountsHash.Text = "Accounts Hash"
+        '
+        'txtBlockDetailsNonce
+        '
+        Me.txtBlockDetailsNonce.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsNonce.Location = New System.Drawing.Point(126, 218)
+        Me.txtBlockDetailsNonce.Name = "txtBlockDetailsNonce"
+        Me.txtBlockDetailsNonce.ReadOnly = True
+        Me.txtBlockDetailsNonce.Size = New System.Drawing.Size(562, 20)
+        Me.txtBlockDetailsNonce.TabIndex = 13
+        Me.txtBlockDetailsNonce.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblBlockDetailsNonce
+        '
+        Me.lblBlockDetailsNonce.AutoSize = True
+        Me.lblBlockDetailsNonce.Location = New System.Drawing.Point(80, 221)
+        Me.lblBlockDetailsNonce.Name = "lblBlockDetailsNonce"
+        Me.lblBlockDetailsNonce.Size = New System.Drawing.Size(39, 13)
+        Me.lblBlockDetailsNonce.TabIndex = 12
+        Me.lblBlockDetailsNonce.Text = "Nonce"
+        '
+        'txtBlockDetailsExtraData
+        '
+        Me.txtBlockDetailsExtraData.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsExtraData.Location = New System.Drawing.Point(126, 192)
+        Me.txtBlockDetailsExtraData.Name = "txtBlockDetailsExtraData"
+        Me.txtBlockDetailsExtraData.ReadOnly = True
+        Me.txtBlockDetailsExtraData.Size = New System.Drawing.Size(562, 20)
+        Me.txtBlockDetailsExtraData.TabIndex = 11
+        Me.txtBlockDetailsExtraData.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblBlockDetailsExtraData
+        '
+        Me.lblBlockDetailsExtraData.AutoSize = True
+        Me.lblBlockDetailsExtraData.Location = New System.Drawing.Point(62, 195)
+        Me.lblBlockDetailsExtraData.Name = "lblBlockDetailsExtraData"
+        Me.lblBlockDetailsExtraData.Size = New System.Drawing.Size(57, 13)
+        Me.lblBlockDetailsExtraData.TabIndex = 10
+        Me.lblBlockDetailsExtraData.Text = "Extra Data"
+        '
+        'txtBlockDetailsParentHash
+        '
+        Me.txtBlockDetailsParentHash.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsParentHash.Location = New System.Drawing.Point(126, 113)
+        Me.txtBlockDetailsParentHash.Name = "txtBlockDetailsParentHash"
+        Me.txtBlockDetailsParentHash.ReadOnly = True
+        Me.txtBlockDetailsParentHash.Size = New System.Drawing.Size(562, 20)
+        Me.txtBlockDetailsParentHash.TabIndex = 9
+        Me.txtBlockDetailsParentHash.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblBlockDetailsParentHash
+        '
+        Me.lblBlockDetailsParentHash.AutoSize = True
+        Me.lblBlockDetailsParentHash.Location = New System.Drawing.Point(54, 116)
+        Me.lblBlockDetailsParentHash.Name = "lblBlockDetailsParentHash"
+        Me.lblBlockDetailsParentHash.Size = New System.Drawing.Size(66, 13)
+        Me.lblBlockDetailsParentHash.TabIndex = 8
+        Me.lblBlockDetailsParentHash.Text = "Parent Hash"
+        '
+        'txtBlockDetailsMinerAddress
+        '
+        Me.txtBlockDetailsMinerAddress.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsMinerAddress.Location = New System.Drawing.Point(126, 166)
+        Me.txtBlockDetailsMinerAddress.Name = "txtBlockDetailsMinerAddress"
+        Me.txtBlockDetailsMinerAddress.ReadOnly = True
+        Me.txtBlockDetailsMinerAddress.Size = New System.Drawing.Size(562, 20)
+        Me.txtBlockDetailsMinerAddress.TabIndex = 7
+        Me.txtBlockDetailsMinerAddress.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblBlockDetalsMinerAddress
+        '
+        Me.lblBlockDetalsMinerAddress.AutoSize = True
+        Me.lblBlockDetalsMinerAddress.Location = New System.Drawing.Point(46, 169)
+        Me.lblBlockDetalsMinerAddress.Name = "lblBlockDetalsMinerAddress"
+        Me.lblBlockDetalsMinerAddress.Size = New System.Drawing.Size(74, 13)
+        Me.lblBlockDetalsMinerAddress.TabIndex = 6
+        Me.lblBlockDetalsMinerAddress.Text = "Miner Address"
+        '
+        'txtBlockDetailsMiner
+        '
+        Me.txtBlockDetailsMiner.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsMiner.Location = New System.Drawing.Point(126, 140)
+        Me.txtBlockDetailsMiner.Name = "txtBlockDetailsMiner"
+        Me.txtBlockDetailsMiner.ReadOnly = True
+        Me.txtBlockDetailsMiner.Size = New System.Drawing.Size(562, 20)
+        Me.txtBlockDetailsMiner.TabIndex = 5
+        Me.txtBlockDetailsMiner.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblBlockDetailsMiner
+        '
+        Me.lblBlockDetailsMiner.AutoSize = True
+        Me.lblBlockDetailsMiner.Location = New System.Drawing.Point(87, 143)
+        Me.lblBlockDetailsMiner.Name = "lblBlockDetailsMiner"
+        Me.lblBlockDetailsMiner.Size = New System.Drawing.Size(33, 13)
+        Me.lblBlockDetailsMiner.TabIndex = 4
+        Me.lblBlockDetailsMiner.Text = "Miner"
+        '
+        'txtBlockDetailsHash
+        '
+        Me.txtBlockDetailsHash.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsHash.Location = New System.Drawing.Point(126, 87)
+        Me.txtBlockDetailsHash.Name = "txtBlockDetailsHash"
+        Me.txtBlockDetailsHash.ReadOnly = True
+        Me.txtBlockDetailsHash.Size = New System.Drawing.Size(562, 20)
+        Me.txtBlockDetailsHash.TabIndex = 3
+        Me.txtBlockDetailsHash.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblBlockDetailsHash
+        '
+        Me.lblBlockDetailsHash.AutoSize = True
+        Me.lblBlockDetailsHash.Location = New System.Drawing.Point(87, 90)
+        Me.lblBlockDetailsHash.Name = "lblBlockDetailsHash"
+        Me.lblBlockDetailsHash.Size = New System.Drawing.Size(32, 13)
+        Me.lblBlockDetailsHash.TabIndex = 2
+        Me.lblBlockDetailsHash.Text = "Hash"
+        '
+        'txtBlockDetailsNumber
+        '
+        Me.txtBlockDetailsNumber.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsNumber.Location = New System.Drawing.Point(126, 26)
+        Me.txtBlockDetailsNumber.Name = "txtBlockDetailsNumber"
+        Me.txtBlockDetailsNumber.ReadOnly = True
+        Me.txtBlockDetailsNumber.Size = New System.Drawing.Size(100, 20)
+        Me.txtBlockDetailsNumber.TabIndex = 1
+        Me.txtBlockDetailsNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblBlockDetailsNumber
+        '
+        Me.lblBlockDetailsNumber.AutoSize = True
+        Me.lblBlockDetailsNumber.Location = New System.Drawing.Point(75, 29)
+        Me.lblBlockDetailsNumber.Name = "lblBlockDetailsNumber"
+        Me.lblBlockDetailsNumber.Size = New System.Drawing.Size(44, 13)
+        Me.lblBlockDetailsNumber.TabIndex = 0
+        Me.lblBlockDetailsNumber.Text = "Number"
+        '
         'gbxSearch
         '
         Me.gbxSearch.Controls.Add(Me.txtBlock_Hash)
@@ -444,6 +793,7 @@ Partial Class Form1
         Me.txtBlock_Hash.Name = "txtBlock_Hash"
         Me.txtBlock_Hash.Size = New System.Drawing.Size(400, 20)
         Me.txtBlock_Hash.TabIndex = 4
+        Me.txtBlock_Hash.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'txtBlock_Number
         '
@@ -451,6 +801,7 @@ Partial Class Form1
         Me.txtBlock_Number.Name = "txtBlock_Number"
         Me.txtBlock_Number.Size = New System.Drawing.Size(100, 20)
         Me.txtBlock_Number.TabIndex = 3
+        Me.txtBlock_Number.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'lblBlock_Hash
         '
@@ -474,7 +825,7 @@ Partial Class Form1
         '
         Me.btnBlockSearch.Location = New System.Drawing.Point(683, 22)
         Me.btnBlockSearch.Name = "btnBlockSearch"
-        Me.btnBlockSearch.Size = New System.Drawing.Size(75, 23)
+        Me.btnBlockSearch.Size = New System.Drawing.Size(62, 23)
         Me.btnBlockSearch.TabIndex = 0
         Me.btnBlockSearch.Text = "Search"
         Me.btnBlockSearch.UseVisualStyleBackColor = True
@@ -1108,159 +1459,6 @@ Partial Class Form1
         Me.mnuExit.Size = New System.Drawing.Size(93, 22)
         Me.mnuExit.Text = "Exit"
         '
-        'gbxBlockDetails
-        '
-        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsAccountsHash)
-        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetailsAccountsHash)
-        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsNonce)
-        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetailsNonce)
-        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsExtraData)
-        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetailsExtraData)
-        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsParentHash)
-        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetailsParentHash)
-        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsMinerAddress)
-        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetalsMinerAddress)
-        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsMiner)
-        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetailsMiner)
-        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsHash)
-        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetailsHash)
-        Me.gbxBlockDetails.Controls.Add(Me.txtBlockDetailsNumber)
-        Me.gbxBlockDetails.Controls.Add(Me.lblBlockDetailsNumber)
-        Me.gbxBlockDetails.Location = New System.Drawing.Point(12, 75)
-        Me.gbxBlockDetails.Name = "gbxBlockDetails"
-        Me.gbxBlockDetails.Size = New System.Drawing.Size(764, 330)
-        Me.gbxBlockDetails.TabIndex = 1
-        Me.gbxBlockDetails.TabStop = False
-        Me.gbxBlockDetails.Text = "Block Details"
-        '
-        'lblBlockDetailsNumber
-        '
-        Me.lblBlockDetailsNumber.AutoSize = True
-        Me.lblBlockDetailsNumber.Location = New System.Drawing.Point(35, 29)
-        Me.lblBlockDetailsNumber.Name = "lblBlockDetailsNumber"
-        Me.lblBlockDetailsNumber.Size = New System.Drawing.Size(44, 13)
-        Me.lblBlockDetailsNumber.TabIndex = 0
-        Me.lblBlockDetailsNumber.Text = "Number"
-        '
-        'txtBlockDetailsNumber
-        '
-        Me.txtBlockDetailsNumber.Location = New System.Drawing.Point(86, 26)
-        Me.txtBlockDetailsNumber.Name = "txtBlockDetailsNumber"
-        Me.txtBlockDetailsNumber.Size = New System.Drawing.Size(100, 20)
-        Me.txtBlockDetailsNumber.TabIndex = 1
-        '
-        'lblBlockDetailsHash
-        '
-        Me.lblBlockDetailsHash.AutoSize = True
-        Me.lblBlockDetailsHash.Location = New System.Drawing.Point(47, 55)
-        Me.lblBlockDetailsHash.Name = "lblBlockDetailsHash"
-        Me.lblBlockDetailsHash.Size = New System.Drawing.Size(32, 13)
-        Me.lblBlockDetailsHash.TabIndex = 2
-        Me.lblBlockDetailsHash.Text = "Hash"
-        '
-        'txtBlockDetailsHash
-        '
-        Me.txtBlockDetailsHash.Location = New System.Drawing.Point(86, 52)
-        Me.txtBlockDetailsHash.Name = "txtBlockDetailsHash"
-        Me.txtBlockDetailsHash.Size = New System.Drawing.Size(400, 20)
-        Me.txtBlockDetailsHash.TabIndex = 3
-        '
-        'lblBlockDetailsMiner
-        '
-        Me.lblBlockDetailsMiner.AutoSize = True
-        Me.lblBlockDetailsMiner.Location = New System.Drawing.Point(47, 108)
-        Me.lblBlockDetailsMiner.Name = "lblBlockDetailsMiner"
-        Me.lblBlockDetailsMiner.Size = New System.Drawing.Size(33, 13)
-        Me.lblBlockDetailsMiner.TabIndex = 4
-        Me.lblBlockDetailsMiner.Text = "Miner"
-        '
-        'txtBlockDetailsMiner
-        '
-        Me.txtBlockDetailsMiner.Location = New System.Drawing.Point(86, 105)
-        Me.txtBlockDetailsMiner.Name = "txtBlockDetailsMiner"
-        Me.txtBlockDetailsMiner.Size = New System.Drawing.Size(400, 20)
-        Me.txtBlockDetailsMiner.TabIndex = 5
-        '
-        'txtBlockDetailsMinerAddress
-        '
-        Me.txtBlockDetailsMinerAddress.Location = New System.Drawing.Point(86, 131)
-        Me.txtBlockDetailsMinerAddress.Name = "txtBlockDetailsMinerAddress"
-        Me.txtBlockDetailsMinerAddress.Size = New System.Drawing.Size(400, 20)
-        Me.txtBlockDetailsMinerAddress.TabIndex = 7
-        '
-        'lblBlockDetalsMinerAddress
-        '
-        Me.lblBlockDetalsMinerAddress.AutoSize = True
-        Me.lblBlockDetalsMinerAddress.Location = New System.Drawing.Point(6, 134)
-        Me.lblBlockDetalsMinerAddress.Name = "lblBlockDetalsMinerAddress"
-        Me.lblBlockDetalsMinerAddress.Size = New System.Drawing.Size(74, 13)
-        Me.lblBlockDetalsMinerAddress.TabIndex = 6
-        Me.lblBlockDetalsMinerAddress.Text = "Miner Address"
-        '
-        'txtBlockDetailsParentHash
-        '
-        Me.txtBlockDetailsParentHash.Location = New System.Drawing.Point(86, 78)
-        Me.txtBlockDetailsParentHash.Name = "txtBlockDetailsParentHash"
-        Me.txtBlockDetailsParentHash.Size = New System.Drawing.Size(400, 20)
-        Me.txtBlockDetailsParentHash.TabIndex = 9
-        '
-        'lblBlockDetailsParentHash
-        '
-        Me.lblBlockDetailsParentHash.AutoSize = True
-        Me.lblBlockDetailsParentHash.Location = New System.Drawing.Point(14, 81)
-        Me.lblBlockDetailsParentHash.Name = "lblBlockDetailsParentHash"
-        Me.lblBlockDetailsParentHash.Size = New System.Drawing.Size(66, 13)
-        Me.lblBlockDetailsParentHash.TabIndex = 8
-        Me.lblBlockDetailsParentHash.Text = "Parent Hash"
-        '
-        'txtBlockDetailsExtraData
-        '
-        Me.txtBlockDetailsExtraData.Location = New System.Drawing.Point(86, 157)
-        Me.txtBlockDetailsExtraData.Name = "txtBlockDetailsExtraData"
-        Me.txtBlockDetailsExtraData.Size = New System.Drawing.Size(400, 20)
-        Me.txtBlockDetailsExtraData.TabIndex = 11
-        '
-        'lblBlockDetailsExtraData
-        '
-        Me.lblBlockDetailsExtraData.AutoSize = True
-        Me.lblBlockDetailsExtraData.Location = New System.Drawing.Point(22, 160)
-        Me.lblBlockDetailsExtraData.Name = "lblBlockDetailsExtraData"
-        Me.lblBlockDetailsExtraData.Size = New System.Drawing.Size(57, 13)
-        Me.lblBlockDetailsExtraData.TabIndex = 10
-        Me.lblBlockDetailsExtraData.Text = "Extra Data"
-        '
-        'txtBlockDetailsNonce
-        '
-        Me.txtBlockDetailsNonce.Location = New System.Drawing.Point(86, 183)
-        Me.txtBlockDetailsNonce.Name = "txtBlockDetailsNonce"
-        Me.txtBlockDetailsNonce.Size = New System.Drawing.Size(400, 20)
-        Me.txtBlockDetailsNonce.TabIndex = 13
-        '
-        'lblBlockDetailsNonce
-        '
-        Me.lblBlockDetailsNonce.AutoSize = True
-        Me.lblBlockDetailsNonce.Location = New System.Drawing.Point(40, 186)
-        Me.lblBlockDetailsNonce.Name = "lblBlockDetailsNonce"
-        Me.lblBlockDetailsNonce.Size = New System.Drawing.Size(39, 13)
-        Me.lblBlockDetailsNonce.TabIndex = 12
-        Me.lblBlockDetailsNonce.Text = "Nonce"
-        '
-        'txtBlockDetailsAccountsHash
-        '
-        Me.txtBlockDetailsAccountsHash.Location = New System.Drawing.Point(86, 209)
-        Me.txtBlockDetailsAccountsHash.Name = "txtBlockDetailsAccountsHash"
-        Me.txtBlockDetailsAccountsHash.Size = New System.Drawing.Size(400, 20)
-        Me.txtBlockDetailsAccountsHash.TabIndex = 15
-        '
-        'lblBlockDetailsAccountsHash
-        '
-        Me.lblBlockDetailsAccountsHash.AutoSize = True
-        Me.lblBlockDetailsAccountsHash.Location = New System.Drawing.Point(0, 212)
-        Me.lblBlockDetailsAccountsHash.Name = "lblBlockDetailsAccountsHash"
-        Me.lblBlockDetailsAccountsHash.Size = New System.Drawing.Size(80, 13)
-        Me.lblBlockDetailsAccountsHash.TabIndex = 14
-        Me.lblBlockDetailsAccountsHash.Text = "Accounts Hash"
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1283,6 +1481,8 @@ Partial Class Form1
         Me.tabBlockList.ResumeLayout(False)
         CType(Me.grdBlocks, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabBlockDetail.ResumeLayout(False)
+        Me.gbxBlockDetails.ResumeLayout(False)
+        Me.gbxBlockDetails.PerformLayout()
         Me.gbxSearch.ResumeLayout(False)
         Me.gbxSearch.PerformLayout()
         Me.tabPeerCount.ResumeLayout(False)
@@ -1309,8 +1509,6 @@ Partial Class Form1
         Me.gbxLogin.ResumeLayout(False)
         Me.gbxLogin.PerformLayout()
         Me.NotifyMenu.ResumeLayout(False)
-        Me.gbxBlockDetails.ResumeLayout(False)
-        Me.gbxBlockDetails.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1422,4 +1620,19 @@ Partial Class Form1
     Friend WithEvents lblBlockDetailsNonce As Label
     Friend WithEvents txtBlockDetailsAccountsHash As TextBox
     Friend WithEvents lblBlockDetailsAccountsHash As Label
+    Friend WithEvents btnDownloadNimiqCore As Button
+    Friend WithEvents txtBlockDetailsBodyHash As TextBox
+    Friend WithEvents lblBlockDetailsBodyHash As Label
+    Friend WithEvents txtBlockDetailsConfirmations As TextBox
+    Friend WithEvents lblBlockDetailsConfirmations As Label
+    Friend WithEvents txtBlockDetailsDifficulty As TextBox
+    Friend WithEvents lblBlockDetailsDifficulty As Label
+    Friend WithEvents txtBlockDetailsPow As TextBox
+    Friend WithEvents lblBlockDetailsPow As Label
+    Friend WithEvents txtBlockDetailsTimestamp As TextBox
+    Friend WithEvents lblBlockDetailsTimestamp As Label
+    Friend WithEvents txtBlockDetailsTransactions As TextBox
+    Friend WithEvents lblBlockDetailsTransactions As Label
+    Friend WithEvents txtBlockDetailsSize As TextBox
+    Friend WithEvents lblBlockDetailsSize As Label
 End Class

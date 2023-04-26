@@ -212,11 +212,19 @@ Public Class Form1
             Consensus = Client.Consensus()
             Running = True
             txtStatus.Text = "running"
+            txtStatus.BackColor = Color.PaleGreen
             txtConsensus.Text = Consensus
+            If Consensus = "established" Then
+                txtConsensus.BackColor = Color.PaleGreen
+            Else
+                txtConsensus.BackColor = Color.Khaki
+            End If
         Catch
             Running = False
             txtStatus.Text = "stopped"
+            txtStatus.BackColor = Color.LightSalmon
             txtConsensus.Text = ""
+            txtConsensus.BackColor = Color.LightSalmon
         End Try
 
         'Update the image colour, icon colour and icon text
@@ -595,7 +603,13 @@ Public Class Form1
         txtBlockDetailsExtraData.Text = ""
         txtBlockDetailsNonce.Text = ""
         txtBlockDetailsAccountsHash.Text = ""
-
+        txtBlockDetailsBodyHash.Text = ""
+        txtBlockDetailsConfirmations.Text = ""
+        txtBlockDetailsDifficulty.Text = ""
+        txtBlockDetailsPow.Text = ""
+        txtBlockDetailsSize.Text = ""
+        txtBlockDetailsTimestamp.Text = ""
+        txtBlockDetailsTransactions.Text = ""
 
         'Check for valid search parameters and do search
         If Validate_BlockNumber(txtBlock_Number.Text) Then
@@ -623,6 +637,13 @@ Public Class Form1
             txtBlockDetailsExtraData.Text = Block.ExtraData
             txtBlockDetailsNonce.Text = Block.Nonce
             txtBlockDetailsAccountsHash.Text = Block.AccountsHash
+            txtBlockDetailsBodyHash.Text = Block.BodyHash
+            txtBlockDetailsConfirmations.Text = Block.Confirmations
+            txtBlockDetailsDifficulty.Text = Block.Difficulty
+            txtBlockDetailsPow.Text = Block.Pow
+            txtBlockDetailsSize.Text = Block.Size
+            txtBlockDetailsTimestamp.Text = DateTimeOffset.FromUnixTimeSeconds(Block.Timestamp).UtcDateTime
+            txtBlockDetailsTransactions.Text = Client.GetBlockTransactionCountByNumber(Block.Number)
 
         End If
 
@@ -666,5 +687,11 @@ Public Class Form1
         Return Valid
 
     End Function
+
+    Private Sub btnDownloadNimiqCore_Click(sender As Object, e As EventArgs) Handles btnDownloadNimiqCore.Click
+
+        Process.Start(My.Settings.DownloadCore)
+
+    End Sub
 
 End Class

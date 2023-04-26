@@ -137,6 +137,15 @@ Namespace My
                 Me("LoggingLevel") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("https://repo.nimiq.com/win/x64/")>  _
+        Public ReadOnly Property DownloadCore() As String
+            Get
+                Return CType(Me("DownloadCore"),String)
+            End Get
+        End Property
     End Class
 End Namespace
 
