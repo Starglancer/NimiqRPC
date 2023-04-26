@@ -36,6 +36,8 @@ Partial Class Form1
         Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.TabControl = New System.Windows.Forms.TabControl()
         Me.tabStatus = New System.Windows.Forms.TabPage()
@@ -136,6 +138,27 @@ Partial Class Form1
         Me.txtThreads = New System.Windows.Forms.TextBox()
         Me.tbrThreads = New System.Windows.Forms.TrackBar()
         Me.chkMiner = New System.Windows.Forms.CheckBox()
+        Me.tabTransactionList = New System.Windows.Forms.TabPage()
+        Me.gbxTransactions = New System.Windows.Forms.GroupBox()
+        Me.grdTransactions = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.gbxAccountDetails = New System.Windows.Forms.GroupBox()
+        Me.txtBalance = New System.Windows.Forms.TextBox()
+        Me.lblBalance = New System.Windows.Forms.Label()
+        Me.txtAccountID = New System.Windows.Forms.TextBox()
+        Me.lblAccountID = New System.Windows.Forms.Label()
+        Me.txtAccountType = New System.Windows.Forms.TextBox()
+        Me.lblAccountType = New System.Windows.Forms.Label()
+        Me.gbxAccountSearch = New System.Windows.Forms.GroupBox()
+        Me.txtAccountAddress = New System.Windows.Forms.TextBox()
+        Me.lblAccountAddress = New System.Windows.Forms.Label()
+        Me.btnTransactionSearch = New System.Windows.Forms.Button()
         Me.tabSettings = New System.Windows.Forms.TabPage()
         Me.gbxLogging = New System.Windows.Forms.GroupBox()
         Me.cmbLoggingLevel = New System.Windows.Forms.ComboBox()
@@ -159,6 +182,8 @@ Partial Class Form1
         Me.NotifyIcon = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.NotifyMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuExit = New System.Windows.Forms.ToolStripMenuItem()
+        Me.lblBlockNumberSearch = New System.Windows.Forms.Label()
+        Me.txtBlockNumberSearch = New System.Windows.Forms.TextBox()
         Me.TabControl.SuspendLayout()
         Me.tabStatus.SuspendLayout()
         CType(Me.pbxStatus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -180,6 +205,11 @@ Partial Class Form1
         Me.gbxMiner.SuspendLayout()
         CType(Me.chtHashRate, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbrThreads, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tabTransactionList.SuspendLayout()
+        Me.gbxTransactions.SuspendLayout()
+        CType(Me.grdTransactions, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.gbxAccountDetails.SuspendLayout()
+        Me.gbxAccountSearch.SuspendLayout()
         Me.tabSettings.SuspendLayout()
         Me.gbxLogging.SuspendLayout()
         Me.gbxPool.SuspendLayout()
@@ -196,6 +226,7 @@ Partial Class Form1
         Me.TabControl.Controls.Add(Me.tabPeerCount)
         Me.TabControl.Controls.Add(Me.tabPeerList)
         Me.TabControl.Controls.Add(Me.tabMining)
+        Me.TabControl.Controls.Add(Me.tabTransactionList)
         Me.TabControl.Controls.Add(Me.tabSettings)
         Me.TabControl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControl.Location = New System.Drawing.Point(0, 0)
@@ -823,9 +854,9 @@ Partial Class Form1
         '
         'btnBlockSearch
         '
-        Me.btnBlockSearch.Location = New System.Drawing.Point(683, 22)
+        Me.btnBlockSearch.Location = New System.Drawing.Point(683, 24)
         Me.btnBlockSearch.Name = "btnBlockSearch"
-        Me.btnBlockSearch.Size = New System.Drawing.Size(62, 23)
+        Me.btnBlockSearch.Size = New System.Drawing.Size(62, 21)
         Me.btnBlockSearch.TabIndex = 0
         Me.btnBlockSearch.Text = "Search"
         Me.btnBlockSearch.UseVisualStyleBackColor = True
@@ -1254,6 +1285,221 @@ Partial Class Form1
         Me.chkMiner.Text = "Miner Enabled"
         Me.chkMiner.UseVisualStyleBackColor = True
         '
+        'tabTransactionList
+        '
+        Me.tabTransactionList.Controls.Add(Me.gbxTransactions)
+        Me.tabTransactionList.Controls.Add(Me.gbxAccountDetails)
+        Me.tabTransactionList.Controls.Add(Me.gbxAccountSearch)
+        Me.tabTransactionList.Location = New System.Drawing.Point(4, 22)
+        Me.tabTransactionList.Name = "tabTransactionList"
+        Me.tabTransactionList.Size = New System.Drawing.Size(792, 424)
+        Me.tabTransactionList.TabIndex = 9
+        Me.tabTransactionList.Text = "Transaction List"
+        Me.tabTransactionList.UseVisualStyleBackColor = True
+        '
+        'gbxTransactions
+        '
+        Me.gbxTransactions.Controls.Add(Me.grdTransactions)
+        Me.gbxTransactions.Location = New System.Drawing.Point(14, 144)
+        Me.gbxTransactions.Name = "gbxTransactions"
+        Me.gbxTransactions.Size = New System.Drawing.Size(764, 270)
+        Me.gbxTransactions.TabIndex = 4
+        Me.gbxTransactions.TabStop = False
+        Me.gbxTransactions.Text = "Transactions"
+        '
+        'grdTransactions
+        '
+        Me.grdTransactions.AllowUserToAddRows = False
+        Me.grdTransactions.AllowUserToDeleteRows = False
+        Me.grdTransactions.AllowUserToResizeColumns = False
+        Me.grdTransactions.AllowUserToResizeRows = False
+        Me.grdTransactions.BackgroundColor = System.Drawing.Color.White
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdTransactions.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        Me.grdTransactions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.grdTransactions.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6, Me.DataGridViewTextBoxColumn7, Me.DataGridViewTextBoxColumn8, Me.Column3})
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.grdTransactions.DefaultCellStyle = DataGridViewCellStyle6
+        Me.grdTransactions.GridColor = System.Drawing.Color.White
+        Me.grdTransactions.Location = New System.Drawing.Point(6, 19)
+        Me.grdTransactions.Name = "grdTransactions"
+        Me.grdTransactions.ReadOnly = True
+        Me.grdTransactions.RowHeadersVisible = False
+        Me.grdTransactions.Size = New System.Drawing.Size(752, 245)
+        Me.grdTransactions.TabIndex = 1
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.HeaderText = "UTC Time"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        Me.DataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.HeaderText = "From"
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        Me.DataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'DataGridViewTextBoxColumn5
+        '
+        Me.DataGridViewTextBoxColumn5.HeaderText = "To"
+        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
+        Me.DataGridViewTextBoxColumn5.ReadOnly = True
+        Me.DataGridViewTextBoxColumn5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'DataGridViewTextBoxColumn6
+        '
+        Me.DataGridViewTextBoxColumn6.HeaderText = "Value"
+        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
+        Me.DataGridViewTextBoxColumn6.ReadOnly = True
+        Me.DataGridViewTextBoxColumn6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        '
+        'DataGridViewTextBoxColumn7
+        '
+        Me.DataGridViewTextBoxColumn7.HeaderText = "Fee"
+        Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
+        Me.DataGridViewTextBoxColumn7.ReadOnly = True
+        Me.DataGridViewTextBoxColumn7.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        '
+        'DataGridViewTextBoxColumn8
+        '
+        Me.DataGridViewTextBoxColumn8.HeaderText = "Confirmations"
+        Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
+        Me.DataGridViewTextBoxColumn8.ReadOnly = True
+        Me.DataGridViewTextBoxColumn8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        '
+        'Column3
+        '
+        Me.Column3.HeaderText = "Block"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
+        '
+        'gbxAccountDetails
+        '
+        Me.gbxAccountDetails.Controls.Add(Me.txtBalance)
+        Me.gbxAccountDetails.Controls.Add(Me.lblBalance)
+        Me.gbxAccountDetails.Controls.Add(Me.txtAccountID)
+        Me.gbxAccountDetails.Controls.Add(Me.lblAccountID)
+        Me.gbxAccountDetails.Controls.Add(Me.txtAccountType)
+        Me.gbxAccountDetails.Controls.Add(Me.lblAccountType)
+        Me.gbxAccountDetails.Location = New System.Drawing.Point(14, 79)
+        Me.gbxAccountDetails.Name = "gbxAccountDetails"
+        Me.gbxAccountDetails.Size = New System.Drawing.Size(764, 57)
+        Me.gbxAccountDetails.TabIndex = 3
+        Me.gbxAccountDetails.TabStop = False
+        Me.gbxAccountDetails.Text = "Account Details"
+        '
+        'txtBalance
+        '
+        Me.txtBalance.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBalance.Location = New System.Drawing.Point(104, 25)
+        Me.txtBalance.Name = "txtBalance"
+        Me.txtBalance.ReadOnly = True
+        Me.txtBalance.Size = New System.Drawing.Size(132, 20)
+        Me.txtBalance.TabIndex = 21
+        Me.txtBalance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblBalance
+        '
+        Me.lblBalance.AutoSize = True
+        Me.lblBalance.Location = New System.Drawing.Point(52, 29)
+        Me.lblBalance.Name = "lblBalance"
+        Me.lblBalance.Size = New System.Drawing.Size(46, 13)
+        Me.lblBalance.TabIndex = 20
+        Me.lblBalance.Text = "Balance"
+        '
+        'txtAccountID
+        '
+        Me.txtAccountID.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtAccountID.Location = New System.Drawing.Point(458, 26)
+        Me.txtAccountID.Name = "txtAccountID"
+        Me.txtAccountID.ReadOnly = True
+        Me.txtAccountID.Size = New System.Drawing.Size(282, 20)
+        Me.txtAccountID.TabIndex = 19
+        Me.txtAccountID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblAccountID
+        '
+        Me.lblAccountID.AutoSize = True
+        Me.lblAccountID.Location = New System.Drawing.Point(434, 30)
+        Me.lblAccountID.Name = "lblAccountID"
+        Me.lblAccountID.Size = New System.Drawing.Size(18, 13)
+        Me.lblAccountID.TabIndex = 18
+        Me.lblAccountID.Text = "ID"
+        '
+        'txtAccountType
+        '
+        Me.txtAccountType.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtAccountType.Location = New System.Drawing.Point(296, 26)
+        Me.txtAccountType.Name = "txtAccountType"
+        Me.txtAccountType.ReadOnly = True
+        Me.txtAccountType.Size = New System.Drawing.Size(100, 20)
+        Me.txtAccountType.TabIndex = 1
+        Me.txtAccountType.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblAccountType
+        '
+        Me.lblAccountType.AutoSize = True
+        Me.lblAccountType.Location = New System.Drawing.Point(259, 29)
+        Me.lblAccountType.Name = "lblAccountType"
+        Me.lblAccountType.Size = New System.Drawing.Size(31, 13)
+        Me.lblAccountType.TabIndex = 0
+        Me.lblAccountType.Text = "Type"
+        '
+        'gbxAccountSearch
+        '
+        Me.gbxAccountSearch.Controls.Add(Me.txtBlockNumberSearch)
+        Me.gbxAccountSearch.Controls.Add(Me.lblBlockNumberSearch)
+        Me.gbxAccountSearch.Controls.Add(Me.txtAccountAddress)
+        Me.gbxAccountSearch.Controls.Add(Me.lblAccountAddress)
+        Me.gbxAccountSearch.Controls.Add(Me.btnTransactionSearch)
+        Me.gbxAccountSearch.Location = New System.Drawing.Point(14, 15)
+        Me.gbxAccountSearch.Name = "gbxAccountSearch"
+        Me.gbxAccountSearch.Size = New System.Drawing.Size(764, 58)
+        Me.gbxAccountSearch.TabIndex = 2
+        Me.gbxAccountSearch.TabStop = False
+        Me.gbxAccountSearch.Text = "Search"
+        '
+        'txtAccountAddress
+        '
+        Me.txtAccountAddress.Location = New System.Drawing.Point(127, 21)
+        Me.txtAccountAddress.Name = "txtAccountAddress"
+        Me.txtAccountAddress.Size = New System.Drawing.Size(312, 20)
+        Me.txtAccountAddress.TabIndex = 3
+        Me.txtAccountAddress.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblAccountAddress
+        '
+        Me.lblAccountAddress.AutoSize = True
+        Me.lblAccountAddress.Location = New System.Drawing.Point(33, 24)
+        Me.lblAccountAddress.Name = "lblAccountAddress"
+        Me.lblAccountAddress.Size = New System.Drawing.Size(88, 13)
+        Me.lblAccountAddress.TabIndex = 1
+        Me.lblAccountAddress.Text = "Account Address"
+        '
+        'btnTransactionSearch
+        '
+        Me.btnTransactionSearch.Location = New System.Drawing.Point(678, 21)
+        Me.btnTransactionSearch.Name = "btnTransactionSearch"
+        Me.btnTransactionSearch.Size = New System.Drawing.Size(62, 20)
+        Me.btnTransactionSearch.TabIndex = 0
+        Me.btnTransactionSearch.Text = "Search"
+        Me.btnTransactionSearch.UseVisualStyleBackColor = True
+        '
         'tabSettings
         '
         Me.tabSettings.Controls.Add(Me.gbxLogging)
@@ -1459,6 +1705,22 @@ Partial Class Form1
         Me.mnuExit.Size = New System.Drawing.Size(93, 22)
         Me.mnuExit.Text = "Exit"
         '
+        'lblBlockNumberSearch
+        '
+        Me.lblBlockNumberSearch.AutoSize = True
+        Me.lblBlockNumberSearch.Location = New System.Drawing.Point(469, 26)
+        Me.lblBlockNumberSearch.Name = "lblBlockNumberSearch"
+        Me.lblBlockNumberSearch.Size = New System.Drawing.Size(74, 13)
+        Me.lblBlockNumberSearch.TabIndex = 4
+        Me.lblBlockNumberSearch.Text = "Block Number"
+        '
+        'txtBlockNumberSearch
+        '
+        Me.txtBlockNumberSearch.Location = New System.Drawing.Point(549, 23)
+        Me.txtBlockNumberSearch.Name = "txtBlockNumberSearch"
+        Me.txtBlockNumberSearch.Size = New System.Drawing.Size(113, 20)
+        Me.txtBlockNumberSearch.TabIndex = 5
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1501,6 +1763,13 @@ Partial Class Form1
         Me.gbxMiner.PerformLayout()
         CType(Me.chtHashRate, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbrThreads, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tabTransactionList.ResumeLayout(False)
+        Me.gbxTransactions.ResumeLayout(False)
+        CType(Me.grdTransactions, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.gbxAccountDetails.ResumeLayout(False)
+        Me.gbxAccountDetails.PerformLayout()
+        Me.gbxAccountSearch.ResumeLayout(False)
+        Me.gbxAccountSearch.PerformLayout()
         Me.tabSettings.ResumeLayout(False)
         Me.gbxLogging.ResumeLayout(False)
         Me.gbxLogging.PerformLayout()
@@ -1635,4 +1904,27 @@ Partial Class Form1
     Friend WithEvents lblBlockDetailsTransactions As Label
     Friend WithEvents txtBlockDetailsSize As TextBox
     Friend WithEvents lblBlockDetailsSize As Label
+    Friend WithEvents tabTransactionList As TabPage
+    Friend WithEvents gbxAccountDetails As GroupBox
+    Friend WithEvents txtBalance As TextBox
+    Friend WithEvents lblBalance As Label
+    Friend WithEvents txtAccountID As TextBox
+    Friend WithEvents lblAccountID As Label
+    Friend WithEvents txtAccountType As TextBox
+    Friend WithEvents lblAccountType As Label
+    Friend WithEvents gbxAccountSearch As GroupBox
+    Friend WithEvents txtAccountAddress As TextBox
+    Friend WithEvents lblAccountAddress As Label
+    Friend WithEvents btnTransactionSearch As Button
+    Friend WithEvents gbxTransactions As GroupBox
+    Friend WithEvents grdTransactions As DataGridView
+    Friend WithEvents DataGridViewTextBoxColumn3 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn4 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn5 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn6 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn7 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn8 As DataGridViewTextBoxColumn
+    Friend WithEvents Column3 As DataGridViewTextBoxColumn
+    Friend WithEvents txtBlockNumberSearch As TextBox
+    Friend WithEvents lblBlockNumberSearch As Label
 End Class

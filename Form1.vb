@@ -694,4 +694,19 @@ Public Class Form1
 
     End Sub
 
+    Private Sub btnTransactionSearch_Click(sender As Object, e As EventArgs) Handles btnTransactionSearch.Click
+
+        Dim Account As Models.Account
+        Dim Transaction() As Models.Transaction
+
+        'Account = Client.GetAccount("NQ38 L178 KX6V XDCT 0SJQ KRVA 2N8P S6U6 3ECU")
+
+        'abel1.Text = Account.
+
+        Transaction = Client.GetTransactionsByAddress("NQ38 L178 KX6V XDCT 0SJQ KRVA 2N8P S6U6 3ECU")
+
+        'Label1.Text = Transaction(0).
+
+    End Sub
+
 End Class
