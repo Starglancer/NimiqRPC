@@ -593,6 +593,12 @@ Public Class Form1
 
     Private Sub btnBlockSearch_Click(sender As Object, e As EventArgs) Handles btnBlockSearch.Click
 
+        Block_Search()
+
+    End Sub
+
+    Private Sub Block_Search()
+
         Dim Block As Models.Block
 
         'Clear all search results
@@ -651,6 +657,12 @@ Public Class Form1
     End Sub
 
     Private Sub btnTransactionSearch_Click(sender As Object, e As EventArgs) Handles btnTransactionSearch.Click
+
+        Transaction_Search()
+
+    End Sub
+
+    Private Sub Transaction_Search()
 
         Dim Account As Models.Account
         Dim TransactionCount As Integer
@@ -772,6 +784,65 @@ Public Class Form1
     Private Sub btnDownloadNimiqCore_Click(sender As Object, e As EventArgs) Handles btnDownloadNimiqCore.Click
 
         Process.Start(My.Settings.DownloadCore)
+
+    End Sub
+
+    Private Sub txtMiningAddress_MouseClick(sender As Object, e As MouseEventArgs) Handles txtMiningAddress.MouseClick
+
+        txtAccountAddress.Text = txtMiningAddress.Text
+        txtBlockNumberSearch.Text = ""
+        Transaction_Search()
+        TabControl.SelectedTab = tabTransactionList
+
+    End Sub
+
+    Private Sub grdBlocks_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdBlocks.CellClick
+
+        If e.ColumnIndex = 0 Then 'Block Number
+            txtBlock_Number.Text = grdBlocks.Rows(e.RowIndex).Cells(0).Value
+            txtBlock_Hash.Text = ""
+            Block_Search()
+            TabControl.SelectedTab = tabBlockDetail
+        ElseIf e.ColumnIndex = 1 Then 'Transactions
+            txtBlockNumberSearch.Text = grdBlocks.Rows(e.RowIndex).Cells(0).Value
+            txtAccountAddress.Text = ""
+            Transaction_Search()
+            TabControl.SelectedTab = tabTransactionList
+        ElseIf e.ColumnIndex = 4 Then 'Miner Address
+            txtBlockNumberSearch.Text = ""
+            txtAccountAddress.Text = grdBlocks.Rows(e.RowIndex).Cells(4).Value
+            Transaction_Search()
+            TabControl.SelectedTab = tabTransactionList
+        Else
+            'Do nothing
+        End If
+
+    End Sub
+
+    Private Sub txtBlocknumber_MouseClick(sender As Object, e As MouseEventArgs) Handles txtBlocknumber.MouseClick
+
+        txtBlock_Number.Text = txtBlocknumber.Text
+        txtBlock_Hash.Text = ""
+        Block_Search()
+        TabControl.SelectedTab = tabBlockDetail
+
+    End Sub
+
+    Private Sub txtBlockDetailsTransactions_MouseClick(sender As Object, e As MouseEventArgs) Handles txtBlockDetailsTransactions.MouseClick
+
+        txtBlockNumberSearch.Text = txtBlockDetailsNumber.Text
+        txtAccountAddress.Text = ""
+        Transaction_Search()
+        TabControl.SelectedTab = tabTransactionList
+
+    End Sub
+
+    Private Sub txtBlockDetailsMinerAddress_MouseClick(sender As Object, e As MouseEventArgs) Handles txtBlockDetailsMinerAddress.MouseClick
+
+        txtBlockNumberSearch.Text = ""
+        txtAccountAddress.Text = txtBlockDetailsMinerAddress.Text
+        Transaction_Search()
+        TabControl.SelectedTab = tabTransactionList
 
     End Sub
 
