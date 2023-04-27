@@ -18,6 +18,11 @@ Public Class Form1
     Dim UserUpdate As Boolean
     Dim PoolList As String
     Dim BlockNumber As Integer
+    Dim PeerCount As Integer
+    Dim Peers() As Models.Peer
+    Dim Threads As Integer
+    Dim PoolBalance As Double
+    Dim Hashrate As Integer
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -248,7 +253,11 @@ Public Class Form1
     Private Sub Update_Block_Number()
 
         'Get current block number
-        BlockNumber = Client.BlockNumber
+        Try
+            BlockNumber = Client.BlockNumber
+        Catch
+            'Do nothing. Block number stays the same as last check
+        End Try
 
         'Display current blocknumber
         txtBlocknumber.Text = BlockNumber
@@ -286,27 +295,35 @@ Public Class Form1
 
         For N As Integer = BlockNumber To BlockNumber - 50 Step -1
 
-            Block = Client.GetBlockByNumber(N)
+            Try
+                Block = Client.GetBlockByNumber(N)
 
-            'Add block data to grid
-            grdBlocks.Rows.Add()
-            grdBlocks.Rows(Row).Cells(0).Value = N
-            grdBlocks.Rows(Row).Cells(1).Value = Client.GetBlockTransactionCountByNumber(N)
-            grdBlocks.Rows(Row).Cells(2).Value = Block.Size
-            grdBlocks.Rows(Row).Cells(3).Value = DateTimeOffset.FromUnixTimeSeconds(Block.Timestamp).LocalDateTime
-            grdBlocks.Rows(Row).Cells(4).Value = Block.MinerAddress
+                'Add block data to grid
+                grdBlocks.Rows.Add()
+                grdBlocks.Rows(Row).Cells(0).Value = N
+                grdBlocks.Rows(Row).Cells(1).Value = Client.GetBlockTransactionCountByNumber(N)
+                grdBlocks.Rows(Row).Cells(2).Value = Block.Size
+                grdBlocks.Rows(Row).Cells(3).Value = DateTimeOffset.FromUnixTimeSeconds(Block.Timestamp).LocalDateTime
+                grdBlocks.Rows(Row).Cells(4).Value = Block.MinerAddress
 
-            Row += 1
+                Row += 1
+
+            Catch
+                'If a call fails, just skip that line from the block list until the next update
+            End Try
+
         Next
 
     End Sub
 
     Private Sub Update_Peer_Count()
 
-        Dim PeerCount As Integer
-
         'Get current peer count
-        PeerCount = Client.PeerCount
+        Try
+            PeerCount = Client.PeerCount
+        Catch
+            'Do nothing. Peer count stays the same as the last check
+        End Try
 
         'Display current peer count
         txtTotalPeers.Text = PeerCount
@@ -335,12 +352,15 @@ Public Class Form1
 
     Private Sub Update_Peer_List()
 
-        Dim Peers() As Models.Peer
         Dim Address() As String
         Dim Include As Boolean
         Dim Row As Integer
 
-        Peers = Client.PeerList()
+        Try
+            Peers = Client.PeerList()
+        Catch
+            'Do nothing. If call fails, the peers list remains the same as the last successful call
+        End Try
 
         grdPeers.Rows.Clear()
         Row = 0
@@ -399,17 +419,20 @@ Public Class Form1
 
     Private Sub Update_Mining()
 
-        Dim Hashrate As Integer
-        Dim PoolBalance As Double
-        Dim Threads As Integer
-
         'Display mining enabled
         UserUpdate = False
-        chkMiner.Checked = Client.IsMining
+        Try
+            chkMiner.Checked = Client.IsMining
+        Catch
+        End Try
         UserUpdate = True
 
         'Display threads
-        Threads = Client.MinerThreads
+        Try
+            Threads = Client.MinerThreads
+        Catch
+            'Do nothing. If call fails, the threads remains the same as the last successful call
+        End Try
         UserUpdate = False
         txtThreads.Text = Threads
         tbrThreads.Value = Threads
@@ -417,26 +440,43 @@ Public Class Form1
 
         'Display mining address
         UserUpdate = False
-        txtMiningAddress.Text = Client.MinerAddress.ToString
+        Try
+            txtMiningAddress.Text = Client.MinerAddress.ToString
+        Catch
+        End Try
         UserUpdate = True
 
         'Display Pool
         UserUpdate = False
-        cmbPool.Text = Client.Pool.ToString
+        Try
+            cmbPool.Text = Client.Pool.ToString
+        Catch
+        End Try
         UserUpdate = True
 
         'Populate pool dropdown
         Populate_Pool_Dropdown()
 
         'Display pool connection
-        txtPoolConnection.Text = Client.PoolConnectionState.ToString
+        Try
+            txtPoolConnection.Text = Client.PoolConnectionState.ToString
+        Catch
+        End Try
 
         'Display pool balance
-        PoolBalance = Client.PoolConfirmedBalance / 100000
+        Try
+            PoolBalance = Client.PoolConfirmedBalance / 100000
+        Catch
+            'Do nothing. If it fails use last poolbalance
+        End Try
         txtPoolBalance.Text = PoolBalance.ToString
 
         'Get current hash rate
-        Hashrate = Client.Hashrate
+        Try
+            Hashrate = Client.Hashrate
+        Catch
+            'Do nothing. If it fails use last hashrate
+        End Try
 
         'Display current hash rate
         txtHashRate.Text = Hashrate
