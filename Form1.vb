@@ -26,148 +26,178 @@ Public Class Form1
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        'Load Persistent Variables
-        txtPoolList.Text = My.Settings.PoolList
-        txtScheme.Text = My.Settings.Scheme
-        txtHost.Text = My.Settings.Host
-        txtPort.Text = My.Settings.Port
-        txtUser.Text = My.Settings.User
-        txtPassword.Text = My.Settings.Password
+        Try
+            'Load Persistent Variables
+            txtPoolList.Text = My.Settings.PoolList
+            txtScheme.Text = My.Settings.Scheme
+            txtHost.Text = My.Settings.Host
+            txtPort.Text = My.Settings.Port
+            txtUser.Text = My.Settings.User
+            txtPassword.Text = My.Settings.Password
 
-        'Populate default peer list dropdown options
-        cmbType.Text = "--all--"
-        cmbConnection.Text = "established"
-        cmbColumn.Text = "bytes recieved"
-        cmbDirection.Text = "descending"
+            'Populate default peer list dropdown options
+            cmbType.Text = "--all--"
+            cmbConnection.Text = "established"
+            cmbColumn.Text = "bytes recieved"
+            cmbDirection.Text = "descending"
 
-        'Populate pool dropdown
-        Populate_Pool_Dropdown()
+            'Populate pool dropdown
+            Populate_Pool_Dropdown()
 
-        'Set constants
-        TrendDurationMinutes = 60
-        UpdateIntervalSeconds = 10
+            'Set constants
+            TrendDurationMinutes = 60
+            UpdateIntervalSeconds = 10
 
-        'Initialise Data Capture
-        DataPointer = 0
-        MaxDataPointer = Convert.ToInt32(TrendDurationMinutes * 60 / UpdateIntervalSeconds)
-        ReDim DataArray(MaxDataPointer + 1, 3)
+            'Initialise Data Capture
+            DataPointer = 0
+            MaxDataPointer = Convert.ToInt32(TrendDurationMinutes * 60 / UpdateIntervalSeconds)
+            ReDim DataArray(MaxDataPointer + 1, 3)
 
-        'Configure client
-        Configure_Client()
+            'Configure client
+            Configure_Client()
 
-        'Set logging level
-        cmbLoggingLevel.Text = My.Settings.LoggingLevel
-        If cmbLoggingLevel.Text = "" Then cmbLoggingLevel.Text = "info"
+            'Set logging level
+            cmbLoggingLevel.Text = My.Settings.LoggingLevel
+            If cmbLoggingLevel.Text = "" Then cmbLoggingLevel.Text = "info"
 
-        'Set thread parameters
-        tbrThreads.Minimum = 1
-        tbrThreads.Maximum = Environment.ProcessorCount
+            'Set thread parameters
+            tbrThreads.Minimum = 1
+            tbrThreads.Maximum = Environment.ProcessorCount
 
-        'Configure Block Number Chart
-        Configure_Block_Number_Chart()
+            'Configure Block Number Chart
+            Configure_Block_Number_Chart()
 
-        'Configure Peer Count Chart
-        Configure_Peer_Count_Chart()
+            'Configure Peer Count Chart
+            Configure_Peer_Count_Chart()
 
-        'Configure hashrate chart
-        Configure_Hashrate_Chart()
+            'Configure hashrate chart
+            Configure_Hashrate_Chart()
 
-        'Initial data update
-        Update_Data()
+            'Initial data update
+            Update_Data()
 
-        'Initiate data timer
-        timUpdateData.Interval = UpdateIntervalSeconds * 1000
-        timUpdateData.Enabled = True
+            'Initiate data timer
+            timUpdateData.Interval = UpdateIntervalSeconds * 1000
+            timUpdateData.Enabled = True
 
-        'Centre Form on screen
-        Me.CenterToScreen()
+            'Centre Form on screen
+            Me.CenterToScreen()
 
-        'Set default force close to false
-        ForceClose = False
+            'Set default force close to false
+            ForceClose = False
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub Configure_Client()
 
-        'If required fields are blank, set to default
-        If txtScheme.Text = "" Then txtScheme.Text = "http"
-        If txtHost.Text = "" Then txtHost.Text = "localhost"
-        If txtPort.Text = "" Then txtPort.Text = "8648"
+        Try
+            'If required fields are blank, set to default
+            If txtScheme.Text = "" Then txtScheme.Text = "http"
+            If txtHost.Text = "" Then txtHost.Text = "localhost"
+            If txtPort.Text = "" Then txtPort.Text = "8648"
 
-        'Set configuration
-        Cfg = New Config With {
-            .Scheme = txtScheme.Text,
-            .Host = txtHost.Text,
-            .Port = Convert.ToInt32(txtPort.Text),
-            .User = txtUser.Text,
-            .Password = txtPassword.Text
-        }
+            'Set configuration
+            Cfg = New Config With {
+                .Scheme = txtScheme.Text,
+                .Host = txtHost.Text,
+                .Port = Convert.ToInt32(txtPort.Text),
+                .User = txtUser.Text,
+                .Password = txtPassword.Text
+            }
 
-        'Create client
-        Client = New NimiqClient(Cfg)
+            'Create client
+            Client = New NimiqClient(Cfg)
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub Configure_Block_Number_Chart()
 
-        With chtBlocknumber.ChartAreas(0)
-            .AxisX.Title = "Time (minutes)"
-            .AxisX.MajorGrid.LineColor = Color.Gainsboro
-            .AxisX.Minimum = 0
-            .AxisY.Title = "Block Number"
-            .AxisY.MajorGrid.LineColor = Color.Gainsboro
-            .AxisY.IsStartedFromZero = False
-            .BackColor = Color.White
-            .BorderColor = Color.Black
-            .BorderDashStyle = ChartDashStyle.Solid
-            .BorderWidth = 1
-        End With
+        Try
+            With chtBlocknumber.ChartAreas(0)
+                .AxisX.Title = "Time (minutes)"
+                .AxisX.MajorGrid.LineColor = Color.Gainsboro
+                .AxisX.Minimum = 0
+                .AxisY.Title = "Block Number"
+                .AxisY.MajorGrid.LineColor = Color.Gainsboro
+                .AxisY.IsStartedFromZero = False
+                .BackColor = Color.White
+                .BorderColor = Color.Black
+                .BorderDashStyle = ChartDashStyle.Solid
+                .BorderWidth = 1
+            End With
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub Configure_Peer_Count_Chart()
 
-        With chtPeerCount.ChartAreas(0)
-            .AxisX.Title = "Time (minutes)"
-            .AxisX.MajorGrid.LineColor = Color.Gainsboro
-            .AxisX.Minimum = 0
-            .AxisY.Title = "Peer Count"
-            .AxisY.MajorGrid.LineColor = Color.Gainsboro
-            .AxisY.IsStartedFromZero = False
-            .BackColor = Color.White
-            .BorderColor = Color.Black
-            .BorderDashStyle = ChartDashStyle.Solid
-            .BorderWidth = 1
-        End With
+        Try
+            With chtPeerCount.ChartAreas(0)
+                .AxisX.Title = "Time (minutes)"
+                .AxisX.MajorGrid.LineColor = Color.Gainsboro
+                .AxisX.Minimum = 0
+                .AxisY.Title = "Peer Count"
+                .AxisY.MajorGrid.LineColor = Color.Gainsboro
+                .AxisY.IsStartedFromZero = False
+                .BackColor = Color.White
+                .BorderColor = Color.Black
+                .BorderDashStyle = ChartDashStyle.Solid
+                .BorderWidth = 1
+            End With
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub Configure_Hashrate_Chart()
 
-        With chtHashRate.ChartAreas(0)
-            .AxisX.Title = "Time (minutes)"
-            .AxisX.MajorGrid.LineColor = Color.Gainsboro
-            .AxisX.Minimum = 0
-            .AxisY.Title = "Hash Rate"
-            .AxisY.MajorGrid.LineColor = Color.Gainsboro
-            .AxisY.IsStartedFromZero = False
-            .BackColor = Color.White
-            .BorderColor = Color.Black
-            .BorderDashStyle = ChartDashStyle.Solid
-            .BorderWidth = 1
-        End With
+        Try
+            With chtHashRate.ChartAreas(0)
+                .AxisX.Title = "Time (minutes)"
+                .AxisX.MajorGrid.LineColor = Color.Gainsboro
+                .AxisX.Minimum = 0
+                .AxisY.Title = "Hash Rate"
+                .AxisY.MajorGrid.LineColor = Color.Gainsboro
+                .AxisY.IsStartedFromZero = False
+                .BackColor = Color.White
+                .BorderColor = Color.Black
+                .BorderDashStyle = ChartDashStyle.Solid
+                .BorderWidth = 1
+            End With
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub Populate_Pool_Dropdown()
 
-        Dim Pools() As String
+        Try
+            Dim Pools() As String
 
-        Pools = txtPoolList.Text.Split(New String() {Environment.NewLine}, StringSplitOptions.None)
-        cmbPool.Items.Clear()
-        For N As Integer = 0 To Pools.Length - 1
-            cmbPool.Items.Add(Pools(N))
-        Next
+            Pools = txtPoolList.Text.Split(New String() {Environment.NewLine}, StringSplitOptions.None)
+            cmbPool.Items.Clear()
+            For N As Integer = 0 To Pools.Length - 1
+                cmbPool.Items.Add(Pools(N))
+            Next
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
@@ -180,454 +210,548 @@ Public Class Form1
 
     Private Sub Update_Data()
 
-        Update_Status()
+        Try
+            Update_Status()
 
-        'Only update the rest if the client is running
-        If Running = True Then
+            'Only update the rest if the client is running
+            If Running = True Then
 
-            'Update individual tabs
-            Update_Block_Number()
-            Update_Block_List()
-            Update_Peer_Count()
-            Update_Peer_List()
-            Update_Mining()
+                'Update individual tabs
+                Update_Block_Number()
+                Update_Block_List()
+                Update_Peer_Count()
+                Update_Peer_List()
+                Update_Mining()
 
-            'Increment pointer
-            DataPointer += 1
+                'Increment pointer
+                DataPointer += 1
 
-            'Shift array contents once we reach maximum duration
-            If DataPointer > MaxDataPointer Then
-                DataPointer = MaxDataPointer
-                For N As Integer = 0 To MaxDataPointer - 1
-                    DataArray(N, 0) = DataArray(N + 1, 0)
-                    DataArray(N, 1) = DataArray(N + 1, 1)
-                    DataArray(N, 2) = DataArray(N + 1, 2)
-                Next
+                'Shift array contents once we reach maximum duration
+                If DataPointer > MaxDataPointer Then
+                    DataPointer = MaxDataPointer
+                    For N As Integer = 0 To MaxDataPointer - 1
+                        DataArray(N, 0) = DataArray(N + 1, 0)
+                        DataArray(N, 1) = DataArray(N + 1, 1)
+                        DataArray(N, 2) = DataArray(N + 1, 2)
+                    Next
+                End If
+
             End If
 
-        End If
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub Update_Status()
 
-        Dim Consensus As String = ""
-
-        'Update the status fields
         Try
-            Consensus = Client.Consensus()
-            Running = True
-            txtStatus.Text = "running"
-            txtStatus.BackColor = Color.PaleGreen
-            txtConsensus.Text = Consensus
-            If Consensus = "established" Then
-                txtConsensus.BackColor = Color.PaleGreen
-            Else
-                txtConsensus.BackColor = Color.Khaki
-            End If
-        Catch
-            Running = False
-            txtStatus.Text = "stopped"
-            txtStatus.BackColor = Color.LightSalmon
-            txtConsensus.Text = ""
-            txtConsensus.BackColor = Color.LightSalmon
-        End Try
+            Dim Consensus As String = ""
 
-        'Update the image colour, icon colour and icon text
-        If Running = False Then
-            pbxStatus.Image = My.Resources.Red
-            NotifyIcon.Icon = My.Resources.Red1
-            NotifyIcon.Text = "Nimiq Stopped"
-        ElseIf Consensus = "established" Then
-            pbxStatus.Image = My.Resources.Green
-            NotifyIcon.Icon = My.Resources.Green1
-            NotifyIcon.Text = "Nimiq Running"
-        Else
-            pbxStatus.Image = My.Resources.Amber
-            NotifyIcon.Icon = My.Resources.Nimiq
-            NotifyIcon.Text = "Nimiq Establishing Concensus"
-        End If
+            'Update the status fields
+            Try
+                Consensus = Client.Consensus()
+                Running = True
+                txtStatus.Text = "running"
+                txtStatus.BackColor = Color.PaleGreen
+                txtConsensus.Text = Consensus
+                If Consensus = "established" Then
+                    txtConsensus.BackColor = Color.PaleGreen
+                Else
+                    txtConsensus.BackColor = Color.Khaki
+                End If
+            Catch
+                Running = False
+                txtStatus.Text = "stopped"
+                txtStatus.BackColor = Color.LightSalmon
+                txtConsensus.Text = ""
+                txtConsensus.BackColor = Color.LightSalmon
+            End Try
+
+            'Update the image colour, icon colour and icon text
+            If Running = False Then
+                pbxStatus.Image = My.Resources.Red
+                NotifyIcon.Icon = My.Resources.Red1
+                NotifyIcon.Text = "Nimiq Stopped"
+            ElseIf Consensus = "established" Then
+                pbxStatus.Image = My.Resources.Green
+                NotifyIcon.Icon = My.Resources.Green1
+                NotifyIcon.Text = "Nimiq Running"
+            Else
+                pbxStatus.Image = My.Resources.Amber
+                NotifyIcon.Icon = My.Resources.Nimiq
+                NotifyIcon.Text = "Nimiq Establishing Concensus"
+            End If
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub Update_Block_Number()
 
-        'Get current block number
         Try
-            BlockNumber = Client.BlockNumber
-        Catch
-            'Do nothing. Block number stays the same as last check
+            'Get current block number
+            Try
+                BlockNumber = Client.BlockNumber
+            Catch
+                'Do nothing. Block number stays the same as last check
+            End Try
+
+            'Display current blocknumber
+            txtBlocknumber.Text = BlockNumber
+
+            'Store current blocknumber
+            DataArray(DataPointer, 0) = BlockNumber
+
+            'Display Graph
+            chtBlocknumber.Series.Clear()
+            chtBlocknumber.Series.Add("Block Number")
+
+            With chtBlocknumber.Series(0)
+                .IsVisibleInLegend = False
+                .ChartType = DataVisualization.Charting.SeriesChartType.Line
+                .BorderWidth = 3
+                .Color = Color.DarkGray
+                .BorderDashStyle = ChartDashStyle.Solid
+
+                For N As Integer = 0 To DataPointer
+                    .Points.AddXY(N * UpdateIntervalSeconds / 60, DataArray(N, 0))
+                Next
+
+            End With
+
+        Catch ex As Exception
+            Log_Error(ex)
         End Try
-
-        'Display current blocknumber
-        txtBlocknumber.Text = BlockNumber
-
-        'Store current blocknumber
-        DataArray(DataPointer, 0) = BlockNumber
-
-        'Display Graph
-        chtBlocknumber.Series.Clear()
-        chtBlocknumber.Series.Add("Block Number")
-
-        With chtBlocknumber.Series(0)
-            .IsVisibleInLegend = False
-            .ChartType = DataVisualization.Charting.SeriesChartType.Line
-            .BorderWidth = 3
-            .Color = Color.DarkGray
-            .BorderDashStyle = ChartDashStyle.Solid
-
-            For N As Integer = 0 To DataPointer
-                .Points.AddXY(N * UpdateIntervalSeconds / 60, DataArray(N, 0))
-            Next
-
-        End With
 
     End Sub
 
     Private Sub Update_Block_List()
 
-        Dim Block As Models.Block
-        Dim Row As Integer
+        Try
+            Dim Block As Models.Block
+            Dim Row As Integer
 
-        grdBlocks.Rows.Clear()
+            grdBlocks.Rows.Clear()
 
-        Row = 0
+            Row = 0
 
-        For N As Integer = BlockNumber To BlockNumber - 50 Step -1
+            For N As Integer = BlockNumber To BlockNumber - 50 Step -1
 
-            Try
-                Block = Client.GetBlockByNumber(N)
+                Try
+                    Block = Client.GetBlockByNumber(N)
 
-                'Add block data to grid
-                grdBlocks.Rows.Add()
-                grdBlocks.Rows(Row).Cells(0).Value = N
-                grdBlocks.Rows(Row).Cells(1).Value = Client.GetBlockTransactionCountByNumber(N)
-                grdBlocks.Rows(Row).Cells(2).Value = Block.Size
-                grdBlocks.Rows(Row).Cells(3).Value = DateTimeOffset.FromUnixTimeSeconds(Block.Timestamp).LocalDateTime
-                grdBlocks.Rows(Row).Cells(4).Value = Block.MinerAddress
+                    'Add block data to grid
+                    grdBlocks.Rows.Add()
+                    grdBlocks.Rows(Row).Cells(0).Value = N
+                    Try
+                        grdBlocks.Rows(Row).Cells(1).Value = Client.GetBlockTransactionCountByNumber(N)
+                    Catch
+                        grdBlocks.Rows(Row).Cells(1).Value = ""
+                    End Try
+                    grdBlocks.Rows(Row).Cells(2).Value = Block.Size
+                    grdBlocks.Rows(Row).Cells(3).Value = DateTimeOffset.FromUnixTimeSeconds(Block.Timestamp).LocalDateTime
+                    grdBlocks.Rows(Row).Cells(4).Value = Block.MinerAddress
 
-                Row += 1
+                    Row += 1
 
-            Catch
-                'If a call fails, just skip that line from the block list until the next update
-            End Try
+                Catch
+                    'If a call fails, just skip that line from the block list until the next update
+                End Try
 
-        Next
+            Next
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub Update_Peer_Count()
 
-        'Get current peer count
         Try
-            PeerCount = Client.PeerCount
-        Catch
-            'Do nothing. Peer count stays the same as the last check
+            'Get current peer count
+            Try
+                PeerCount = Client.PeerCount
+            Catch
+                'Do nothing. Peer count stays the same as the last check
+            End Try
+
+            'Display current peer count
+            txtTotalPeers.Text = PeerCount
+
+            'Store current peer count
+            DataArray(DataPointer, 1) = PeerCount
+
+            'Display Graph
+            chtPeerCount.Series.Clear()
+            chtPeerCount.Series.Add("Peer Count")
+
+            With chtPeerCount.Series(0)
+                .IsVisibleInLegend = False
+                .ChartType = DataVisualization.Charting.SeriesChartType.Line
+                .BorderWidth = 3
+                .Color = Color.DarkGray
+                .BorderDashStyle = ChartDashStyle.Solid
+
+                For N As Integer = 0 To DataPointer
+                    .Points.AddXY(N * UpdateIntervalSeconds / 60, DataArray(N, 1))
+                Next
+
+            End With
+
+        Catch ex As Exception
+            Log_Error(ex)
         End Try
-
-        'Display current peer count
-        txtTotalPeers.Text = PeerCount
-
-        'Store current peer count
-        DataArray(DataPointer, 1) = PeerCount
-
-        'Display Graph
-        chtPeerCount.Series.Clear()
-        chtPeerCount.Series.Add("Peer Count")
-
-        With chtPeerCount.Series(0)
-            .IsVisibleInLegend = False
-            .ChartType = DataVisualization.Charting.SeriesChartType.Line
-            .BorderWidth = 3
-            .Color = Color.DarkGray
-            .BorderDashStyle = ChartDashStyle.Solid
-
-            For N As Integer = 0 To DataPointer
-                .Points.AddXY(N * UpdateIntervalSeconds / 60, DataArray(N, 1))
-            Next
-
-        End With
 
     End Sub
 
     Private Sub Update_Peer_List()
 
-        Dim Address() As String
-        Dim Include As Boolean
-        Dim Row As Integer
-
         Try
-            Peers = Client.PeerList()
-        Catch
-            'Do nothing. If call fails, the peers list remains the same as the last successful call
+            Dim Address() As String
+            Dim Include As Boolean
+            Dim Row As Integer
+
+            Try
+                Peers = Client.PeerList()
+            Catch
+                'Do nothing. If call fails, the peers list remains the same as the last successful call
+            End Try
+
+            grdPeers.Rows.Clear()
+            Row = 0
+
+            For N As Integer = 0 To Peers.Count - 1
+                'Get Type
+                Address = Peers(N).Address.Split(New Char() {":"c})
+
+                'Filter
+                Include = True
+                If cmbType.Text <> "--all--" And cmbType.Text <> Address(0) Then Include = False
+                If cmbConnection.Text <> "--all--" And cmbConnection.Text <> Peers(N).AddressState.ToString Then Include = False
+
+                'Add Peer data to grid
+                If Include = True Then
+                    grdPeers.Rows.Add()
+                    grdPeers.Rows(Row).Cells(0).Value = Peers(N).Address
+                    grdPeers.Rows(Row).Cells(1).Value = Address(0)
+                    grdPeers.Rows(Row).Cells(2).Value = Peers(N).AddressState.ToString
+                    grdPeers.Rows(Row).Cells(3).Value = Peers(N).Rx
+                    grdPeers.Rows(Row).Cells(4).Value = Peers(N).Tx
+                    grdPeers.Rows(Row).Cells(5).Value = Peers(N).Latency
+
+                    Row += 1
+
+                End If
+
+            Next
+
+            'Sort Grid
+            Select Case cmbColumn.Text
+                Case "bytes recieved"
+                    If cmbDirection.Text = "ascending" Then
+                        grdPeers.Sort(grdPeers.Columns(3), System.ComponentModel.ListSortDirection.Ascending)
+                    Else
+                        grdPeers.Sort(grdPeers.Columns(3), System.ComponentModel.ListSortDirection.Descending)
+                    End If
+                Case "bytes sent"
+                    If cmbDirection.Text = "ascending" Then
+                        grdPeers.Sort(grdPeers.Columns(4), System.ComponentModel.ListSortDirection.Ascending)
+                    Else
+                        grdPeers.Sort(grdPeers.Columns(4), System.ComponentModel.ListSortDirection.Descending)
+                    End If
+                Case "latency"
+                    If cmbDirection.Text = "ascending" Then
+                        grdPeers.Sort(grdPeers.Columns(5), System.ComponentModel.ListSortDirection.Ascending)
+                    Else
+                        grdPeers.Sort(grdPeers.Columns(5), System.ComponentModel.ListSortDirection.Descending)
+                    End If
+            End Select
+
+            'Display row count
+            lblRowCount.Text = Row.ToString + " Peers Listed"
+
+        Catch ex As Exception
+            Log_Error(ex)
         End Try
-
-        grdPeers.Rows.Clear()
-        Row = 0
-
-        For N As Integer = 0 To Peers.Count - 1
-            'Get Type
-            Address = Peers(N).Address.Split(New Char() {":"c})
-
-            'Filter
-            Include = True
-            If cmbType.Text <> "--all--" And cmbType.Text <> Address(0) Then Include = False
-            If cmbConnection.Text <> "--all--" And cmbConnection.Text <> Peers(N).AddressState.ToString Then Include = False
-
-            'Add Peer data to grid
-            If Include = True Then
-                grdPeers.Rows.Add()
-                grdPeers.Rows(Row).Cells(0).Value = Peers(N).Address
-                grdPeers.Rows(Row).Cells(1).Value = Address(0)
-                grdPeers.Rows(Row).Cells(2).Value = Peers(N).AddressState.ToString
-                grdPeers.Rows(Row).Cells(3).Value = Peers(N).Rx
-                grdPeers.Rows(Row).Cells(4).Value = Peers(N).Tx
-                grdPeers.Rows(Row).Cells(5).Value = Peers(N).Latency
-
-                Row += 1
-
-            End If
-
-        Next
-
-        'Sort Grid
-        Select Case cmbColumn.Text
-            Case "bytes recieved"
-                If cmbDirection.Text = "ascending" Then
-                    grdPeers.Sort(grdPeers.Columns(3), System.ComponentModel.ListSortDirection.Ascending)
-                Else
-                    grdPeers.Sort(grdPeers.Columns(3), System.ComponentModel.ListSortDirection.Descending)
-                End If
-            Case "bytes sent"
-                If cmbDirection.Text = "ascending" Then
-                    grdPeers.Sort(grdPeers.Columns(4), System.ComponentModel.ListSortDirection.Ascending)
-                Else
-                    grdPeers.Sort(grdPeers.Columns(4), System.ComponentModel.ListSortDirection.Descending)
-                End If
-            Case "latency"
-                If cmbDirection.Text = "ascending" Then
-                    grdPeers.Sort(grdPeers.Columns(5), System.ComponentModel.ListSortDirection.Ascending)
-                Else
-                    grdPeers.Sort(grdPeers.Columns(5), System.ComponentModel.ListSortDirection.Descending)
-                End If
-        End Select
-
-        'Display row count
-        lblRowCount.Text = Row.ToString + " Peers Listed"
 
     End Sub
 
     Private Sub Update_Mining()
 
-        'Display mining enabled
-        UserUpdate = False
         Try
-            chkMiner.Checked = Client.IsMining
-        Catch
+            'Display mining enabled
+            UserUpdate = False
+            Try
+                chkMiner.Checked = Client.IsMining
+            Catch
+            End Try
+            UserUpdate = True
+
+            'Display threads
+            Try
+                Threads = Client.MinerThreads
+            Catch
+                'Do nothing. If call fails, the threads remains the same as the last successful call
+            End Try
+            UserUpdate = False
+            txtThreads.Text = Threads
+            tbrThreads.Value = Threads
+            UserUpdate = True
+
+            'Display mining address
+            UserUpdate = False
+            Try
+                txtMiningAddress.Text = Client.MinerAddress.ToString
+            Catch
+            End Try
+            UserUpdate = True
+
+            'Display Pool
+            UserUpdate = False
+            Try
+                cmbPool.Text = Client.Pool.ToString
+            Catch
+            End Try
+            UserUpdate = True
+
+            'Populate pool dropdown
+            Populate_Pool_Dropdown()
+
+            'Display pool connection
+            Try
+                txtPoolConnection.Text = Client.PoolConnectionState.ToString
+            Catch
+            End Try
+
+            'Display pool balance
+            Try
+                PoolBalance = Client.PoolConfirmedBalance / 100000
+            Catch
+                'Do nothing. If it fails use last poolbalance
+            End Try
+            txtPoolBalance.Text = PoolBalance.ToString
+
+            'Get current hash rate
+            Try
+                Hashrate = Client.Hashrate
+            Catch
+                'Do nothing. If it fails use last hashrate
+            End Try
+
+            'Display current hash rate
+            txtHashRate.Text = Hashrate
+
+            'Store current hash rate
+            DataArray(DataPointer, 2) = Hashrate
+
+            'Display Graph
+            chtHashRate.Series.Clear()
+            chtHashRate.Series.Add("Hashrate (H/s)")
+
+            With chtHashRate.Series(0)
+                .IsVisibleInLegend = False
+                .ChartType = DataVisualization.Charting.SeriesChartType.Line
+                .BorderWidth = 3
+                .Color = Color.DarkGray
+                .BorderDashStyle = ChartDashStyle.Solid
+
+                For N As Integer = 0 To DataPointer
+                    .Points.AddXY(N * UpdateIntervalSeconds / 60, DataArray(N, 2))
+                Next
+
+            End With
+
+        Catch ex As Exception
+            Log_Error(ex)
         End Try
-        UserUpdate = True
-
-        'Display threads
-        Try
-            Threads = Client.MinerThreads
-        Catch
-            'Do nothing. If call fails, the threads remains the same as the last successful call
-        End Try
-        UserUpdate = False
-        txtThreads.Text = Threads
-        tbrThreads.Value = Threads
-        UserUpdate = True
-
-        'Display mining address
-        UserUpdate = False
-        Try
-            txtMiningAddress.Text = Client.MinerAddress.ToString
-        Catch
-        End Try
-        UserUpdate = True
-
-        'Display Pool
-        UserUpdate = False
-        Try
-            cmbPool.Text = Client.Pool.ToString
-        Catch
-        End Try
-        UserUpdate = True
-
-        'Populate pool dropdown
-        Populate_Pool_Dropdown()
-
-        'Display pool connection
-        Try
-            txtPoolConnection.Text = Client.PoolConnectionState.ToString
-        Catch
-        End Try
-
-        'Display pool balance
-        Try
-            PoolBalance = Client.PoolConfirmedBalance / 100000
-        Catch
-            'Do nothing. If it fails use last poolbalance
-        End Try
-        txtPoolBalance.Text = PoolBalance.ToString
-
-        'Get current hash rate
-        Try
-            Hashrate = Client.Hashrate
-        Catch
-            'Do nothing. If it fails use last hashrate
-        End Try
-
-        'Display current hash rate
-        txtHashRate.Text = Hashrate
-
-        'Store current hash rate
-        DataArray(DataPointer, 2) = Hashrate
-
-        'Display Graph
-        chtHashRate.Series.Clear()
-        chtHashRate.Series.Add("Hashrate (H/s)")
-
-        With chtHashRate.Series(0)
-            .IsVisibleInLegend = False
-            .ChartType = DataVisualization.Charting.SeriesChartType.Line
-            .BorderWidth = 3
-            .Color = Color.DarkGray
-            .BorderDashStyle = ChartDashStyle.Solid
-
-            For N As Integer = 0 To DataPointer
-                .Points.AddXY(N * UpdateIntervalSeconds / 60, DataArray(N, 2))
-            Next
-
-        End With
 
     End Sub
 
     Private Sub NotifyIcon_MouseClick(sender As Object, e As MouseEventArgs) Handles NotifyIcon.MouseClick
 
-        'Only handle left mouse click
-        If e.Button = MouseButtons.Left Then
-            Display_Form()
-        End If
+        Try
+            'Only handle left mouse click
+            If e.Button = MouseButtons.Left Then
+                Display_Form()
+            End If
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub Display_Form()
 
-        If Me.WindowState = FormWindowState.Minimized Then
-            Me.Show()
-            Me.WindowState = FormWindowState.Normal
-            Me.TopMost = True
-        Else
-            Me.WindowState = FormWindowState.Minimized
-        End If
+        Try
+            If Me.WindowState = FormWindowState.Minimized Then
+                Me.Show()
+                Me.WindowState = FormWindowState.Normal
+                Me.TopMost = True
+            Else
+                Me.WindowState = FormWindowState.Minimized
+            End If
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub Form1_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
 
-        If ForceClose = False And e.CloseReason = CloseReason.UserClosing Then
-            Me.WindowState = FormWindowState.Minimized
-            e.Cancel = True
-        End If
+        Try
+            If ForceClose = False And e.CloseReason = CloseReason.UserClosing Then
+                Me.WindowState = FormWindowState.Minimized
+                e.Cancel = True
+            End If
 
-        'Set Force close flag to false
-        ForceClose = False
+            'Set Force close flag to false
+            ForceClose = False
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
     Private Sub Form1_Closed(sender As Object, e As EventArgs) Handles Me.Closed
 
-        'Save persistent variables
-        My.Settings.PoolList = txtPoolList.Text
-        My.Settings.Scheme = txtScheme.Text
-        My.Settings.Host = txtHost.Text
-        My.Settings.Port = txtPort.Text
-        My.Settings.User = txtUser.Text
-        My.Settings.Password = txtPassword.Text
-        My.Settings.LoggingLevel = cmbLoggingLevel.Text
+        Try
+            'Save persistent variables
+            My.Settings.PoolList = txtPoolList.Text
+            My.Settings.Scheme = txtScheme.Text
+            My.Settings.Host = txtHost.Text
+            My.Settings.Port = txtPort.Text
+            My.Settings.User = txtUser.Text
+            My.Settings.Password = txtPassword.Text
+            My.Settings.LoggingLevel = cmbLoggingLevel.Text
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub mnuExit_Click(sender As Object, e As EventArgs) Handles mnuExit.Click
 
-        ForceClose = True
-        Me.Close()
+        Try
+            ForceClose = True
+            Me.Close()
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub chkMiner_CheckStateChanged(sender As Object, e As EventArgs) Handles chkMiner.CheckStateChanged
 
-        'Ignore system update of checkbox
-        If UserUpdate = True Then
-            If chkMiner.Checked = True Then
-                Client.SetMining(True)
-            Else
-                Client.SetMining(False)
+        Try
+            'Ignore system update of checkbox
+            If UserUpdate = True Then
+                If chkMiner.Checked = True Then
+                    Client.SetMining(True)
+                Else
+                    Client.SetMining(False)
+                End If
             End If
-        End If
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub tbrThreads_ValueChanged(sender As Object, e As EventArgs) Handles tbrThreads.ValueChanged
 
-        'Keep textbox in sync
-        txtThreads.Text = tbrThreads.Value
+        Try
+            'Keep textbox in sync
+            txtThreads.Text = tbrThreads.Value
 
-        'Ignore system update of slider
-        If UserUpdate = True Then
-            Client.SetMinerThreads(tbrThreads.Value)
-        End If
+            'Ignore system update of slider
+            If UserUpdate = True Then
+                Client.SetMinerThreads(tbrThreads.Value)
+            End If
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub cmbPool_TextChanged(sender As Object, e As EventArgs) Handles cmbPool.TextChanged
 
-        'Ignore system update of value
-        If UserUpdate = True Then
-            Client.SetPool(cmbPool.Text)
-        End If
+        Try
+            'Ignore system update of value
+            If UserUpdate = True Then
+                Client.SetPool(cmbPool.Text)
+            End If
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub btnSaveLogin_Click(sender As Object, e As EventArgs) Handles btnSaveLogin.Click
 
-        'Reconfigure client
-        Configure_Client()
+        Try
+            'Reconfigure client
+            Configure_Client()
 
-        'Clear trend data as no longer relevant
-        Array.Clear(DataArray, 0, DataArray.Length)
-        DataPointer = 0
+            'Clear trend data as no longer relevant
+            Array.Clear(DataArray, 0, DataArray.Length)
+            DataPointer = 0
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub cmbLoggingLevel_TextChanged(sender As Object, e As EventArgs) Handles cmbLoggingLevel.TextChanged
 
-        Dim LogLevel As Models.LogLevel = New Models.LogLevel
+        Try
+            Dim LogLevel As Models.LogLevel = New Models.LogLevel
 
-        Select Case cmbLoggingLevel.Text
-            Case "trace"
-                LogLevel = Models.LogLevel.Trace
-            Case "verbose"
-                LogLevel = Models.LogLevel.Verbose
-            Case "debug"
-                LogLevel = Models.LogLevel.Debug
-            Case "info"
-                LogLevel = Models.LogLevel.Info
-            Case "warning"
-                LogLevel = Models.LogLevel.Warn
-            Case "error"
-                LogLevel = Models.LogLevel.Error
-            Case "assert"
-                LogLevel = Models.LogLevel.Assert
-        End Select
+            Select Case cmbLoggingLevel.Text
+                Case "trace"
+                    LogLevel = Models.LogLevel.Trace
+                Case "verbose"
+                    LogLevel = Models.LogLevel.Verbose
+                Case "debug"
+                    LogLevel = Models.LogLevel.Debug
+                Case "info"
+                    LogLevel = Models.LogLevel.Info
+                Case "warning"
+                    LogLevel = Models.LogLevel.Warn
+                Case "error"
+                    LogLevel = Models.LogLevel.Error
+                Case "assert"
+                    LogLevel = Models.LogLevel.Assert
+            End Select
 
-        Client.SetLog("*", LogLevel)
+            Client.SetLog("*", LogLevel)
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
 
-        If Me.WindowState = FormWindowState.Minimized Then Me.Hide()
+        Try
+            If Me.WindowState = FormWindowState.Minimized Then Me.Hide()
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
@@ -639,60 +763,76 @@ Public Class Form1
 
     Private Sub Block_Search()
 
-        Dim Block As Models.Block
+        Try
+            Dim Block As Models.Block
 
-        'Clear all search results
-        txtBlockDetailsNumber.Text = ""
-        txtBlockDetailsHash.Text = ""
-        txtBlockDetailsParentHash.Text = ""
-        txtBlockDetailsMiner.Text = ""
-        txtBlockDetailsMinerAddress.Text = ""
-        txtBlockDetailsExtraData.Text = ""
-        txtBlockDetailsNonce.Text = ""
-        txtBlockDetailsAccountsHash.Text = ""
-        txtBlockDetailsBodyHash.Text = ""
-        txtBlockDetailsConfirmations.Text = ""
-        txtBlockDetailsDifficulty.Text = ""
-        txtBlockDetailsPow.Text = ""
-        txtBlockDetailsSize.Text = ""
-        txtBlockDetailsTimestamp.Text = ""
-        txtBlockDetailsTransactions.Text = ""
+            'Clear all search results
+            txtBlockDetailsNumber.Text = ""
+            txtBlockDetailsHash.Text = ""
+            txtBlockDetailsParentHash.Text = ""
+            txtBlockDetailsMiner.Text = ""
+            txtBlockDetailsMinerAddress.Text = ""
+            txtBlockDetailsExtraData.Text = ""
+            txtBlockDetailsNonce.Text = ""
+            txtBlockDetailsAccountsHash.Text = ""
+            txtBlockDetailsBodyHash.Text = ""
+            txtBlockDetailsConfirmations.Text = ""
+            txtBlockDetailsDifficulty.Text = ""
+            txtBlockDetailsPow.Text = ""
+            txtBlockDetailsSize.Text = ""
+            txtBlockDetailsTimestamp.Text = ""
+            txtBlockDetailsTransactions.Text = ""
 
-        'Check for valid search parameters and do search
-        If Validate_BlockNumber(txtBlock_Number.Text) Then
+            'Check for valid search parameters and do search
+            If Validate_BlockNumber(txtBlock_Number.Text) Then
 
-            'Valid number supplied, so use that
-            Block = Client.GetBlockByNumber(txtBlock_Number.Text)
+                'Valid number supplied, so use that
+                Try
+                    Block = Client.GetBlockByNumber(txtBlock_Number.Text)
+                Catch
+                    Block = Nothing
+                End Try
 
-        ElseIf Validate_BlockHash(txtBlock_Hash.Text) Then
+            ElseIf Validate_BlockHash(txtBlock_Hash.Text) Then
 
-            'No number supplied but valid hash is, so use that
-            Block = Client.GetBlockByHash(txtBlock_Hash.Text)
+                'No number supplied but valid hash is, so use that
+                Try
+                    Block = Client.GetBlockByHash(txtBlock_Hash.Text)
+                Catch
+                    Block = Nothing
+                End Try
+            Else
+                Block = Nothing
+            End If
 
-        Else
-            Block = Nothing
-        End If
+            'Only do the following if Block has been found
+            If Not Block Is Nothing Then
 
-        'Only do the following if Block has been found
-        If Not Block Is Nothing Then
+                txtBlockDetailsNumber.Text = Block.Number
+                txtBlockDetailsHash.Text = Block.Hash
+                txtBlockDetailsParentHash.Text = Block.ParentHash
+                txtBlockDetailsMiner.Text = Block.Miner
+                txtBlockDetailsMinerAddress.Text = Block.MinerAddress
+                txtBlockDetailsExtraData.Text = Block.ExtraData
+                txtBlockDetailsNonce.Text = Block.Nonce
+                txtBlockDetailsAccountsHash.Text = Block.AccountsHash
+                txtBlockDetailsBodyHash.Text = Block.BodyHash
+                txtBlockDetailsConfirmations.Text = Block.Confirmations
+                txtBlockDetailsDifficulty.Text = Block.Difficulty
+                txtBlockDetailsPow.Text = Block.Pow
+                txtBlockDetailsSize.Text = Block.Size
+                txtBlockDetailsTimestamp.Text = DateTimeOffset.FromUnixTimeSeconds(Block.Timestamp).UtcDateTime
+                Try
+                    txtBlockDetailsTransactions.Text = Client.GetBlockTransactionCountByNumber(Block.Number)
+                Catch
+                    txtBlockDetailsTransactions.Text = ""
+                End Try
 
-            txtBlockDetailsNumber.Text = Block.Number
-            txtBlockDetailsHash.Text = Block.Hash
-            txtBlockDetailsParentHash.Text = Block.ParentHash
-            txtBlockDetailsMiner.Text = Block.Miner
-            txtBlockDetailsMinerAddress.Text = Block.MinerAddress
-            txtBlockDetailsExtraData.Text = Block.ExtraData
-            txtBlockDetailsNonce.Text = Block.Nonce
-            txtBlockDetailsAccountsHash.Text = Block.AccountsHash
-            txtBlockDetailsBodyHash.Text = Block.BodyHash
-            txtBlockDetailsConfirmations.Text = Block.Confirmations
-            txtBlockDetailsDifficulty.Text = Block.Difficulty
-            txtBlockDetailsPow.Text = Block.Pow
-            txtBlockDetailsSize.Text = Block.Size
-            txtBlockDetailsTimestamp.Text = DateTimeOffset.FromUnixTimeSeconds(Block.Timestamp).UtcDateTime
-            txtBlockDetailsTransactions.Text = Client.GetBlockTransactionCountByNumber(Block.Number)
+            End If
 
-        End If
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
@@ -704,63 +844,93 @@ Public Class Form1
 
     Private Sub Transaction_Search()
 
-        Dim Account As Models.Account
-        Dim TransactionCount As Integer
-        Dim Transactions() As Models.Transaction
-        Dim Transaction As Models.Transaction
+        Try
+            Dim Account As Models.Account
+            Dim TransactionCount As Integer
+            Dim Transactions() As Models.Transaction
+            Dim Transaction As Models.Transaction
 
-        'Clear all previous search results
-        txtAccountID.Text = ""
-        txtAccountType.Text = ""
-        txtBalance.Text = ""
-        grdTransactions.Rows.Clear()
+            'Clear all previous search results
+            txtAccountID.Text = ""
+            txtAccountType.Text = ""
+            txtBalance.Text = ""
+            grdTransactions.Rows.Clear()
 
-        'Check for valid search parameters and do search
-        If Validate_BlockNumber(txtBlockNumberSearch.Text) Then
+            'Check for valid search parameters and do search
+            If Validate_BlockNumber(txtBlockNumberSearch.Text) Then
 
-            'Valid number supplied, so use that to populate the transaction table
-            TransactionCount = Client.GetBlockTransactionCountByNumber(txtBlockNumberSearch.Text)
-            For N As Integer = 0 To TransactionCount - 1
-                Transaction = Client.GetTransactionByBlockNumberAndIndex(txtBlockNumberSearch.Text, N)
-                grdTransactions.Rows.Add()
-                grdTransactions.Rows(N).Cells(0).Value = DateTimeOffset.FromUnixTimeSeconds(Transaction.Timestamp).UtcDateTime
-                grdTransactions.Rows(N).Cells(1).Value = Transaction.FromAddress
-                grdTransactions.Rows(N).Cells(2).Value = Transaction.ToAddress
-                grdTransactions.Rows(N).Cells(3).Value = Transaction.Value / 100000
-                grdTransactions.Rows(N).Cells(4).Value = Transaction.Fee / 100000
-                grdTransactions.Rows(N).Cells(5).Value = Transaction.Confirmations
-                grdTransactions.Rows(N).Cells(6).Value = Transaction.BlockNumber
-            Next
+                'Valid number supplied, so use that to populate the transaction table
+                Try
+                    TransactionCount = Client.GetBlockTransactionCountByNumber(txtBlockNumberSearch.Text)
+                Catch
+                    Exit Sub
+                End Try
 
-        ElseIf Validate_Address(txtAccountAddress.Text) Then
+                'Limit display to 100 transactions for performance reasons
+                If TransactionCount > 100 Then TransactionCount = 100
 
-            'No number supplied but valid address is, so use that
+                For N As Integer = 0 To TransactionCount - 1
+                    Try
+                        Transaction = Client.GetTransactionByBlockNumberAndIndex(txtBlockNumberSearch.Text, N)
+                    Catch
+                        Exit Sub
+                    End Try
 
-            'Get account details
-            Account = Client.GetAccount(txtAccountAddress.Text)
-            txtAccountID.Text = Account.Id
-            txtAccountType.Text = Account.Type.ToString
-            txtBalance.Text = Account.Balance / 100000
+                    grdTransactions.Rows.Add()
+                    grdTransactions.Rows(N).Cells(0).Value = DateTimeOffset.FromUnixTimeSeconds(Transaction.Timestamp).UtcDateTime
+                    grdTransactions.Rows(N).Cells(1).Value = Transaction.FromAddress
+                    grdTransactions.Rows(N).Cells(2).Value = Transaction.ToAddress
+                    grdTransactions.Rows(N).Cells(3).Value = Transaction.Value / 100000
+                    grdTransactions.Rows(N).Cells(4).Value = Transaction.Fee / 100000
+                    grdTransactions.Rows(N).Cells(5).Value = Transaction.Confirmations
+                    grdTransactions.Rows(N).Cells(6).Value = Transaction.BlockNumber
+                Next
 
-            'Get Transaction details
-            Transactions = Client.GetTransactionsByAddress(txtAccountAddress.Text)
-            TransactionCount = Transactions.Count
-            For N As Integer = 0 To TransactionCount - 1
-                grdTransactions.Rows.Add()
-                grdTransactions.Rows(N).Cells(0).Value = DateTimeOffset.FromUnixTimeSeconds(Transactions(N).Timestamp).UtcDateTime
-                grdTransactions.Rows(N).Cells(1).Value = Transactions(N).FromAddress
-                grdTransactions.Rows(N).Cells(2).Value = Transactions(N).ToAddress
-                grdTransactions.Rows(N).Cells(3).Value = Transactions(N).Value / 100000
-                grdTransactions.Rows(N).Cells(4).Value = Transactions(N).Fee / 100000
-                grdTransactions.Rows(N).Cells(5).Value = Transactions(N).Confirmations
-                grdTransactions.Rows(N).Cells(6).Value = Transactions(N).BlockNumber
-            Next
-        Else
-            'Do nothing as no valid search parameters
-        End If
+            ElseIf Validate_Address(txtAccountAddress.Text) Then
 
-        'Display transaction count
-        lblTransactionCount.Text = TransactionCount.ToString + " transactions"
+                'No number supplied but valid address is, so use that
+
+                'Get account details
+                Try
+                    Account = Client.GetAccount(txtAccountAddress.Text)
+                    txtAccountID.Text = Account.Id
+                    txtAccountType.Text = Account.Type.ToString
+                    txtBalance.Text = Account.Balance / 100000
+                Catch
+                End Try
+
+                'Get Transaction details
+                Try
+                    Transactions = Client.GetTransactionsByAddress(txtAccountAddress.Text, 100)
+                Catch
+                    Exit Sub
+                End Try
+                TransactionCount = Transactions.Count
+
+                For N As Integer = 0 To TransactionCount - 1
+                    grdTransactions.Rows.Add()
+                    grdTransactions.Rows(N).Cells(0).Value = DateTimeOffset.FromUnixTimeSeconds(Transactions(N).Timestamp).UtcDateTime
+                    grdTransactions.Rows(N).Cells(1).Value = Transactions(N).FromAddress
+                    grdTransactions.Rows(N).Cells(2).Value = Transactions(N).ToAddress
+                    grdTransactions.Rows(N).Cells(3).Value = Transactions(N).Value / 100000
+                    grdTransactions.Rows(N).Cells(4).Value = Transactions(N).Fee / 100000
+                    grdTransactions.Rows(N).Cells(5).Value = Transactions(N).Confirmations
+                    grdTransactions.Rows(N).Cells(6).Value = Transactions(N).BlockNumber
+                Next
+            Else
+                'Do nothing as no valid search parameters
+            End If
+
+            'Display transaction count
+            If TransactionCount = 100 Then
+                lblTransactionCount.Text = "Most recent " + TransactionCount.ToString + " transactions"
+            Else
+                lblTransactionCount.Text = TransactionCount.ToString + " transactions"
+            End If
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
@@ -768,18 +938,24 @@ Public Class Form1
 
         Dim Valid As Boolean
 
-        If Input = "" Then
-            'its an empty string
+        Try
+            If Input = "" Then
+                'its an empty string
+                Valid = False
+            ElseIf Not Regex.IsMatch(Input, "^[1-9]\d*$") Then
+                'Its not numeric
+                Valid = False
+            ElseIf Input > BlockNumber Then
+                'Its larger than the current block number
+                Valid = False
+            Else
+                Valid = True
+            End If
+
+        Catch ex As Exception
+            Log_Error(ex)
             Valid = False
-        ElseIf Not Regex.IsMatch(Input, "^[1-9]\d*$") Then
-            'Its not numeric
-            Valid = False
-        ElseIf Input > BlockNumber Then
-            'Its larger than the current block number
-            Valid = False
-        Else
-            Valid = True
-        End If
+        End Try
 
         Return Valid
 
@@ -886,4 +1062,57 @@ Public Class Form1
 
     End Sub
 
+    Private Sub grdTransactions_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdTransactions.CellClick
+
+        If e.ColumnIndex = 1 Then 'From address
+            txtBlockNumberSearch.Text = ""
+            txtAccountAddress.Text = grdTransactions.Rows(e.RowIndex).Cells(1).Value
+            Transaction_Search()
+            TabControl.SelectedTab = tabTransactionList
+        ElseIf e.ColumnIndex = 2 Then 'To Address
+            txtBlockNumberSearch.Text = ""
+            txtAccountAddress.Text = grdTransactions.Rows(e.RowIndex).Cells(2).Value
+            Transaction_Search()
+            TabControl.SelectedTab = tabTransactionList
+        ElseIf e.ColumnIndex = 6 Then 'Block number
+            txtBlock_Number.Text = grdTransactions.Rows(e.RowIndex).Cells(6).Value
+            txtBlock_Hash.Text = ""
+            Block_Search()
+            TabControl.SelectedTab = tabBlockDetail
+        Else
+            'Do nothing
+        End If
+
+    End Sub
+
+    Private Sub Log_Error(ex As Exception)
+
+        Dim LogEntry As String
+
+        'Construct Log Entry
+        LogEntry = "----------------------------------------------"
+        LogEntry += Environment.NewLine
+        LogEntry += Date.Now.ToString("dd/MM/yyyy HH:mm:ss.fff")
+        LogEntry += Environment.NewLine
+        LogEntry += "----------------------------------------------"
+        LogEntry += Environment.NewLine
+        LogEntry += "Exception Message: " + ex.Message
+        LogEntry += Environment.NewLine
+        LogEntry += "StackTrace: " + ex.StackTrace
+        LogEntry += Environment.NewLine
+        LogEntry += "Source: " + ex.Source
+        LogEntry += Environment.NewLine
+        LogEntry += "TargetSite: " + ex.TargetSite.ToString
+        LogEntry += Environment.NewLine
+
+        'Write entry to log
+        txtErrorLog.AppendText(LogEntry)
+
+    End Sub
+
+    Private Sub btnClearLog_Click(sender As Object, e As EventArgs) Handles btnClearLog.Click
+
+        txtErrorLog.Text = ""
+
+    End Sub
 End Class

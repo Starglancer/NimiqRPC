@@ -140,7 +140,15 @@ Partial Class Form1
         Me.chkMiner = New System.Windows.Forms.CheckBox()
         Me.tabTransactionList = New System.Windows.Forms.TabPage()
         Me.gbxTransactions = New System.Windows.Forms.GroupBox()
+        Me.lblTransactionCount = New System.Windows.Forms.Label()
         Me.grdTransactions = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.gbxAccountDetails = New System.Windows.Forms.GroupBox()
         Me.txtBalance = New System.Windows.Forms.TextBox()
         Me.lblBalance = New System.Windows.Forms.Label()
@@ -177,14 +185,9 @@ Partial Class Form1
         Me.NotifyIcon = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.NotifyMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuExit = New System.Windows.Forms.ToolStripMenuItem()
-        Me.lblTransactionCount = New System.Windows.Forms.Label()
-        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.gbxErrorLog = New System.Windows.Forms.GroupBox()
+        Me.txtErrorLog = New System.Windows.Forms.TextBox()
+        Me.btnClearLog = New System.Windows.Forms.Button()
         Me.TabControl.SuspendLayout()
         Me.tabStatus.SuspendLayout()
         CType(Me.pbxStatus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -216,6 +219,7 @@ Partial Class Form1
         Me.gbxPool.SuspendLayout()
         Me.gbxLogin.SuspendLayout()
         Me.NotifyMenu.SuspendLayout()
+        Me.gbxErrorLog.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl
@@ -1309,6 +1313,14 @@ Partial Class Form1
         Me.gbxTransactions.TabStop = False
         Me.gbxTransactions.Text = "Transactions"
         '
+        'lblTransactionCount
+        '
+        Me.lblTransactionCount.AutoSize = True
+        Me.lblTransactionCount.Location = New System.Drawing.Point(320, 253)
+        Me.lblTransactionCount.Name = "lblTransactionCount"
+        Me.lblTransactionCount.Size = New System.Drawing.Size(0, 13)
+        Me.lblTransactionCount.TabIndex = 2
+        '
         'grdTransactions
         '
         Me.grdTransactions.AllowUserToAddRows = False
@@ -1341,6 +1353,59 @@ Partial Class Form1
         Me.grdTransactions.RowHeadersVisible = False
         Me.grdTransactions.Size = New System.Drawing.Size(752, 231)
         Me.grdTransactions.TabIndex = 1
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.HeaderText = "UTC Time"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        Me.DataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.DataGridViewTextBoxColumn3.Width = 140
+        '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.HeaderText = "From"
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        Me.DataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.DataGridViewTextBoxColumn4.Width = 115
+        '
+        'DataGridViewTextBoxColumn5
+        '
+        Me.DataGridViewTextBoxColumn5.HeaderText = "To"
+        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
+        Me.DataGridViewTextBoxColumn5.ReadOnly = True
+        Me.DataGridViewTextBoxColumn5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.DataGridViewTextBoxColumn5.Width = 115
+        '
+        'DataGridViewTextBoxColumn6
+        '
+        Me.DataGridViewTextBoxColumn6.HeaderText = "Value (nim)"
+        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
+        Me.DataGridViewTextBoxColumn6.ReadOnly = True
+        Me.DataGridViewTextBoxColumn6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        '
+        'DataGridViewTextBoxColumn7
+        '
+        Me.DataGridViewTextBoxColumn7.HeaderText = "Fee (nim)"
+        Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
+        Me.DataGridViewTextBoxColumn7.ReadOnly = True
+        Me.DataGridViewTextBoxColumn7.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        '
+        'DataGridViewTextBoxColumn8
+        '
+        Me.DataGridViewTextBoxColumn8.HeaderText = "Confirmations"
+        Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
+        Me.DataGridViewTextBoxColumn8.ReadOnly = True
+        Me.DataGridViewTextBoxColumn8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        Me.DataGridViewTextBoxColumn8.Width = 80
+        '
+        'Column3
+        '
+        Me.Column3.HeaderText = "Block"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
+        Me.Column3.Width = 80
         '
         'gbxAccountDetails
         '
@@ -1472,6 +1537,7 @@ Partial Class Form1
         '
         'tabSettings
         '
+        Me.tabSettings.Controls.Add(Me.gbxErrorLog)
         Me.tabSettings.Controls.Add(Me.gbxLogging)
         Me.tabSettings.Controls.Add(Me.gbxPool)
         Me.tabSettings.Controls.Add(Me.gbxLogin)
@@ -1675,66 +1741,34 @@ Partial Class Form1
         Me.mnuExit.Size = New System.Drawing.Size(93, 22)
         Me.mnuExit.Text = "Exit"
         '
-        'lblTransactionCount
+        'gbxErrorLog
         '
-        Me.lblTransactionCount.AutoSize = True
-        Me.lblTransactionCount.Location = New System.Drawing.Point(320, 253)
-        Me.lblTransactionCount.Name = "lblTransactionCount"
-        Me.lblTransactionCount.Size = New System.Drawing.Size(0, 13)
-        Me.lblTransactionCount.TabIndex = 2
+        Me.gbxErrorLog.Controls.Add(Me.btnClearLog)
+        Me.gbxErrorLog.Controls.Add(Me.txtErrorLog)
+        Me.gbxErrorLog.Location = New System.Drawing.Point(28, 204)
+        Me.gbxErrorLog.Name = "gbxErrorLog"
+        Me.gbxErrorLog.Size = New System.Drawing.Size(739, 212)
+        Me.gbxErrorLog.TabIndex = 10
+        Me.gbxErrorLog.TabStop = False
+        Me.gbxErrorLog.Text = "Error Log"
         '
-        'DataGridViewTextBoxColumn3
+        'txtErrorLog
         '
-        Me.DataGridViewTextBoxColumn3.HeaderText = "UTC Time"
-        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
-        Me.DataGridViewTextBoxColumn3.ReadOnly = True
-        Me.DataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.DataGridViewTextBoxColumn3.Width = 140
+        Me.txtErrorLog.Location = New System.Drawing.Point(10, 21)
+        Me.txtErrorLog.Multiline = True
+        Me.txtErrorLog.Name = "txtErrorLog"
+        Me.txtErrorLog.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.txtErrorLog.Size = New System.Drawing.Size(719, 154)
+        Me.txtErrorLog.TabIndex = 0
         '
-        'DataGridViewTextBoxColumn4
+        'btnClearLog
         '
-        Me.DataGridViewTextBoxColumn4.HeaderText = "From"
-        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
-        Me.DataGridViewTextBoxColumn4.ReadOnly = True
-        Me.DataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.DataGridViewTextBoxColumn4.Width = 115
-        '
-        'DataGridViewTextBoxColumn5
-        '
-        Me.DataGridViewTextBoxColumn5.HeaderText = "To"
-        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
-        Me.DataGridViewTextBoxColumn5.ReadOnly = True
-        Me.DataGridViewTextBoxColumn5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.DataGridViewTextBoxColumn5.Width = 115
-        '
-        'DataGridViewTextBoxColumn6
-        '
-        Me.DataGridViewTextBoxColumn6.HeaderText = "Value (nim)"
-        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
-        Me.DataGridViewTextBoxColumn6.ReadOnly = True
-        Me.DataGridViewTextBoxColumn6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
-        '
-        'DataGridViewTextBoxColumn7
-        '
-        Me.DataGridViewTextBoxColumn7.HeaderText = "Fee (nim)"
-        Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
-        Me.DataGridViewTextBoxColumn7.ReadOnly = True
-        Me.DataGridViewTextBoxColumn7.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
-        '
-        'DataGridViewTextBoxColumn8
-        '
-        Me.DataGridViewTextBoxColumn8.HeaderText = "Confirmations"
-        Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
-        Me.DataGridViewTextBoxColumn8.ReadOnly = True
-        Me.DataGridViewTextBoxColumn8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
-        Me.DataGridViewTextBoxColumn8.Width = 80
-        '
-        'Column3
-        '
-        Me.Column3.HeaderText = "Block"
-        Me.Column3.Name = "Column3"
-        Me.Column3.ReadOnly = True
-        Me.Column3.Width = 80
+        Me.btnClearLog.Location = New System.Drawing.Point(328, 181)
+        Me.btnClearLog.Name = "btnClearLog"
+        Me.btnClearLog.Size = New System.Drawing.Size(75, 23)
+        Me.btnClearLog.TabIndex = 1
+        Me.btnClearLog.Text = "Clear Log"
+        Me.btnClearLog.UseVisualStyleBackColor = True
         '
         'Form1
         '
@@ -1794,6 +1828,8 @@ Partial Class Form1
         Me.gbxLogin.ResumeLayout(False)
         Me.gbxLogin.PerformLayout()
         Me.NotifyMenu.ResumeLayout(False)
+        Me.gbxErrorLog.ResumeLayout(False)
+        Me.gbxErrorLog.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1944,4 +1980,7 @@ Partial Class Form1
     Friend WithEvents DataGridViewTextBoxColumn7 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn8 As DataGridViewTextBoxColumn
     Friend WithEvents Column3 As DataGridViewTextBoxColumn
+    Friend WithEvents gbxErrorLog As GroupBox
+    Friend WithEvents txtErrorLog As TextBox
+    Friend WithEvents btnClearLog As Button
 End Class
