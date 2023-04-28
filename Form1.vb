@@ -887,9 +887,6 @@ Public Class Form1
                     Exit Sub
                 End Try
 
-                'Limit display to 100 transactions for performance reasons
-                If TransactionCount > 100 Then TransactionCount = 100
-
                 For N As Integer = 0 To TransactionCount - 1
                     Try
                         Transaction = Client.GetTransactionByBlockNumberAndIndex(txtBlockNumberSearch.Text, N)
