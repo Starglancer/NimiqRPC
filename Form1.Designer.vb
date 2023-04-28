@@ -40,8 +40,6 @@ Partial Class Form1
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.TabControl = New System.Windows.Forms.TabControl()
-        Me.CSVContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.mnuExportCSV = New System.Windows.Forms.ToolStripMenuItem()
         Me.tabStatus = New System.Windows.Forms.TabPage()
         Me.btnDownloadNimiqCore = New System.Windows.Forms.Button()
         Me.txtConsensus = New System.Windows.Forms.TextBox()
@@ -54,6 +52,8 @@ Partial Class Form1
         Me.pbxStatus = New System.Windows.Forms.PictureBox()
         Me.tabBlockNumber = New System.Windows.Forms.TabPage()
         Me.chtBlocknumber = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.CSVContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.mnuExportCSV = New System.Windows.Forms.ToolStripMenuItem()
         Me.txtBlocknumber = New System.Windows.Forms.TextBox()
         Me.lblBlocknumber = New System.Windows.Forms.Label()
         Me.tabBlockList = New System.Windows.Forms.TabPage()
@@ -191,12 +191,14 @@ Partial Class Form1
         Me.NotifyMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveCSVDialog = New System.Windows.Forms.SaveFileDialog()
+        Me.txtMempool = New System.Windows.Forms.TextBox()
+        Me.lblMempool = New System.Windows.Forms.Label()
         Me.TabControl.SuspendLayout()
-        Me.CSVContextMenu.SuspendLayout()
         Me.tabStatus.SuspendLayout()
         CType(Me.pbxStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabBlockNumber.SuspendLayout()
         CType(Me.chtBlocknumber, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.CSVContextMenu.SuspendLayout()
         Me.tabBlockList.SuspendLayout()
         CType(Me.grdBlocks, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabBlockDetail.SuspendLayout()
@@ -244,18 +246,6 @@ Partial Class Form1
         Me.TabControl.Size = New System.Drawing.Size(800, 450)
         Me.TabControl.TabIndex = 0
         '
-        'CSVContextMenu
-        '
-        Me.CSVContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuExportCSV})
-        Me.CSVContextMenu.Name = "CSVContextMenu"
-        Me.CSVContextMenu.Size = New System.Drawing.Size(133, 26)
-        '
-        'mnuExportCSV
-        '
-        Me.mnuExportCSV.Name = "mnuExportCSV"
-        Me.mnuExportCSV.Size = New System.Drawing.Size(132, 22)
-        Me.mnuExportCSV.Text = "Export CSV"
-        '
         'tabStatus
         '
         Me.tabStatus.Controls.Add(Me.btnDownloadNimiqCore)
@@ -287,7 +277,7 @@ Partial Class Form1
         'txtConsensus
         '
         Me.txtConsensus.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.txtConsensus.Location = New System.Drawing.Point(608, 329)
+        Me.txtConsensus.Location = New System.Drawing.Point(597, 326)
         Me.txtConsensus.Name = "txtConsensus"
         Me.txtConsensus.ReadOnly = True
         Me.txtConsensus.Size = New System.Drawing.Size(100, 20)
@@ -297,7 +287,7 @@ Partial Class Form1
         'txtStatus
         '
         Me.txtStatus.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.txtStatus.Location = New System.Drawing.Point(393, 329)
+        Me.txtStatus.Location = New System.Drawing.Point(382, 326)
         Me.txtStatus.Name = "txtStatus"
         Me.txtStatus.ReadOnly = True
         Me.txtStatus.Size = New System.Drawing.Size(100, 20)
@@ -307,7 +297,7 @@ Partial Class Form1
         'lblConsensus
         '
         Me.lblConsensus.AutoSize = True
-        Me.lblConsensus.Location = New System.Drawing.Point(533, 332)
+        Me.lblConsensus.Location = New System.Drawing.Point(522, 329)
         Me.lblConsensus.Name = "lblConsensus"
         Me.lblConsensus.Size = New System.Drawing.Size(59, 13)
         Me.lblConsensus.TabIndex = 5
@@ -316,7 +306,7 @@ Partial Class Form1
         'lblStatus
         '
         Me.lblStatus.AutoSize = True
-        Me.lblStatus.Location = New System.Drawing.Point(334, 332)
+        Me.lblStatus.Location = New System.Drawing.Point(323, 329)
         Me.lblStatus.Name = "lblStatus"
         Me.lblStatus.Size = New System.Drawing.Size(37, 13)
         Me.lblStatus.TabIndex = 4
@@ -394,6 +384,18 @@ Partial Class Form1
         Me.chtBlocknumber.TabIndex = 2
         Me.chtBlocknumber.Text = "Chart1"
         '
+        'CSVContextMenu
+        '
+        Me.CSVContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuExportCSV})
+        Me.CSVContextMenu.Name = "CSVContextMenu"
+        Me.CSVContextMenu.Size = New System.Drawing.Size(133, 26)
+        '
+        'mnuExportCSV
+        '
+        Me.mnuExportCSV.Name = "mnuExportCSV"
+        Me.mnuExportCSV.Size = New System.Drawing.Size(132, 22)
+        Me.mnuExportCSV.Text = "Export CSV"
+        '
         'txtBlocknumber
         '
         Me.txtBlocknumber.BackColor = System.Drawing.Color.White
@@ -415,6 +417,8 @@ Partial Class Form1
         '
         'tabBlockList
         '
+        Me.tabBlockList.Controls.Add(Me.txtMempool)
+        Me.tabBlockList.Controls.Add(Me.lblMempool)
         Me.tabBlockList.Controls.Add(Me.grdBlocks)
         Me.tabBlockList.Location = New System.Drawing.Point(4, 22)
         Me.tabBlockList.Name = "tabBlockList"
@@ -450,11 +454,11 @@ Partial Class Form1
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.grdBlocks.DefaultCellStyle = DataGridViewCellStyle2
         Me.grdBlocks.GridColor = System.Drawing.Color.White
-        Me.grdBlocks.Location = New System.Drawing.Point(8, 15)
+        Me.grdBlocks.Location = New System.Drawing.Point(8, 33)
         Me.grdBlocks.Name = "grdBlocks"
         Me.grdBlocks.ReadOnly = True
         Me.grdBlocks.RowHeadersVisible = False
-        Me.grdBlocks.Size = New System.Drawing.Size(776, 401)
+        Me.grdBlocks.Size = New System.Drawing.Size(776, 383)
         Me.grdBlocks.TabIndex = 1
         '
         'DataGridViewTextBoxColumn1
@@ -1801,6 +1805,25 @@ Partial Class Form1
         '
         Me.SaveCSVDialog.Title = "Save CSV File"
         '
+        'txtMempool
+        '
+        Me.txtMempool.BackColor = System.Drawing.Color.White
+        Me.txtMempool.Location = New System.Drawing.Point(390, 7)
+        Me.txtMempool.Name = "txtMempool"
+        Me.txtMempool.ReadOnly = True
+        Me.txtMempool.Size = New System.Drawing.Size(47, 20)
+        Me.txtMempool.TabIndex = 12
+        Me.txtMempool.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblMempool
+        '
+        Me.lblMempool.AutoSize = True
+        Me.lblMempool.Location = New System.Drawing.Point(305, 10)
+        Me.lblMempool.Name = "lblMempool"
+        Me.lblMempool.Size = New System.Drawing.Size(67, 13)
+        Me.lblMempool.TabIndex = 11
+        Me.lblMempool.Text = "Mempool (tx)"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1814,14 +1837,15 @@ Partial Class Form1
         Me.ShowInTaskbar = False
         Me.Text = "Nimiq RPC"
         Me.TabControl.ResumeLayout(False)
-        Me.CSVContextMenu.ResumeLayout(False)
         Me.tabStatus.ResumeLayout(False)
         Me.tabStatus.PerformLayout()
         CType(Me.pbxStatus, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabBlockNumber.ResumeLayout(False)
         Me.tabBlockNumber.PerformLayout()
         CType(Me.chtBlocknumber, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.CSVContextMenu.ResumeLayout(False)
         Me.tabBlockList.ResumeLayout(False)
+        Me.tabBlockList.PerformLayout()
         CType(Me.grdBlocks, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabBlockDetail.ResumeLayout(False)
         Me.gbxBlockDetails.ResumeLayout(False)
@@ -2018,4 +2042,6 @@ Partial Class Form1
     Friend WithEvents CSVContextMenu As ContextMenuStrip
     Friend WithEvents mnuExportCSV As ToolStripMenuItem
     Friend WithEvents SaveCSVDialog As SaveFileDialog
+    Friend WithEvents txtMempool As TextBox
+    Friend WithEvents lblMempool As Label
 End Class

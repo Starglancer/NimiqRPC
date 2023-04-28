@@ -23,6 +23,7 @@ Public Class Form1
     Dim Threads As Integer
     Dim PoolBalance As Double
     Dim Hashrate As Integer
+    Dim Mempool As String
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -220,6 +221,7 @@ Public Class Form1
             If Running = True Then
 
                 'Update individual tabs
+                Update_Mempool()
                 Update_Block_Number()
                 Update_Block_List()
                 Update_Peer_Count()
@@ -286,6 +288,23 @@ Public Class Form1
                 NotifyIcon.Icon = My.Resources.Nimiq
                 NotifyIcon.Text = "Nimiq Establishing Concensus"
             End If
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
+
+    End Sub
+
+    Private Sub Update_Mempool()
+
+        Try
+            Try
+                Mempool = Client.Mempool.Total.ToString
+            Catch
+                'If fails just ignore and use last value obtained as stored in global variable
+            End Try
+
+            txtMempool.Text = Mempool
 
         Catch ex As Exception
             Log_Error(ex)
