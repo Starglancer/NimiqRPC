@@ -73,6 +73,9 @@ Public Class Form1
             'Configure hashrate chart
             Configure_Hashrate_Chart()
 
+            'Configure filter for save CSV dialog box
+            SaveCSVDialog.Filter = "CSV File|*.csv|Text File|*.txt"
+
             'Initial data update
             Update_Data()
 
@@ -1160,6 +1163,96 @@ Public Class Form1
 
         Try
             txtErrorLog.Text = ""
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
+
+    End Sub
+
+    Private Sub mnuExportCSV_Click(sender As Object, e As EventArgs) Handles mnuExportCSV.Click
+
+        Try
+            Dim Path As String = ""
+            Dim csv As String = ""
+
+            If TabControl.SelectedTab Is tabBlockList Then
+
+                'Add the Header row for CSV file.
+                For Each column As DataGridViewColumn In grdBlocks.Columns
+                    csv += column.HeaderText & ","c
+                Next
+
+                'Add new line.
+                csv += Environment.NewLine
+
+                'Adding the Rows
+                For Each row As DataGridViewRow In grdBlocks.Rows
+                    For Each cell As DataGridViewCell In row.Cells
+                        'Add the Data rows.
+                        csv += cell.Value.ToString().Replace(",", ";") & ","c
+                    Next
+
+                    'Add new line.
+                    csv += Environment.NewLine
+                Next
+
+            End If
+
+            If TabControl.SelectedTab Is tabPeerList Then
+
+                'Add the Header row for CSV file.
+                For Each column As DataGridViewColumn In grdPeers.Columns
+                    csv += column.HeaderText & ","c
+                Next
+
+                'Add new line.
+                csv += Environment.NewLine
+
+                'Adding the Rows
+                For Each row As DataGridViewRow In grdPeers.Rows
+                    For Each cell As DataGridViewCell In row.Cells
+                        'Add the Data rows.
+                        csv += cell.Value.ToString().Replace(",", ";") & ","c
+                    Next
+
+                    'Add new line.
+                    csv += Environment.NewLine
+                Next
+
+            End If
+
+            If TabControl.SelectedTab Is tabTransactionList Then
+
+                'Add the Header row for CSV file.
+                For Each column As DataGridViewColumn In grdTransactions.Columns
+                    csv += column.HeaderText & ","c
+                Next
+
+                'Add new line.
+                csv += Environment.NewLine
+
+                'Adding the Rows
+                For Each row As DataGridViewRow In grdTransactions.Rows
+                    For Each cell As DataGridViewCell In row.Cells
+                        'Add the Data rows.
+                        csv += cell.Value.ToString().Replace(",", ";") & ","c
+                    Next
+
+                    'Add new line.
+                    csv += Environment.NewLine
+                Next
+
+            End If
+
+            'Get filename and location
+            SaveCSVDialog.ShowDialog()
+            Path = SaveCSVDialog.FileName
+
+            'Save file
+            If Path <> "" Then
+                IO.File.WriteAllText(Path, csv)
+            End If
 
         Catch ex As Exception
             Log_Error(ex)
