@@ -396,7 +396,7 @@ Partial Class Form1
         '
         'txtBlocknumber
         '
-        Me.txtBlocknumber.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlocknumber.BackColor = System.Drawing.Color.White
         Me.txtBlocknumber.Location = New System.Drawing.Point(375, 16)
         Me.txtBlocknumber.Name = "txtBlocknumber"
         Me.txtBlocknumber.ReadOnly = True
@@ -545,7 +545,7 @@ Partial Class Form1
         '
         'txtBlockDetailsTimestamp
         '
-        Me.txtBlockDetailsTimestamp.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsTimestamp.BackColor = System.Drawing.Color.White
         Me.txtBlockDetailsTimestamp.Location = New System.Drawing.Point(536, 56)
         Me.txtBlockDetailsTimestamp.Name = "txtBlockDetailsTimestamp"
         Me.txtBlockDetailsTimestamp.ReadOnly = True
@@ -564,7 +564,7 @@ Partial Class Form1
         '
         'txtBlockDetailsTransactions
         '
-        Me.txtBlockDetailsTransactions.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsTransactions.BackColor = System.Drawing.Color.White
         Me.txtBlockDetailsTransactions.Location = New System.Drawing.Point(322, 56)
         Me.txtBlockDetailsTransactions.Name = "txtBlockDetailsTransactions"
         Me.txtBlockDetailsTransactions.ReadOnly = True
@@ -583,7 +583,7 @@ Partial Class Form1
         '
         'txtBlockDetailsSize
         '
-        Me.txtBlockDetailsSize.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsSize.BackColor = System.Drawing.Color.White
         Me.txtBlockDetailsSize.Location = New System.Drawing.Point(126, 56)
         Me.txtBlockDetailsSize.Name = "txtBlockDetailsSize"
         Me.txtBlockDetailsSize.ReadOnly = True
@@ -602,7 +602,7 @@ Partial Class Form1
         '
         'txtBlockDetailsPow
         '
-        Me.txtBlockDetailsPow.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsPow.BackColor = System.Drawing.Color.White
         Me.txtBlockDetailsPow.Location = New System.Drawing.Point(126, 296)
         Me.txtBlockDetailsPow.Name = "txtBlockDetailsPow"
         Me.txtBlockDetailsPow.ReadOnly = True
@@ -621,7 +621,7 @@ Partial Class Form1
         '
         'txtBlockDetailsDifficulty
         '
-        Me.txtBlockDetailsDifficulty.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsDifficulty.BackColor = System.Drawing.Color.White
         Me.txtBlockDetailsDifficulty.Location = New System.Drawing.Point(536, 26)
         Me.txtBlockDetailsDifficulty.Name = "txtBlockDetailsDifficulty"
         Me.txtBlockDetailsDifficulty.ReadOnly = True
@@ -640,7 +640,7 @@ Partial Class Form1
         '
         'txtBlockDetailsConfirmations
         '
-        Me.txtBlockDetailsConfirmations.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsConfirmations.BackColor = System.Drawing.Color.White
         Me.txtBlockDetailsConfirmations.Location = New System.Drawing.Point(322, 26)
         Me.txtBlockDetailsConfirmations.Name = "txtBlockDetailsConfirmations"
         Me.txtBlockDetailsConfirmations.ReadOnly = True
@@ -659,7 +659,7 @@ Partial Class Form1
         '
         'txtBlockDetailsBodyHash
         '
-        Me.txtBlockDetailsBodyHash.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsBodyHash.BackColor = System.Drawing.Color.White
         Me.txtBlockDetailsBodyHash.Location = New System.Drawing.Point(126, 270)
         Me.txtBlockDetailsBodyHash.Name = "txtBlockDetailsBodyHash"
         Me.txtBlockDetailsBodyHash.ReadOnly = True
@@ -678,7 +678,7 @@ Partial Class Form1
         '
         'txtBlockDetailsAccountsHash
         '
-        Me.txtBlockDetailsAccountsHash.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsAccountsHash.BackColor = System.Drawing.Color.White
         Me.txtBlockDetailsAccountsHash.Location = New System.Drawing.Point(126, 244)
         Me.txtBlockDetailsAccountsHash.Name = "txtBlockDetailsAccountsHash"
         Me.txtBlockDetailsAccountsHash.ReadOnly = True
@@ -697,7 +697,7 @@ Partial Class Form1
         '
         'txtBlockDetailsNonce
         '
-        Me.txtBlockDetailsNonce.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsNonce.BackColor = System.Drawing.Color.White
         Me.txtBlockDetailsNonce.Location = New System.Drawing.Point(126, 218)
         Me.txtBlockDetailsNonce.Name = "txtBlockDetailsNonce"
         Me.txtBlockDetailsNonce.ReadOnly = True
@@ -716,7 +716,7 @@ Partial Class Form1
         '
         'txtBlockDetailsExtraData
         '
-        Me.txtBlockDetailsExtraData.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsExtraData.BackColor = System.Drawing.Color.White
         Me.txtBlockDetailsExtraData.Location = New System.Drawing.Point(126, 192)
         Me.txtBlockDetailsExtraData.Name = "txtBlockDetailsExtraData"
         Me.txtBlockDetailsExtraData.ReadOnly = True
@@ -735,7 +735,7 @@ Partial Class Form1
         '
         'txtBlockDetailsParentHash
         '
-        Me.txtBlockDetailsParentHash.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsParentHash.BackColor = System.Drawing.Color.White
         Me.txtBlockDetailsParentHash.Location = New System.Drawing.Point(126, 113)
         Me.txtBlockDetailsParentHash.Name = "txtBlockDetailsParentHash"
         Me.txtBlockDetailsParentHash.ReadOnly = True
@@ -754,7 +754,7 @@ Partial Class Form1
         '
         'txtBlockDetailsMinerAddress
         '
-        Me.txtBlockDetailsMinerAddress.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsMinerAddress.BackColor = System.Drawing.Color.White
         Me.txtBlockDetailsMinerAddress.Location = New System.Drawing.Point(126, 166)
         Me.txtBlockDetailsMinerAddress.Name = "txtBlockDetailsMinerAddress"
         Me.txtBlockDetailsMinerAddress.ReadOnly = True
@@ -773,7 +773,7 @@ Partial Class Form1
         '
         'txtBlockDetailsMiner
         '
-        Me.txtBlockDetailsMiner.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsMiner.BackColor = System.Drawing.Color.White
         Me.txtBlockDetailsMiner.Location = New System.Drawing.Point(126, 140)
         Me.txtBlockDetailsMiner.Name = "txtBlockDetailsMiner"
         Me.txtBlockDetailsMiner.ReadOnly = True
@@ -792,7 +792,7 @@ Partial Class Form1
         '
         'txtBlockDetailsHash
         '
-        Me.txtBlockDetailsHash.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsHash.BackColor = System.Drawing.Color.White
         Me.txtBlockDetailsHash.Location = New System.Drawing.Point(126, 87)
         Me.txtBlockDetailsHash.Name = "txtBlockDetailsHash"
         Me.txtBlockDetailsHash.ReadOnly = True
@@ -811,7 +811,7 @@ Partial Class Form1
         '
         'txtBlockDetailsNumber
         '
-        Me.txtBlockDetailsNumber.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBlockDetailsNumber.BackColor = System.Drawing.Color.White
         Me.txtBlockDetailsNumber.Location = New System.Drawing.Point(126, 26)
         Me.txtBlockDetailsNumber.Name = "txtBlockDetailsNumber"
         Me.txtBlockDetailsNumber.ReadOnly = True
@@ -919,7 +919,7 @@ Partial Class Form1
         '
         'txtTotalPeers
         '
-        Me.txtTotalPeers.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtTotalPeers.BackColor = System.Drawing.Color.White
         Me.txtTotalPeers.Location = New System.Drawing.Point(372, 16)
         Me.txtTotalPeers.Name = "txtTotalPeers"
         Me.txtTotalPeers.ReadOnly = True
@@ -1157,7 +1157,7 @@ Partial Class Form1
         '
         'txtPoolBalance
         '
-        Me.txtPoolBalance.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtPoolBalance.BackColor = System.Drawing.Color.White
         Me.txtPoolBalance.Location = New System.Drawing.Point(613, 30)
         Me.txtPoolBalance.Name = "txtPoolBalance"
         Me.txtPoolBalance.ReadOnly = True
@@ -1167,7 +1167,7 @@ Partial Class Form1
         '
         'txtPoolConnection
         '
-        Me.txtPoolConnection.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtPoolConnection.BackColor = System.Drawing.Color.White
         Me.txtPoolConnection.Location = New System.Drawing.Point(384, 30)
         Me.txtPoolConnection.Name = "txtPoolConnection"
         Me.txtPoolConnection.ReadOnly = True
@@ -1222,7 +1222,7 @@ Partial Class Form1
         '
         'txtMiningAddress
         '
-        Me.txtMiningAddress.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtMiningAddress.BackColor = System.Drawing.Color.White
         Me.txtMiningAddress.Location = New System.Drawing.Point(239, 285)
         Me.txtMiningAddress.Name = "txtMiningAddress"
         Me.txtMiningAddress.ReadOnly = True
@@ -1277,7 +1277,7 @@ Partial Class Form1
         '
         'txtHashRate
         '
-        Me.txtHashRate.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtHashRate.BackColor = System.Drawing.Color.White
         Me.txtHashRate.Location = New System.Drawing.Point(569, 19)
         Me.txtHashRate.Name = "txtHashRate"
         Me.txtHashRate.ReadOnly = True
@@ -1287,7 +1287,7 @@ Partial Class Form1
         '
         'txtThreads
         '
-        Me.txtThreads.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtThreads.BackColor = System.Drawing.Color.White
         Me.txtThreads.Location = New System.Drawing.Point(401, 19)
         Me.txtThreads.Name = "txtThreads"
         Me.txtThreads.ReadOnly = True
@@ -1447,7 +1447,7 @@ Partial Class Form1
         '
         'txtBalance
         '
-        Me.txtBalance.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtBalance.BackColor = System.Drawing.Color.White
         Me.txtBalance.Location = New System.Drawing.Point(104, 25)
         Me.txtBalance.Name = "txtBalance"
         Me.txtBalance.ReadOnly = True
@@ -1466,7 +1466,7 @@ Partial Class Form1
         '
         'txtAccountID
         '
-        Me.txtAccountID.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtAccountID.BackColor = System.Drawing.Color.White
         Me.txtAccountID.Location = New System.Drawing.Point(458, 26)
         Me.txtAccountID.Name = "txtAccountID"
         Me.txtAccountID.ReadOnly = True
@@ -1485,7 +1485,7 @@ Partial Class Form1
         '
         'txtAccountType
         '
-        Me.txtAccountType.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtAccountType.BackColor = System.Drawing.Color.White
         Me.txtAccountType.Location = New System.Drawing.Point(296, 26)
         Me.txtAccountType.Name = "txtAccountType"
         Me.txtAccountType.ReadOnly = True
@@ -1522,6 +1522,7 @@ Partial Class Form1
         Me.txtBlockNumberSearch.Name = "txtBlockNumberSearch"
         Me.txtBlockNumberSearch.Size = New System.Drawing.Size(113, 20)
         Me.txtBlockNumberSearch.TabIndex = 5
+        Me.txtBlockNumberSearch.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'lblBlockNumberSearch
         '
@@ -1593,9 +1594,11 @@ Partial Class Form1
         '
         'txtErrorLog
         '
+        Me.txtErrorLog.BackColor = System.Drawing.Color.White
         Me.txtErrorLog.Location = New System.Drawing.Point(10, 21)
         Me.txtErrorLog.Multiline = True
         Me.txtErrorLog.Name = "txtErrorLog"
+        Me.txtErrorLog.ReadOnly = True
         Me.txtErrorLog.ScrollBars = System.Windows.Forms.ScrollBars.Both
         Me.txtErrorLog.Size = New System.Drawing.Size(719, 154)
         Me.txtErrorLog.TabIndex = 0
@@ -1613,6 +1616,7 @@ Partial Class Form1
         '
         'cmbLoggingLevel
         '
+        Me.cmbLoggingLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbLoggingLevel.FormattingEnabled = True
         Me.cmbLoggingLevel.Items.AddRange(New Object() {"trace", "verbose", "debug", "info", "warning", "error", "assert"})
         Me.cmbLoggingLevel.Location = New System.Drawing.Point(208, 19)

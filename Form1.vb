@@ -903,7 +903,9 @@ Public Class Form1
 
                 'Get Transaction details
                 Try
-                    Transactions = Client.GetTransactionsByAddress(txtAccountAddress.Text, 100)
+                    Me.Cursor = Cursors.WaitCursor
+                    Transactions = Client.GetTransactionsByAddress(txtAccountAddress.Text, 100) 'This can be a very slow process
+                    Me.Cursor = Cursors.Default
                 Catch
                     Exit Sub
                 End Try
@@ -1248,6 +1250,8 @@ Public Class Form1
 
             If TabControl.SelectedTab Is tabBlockNumber Or TabControl.SelectedTab Is tabPeerCount Or TabControl.SelectedTab Is tabMining Then
 
+                'Output the underlying data array that feeds all the graphs
+
                 'Add the Header row for CSV file.
                 csv += "Minute,Block Number,Peer Count,Hash Rate"
 
@@ -1269,6 +1273,7 @@ Public Class Form1
 
             If TabControl.SelectedTab Is tabBlockDetail Then
 
+                'output all the information from the individual texboxes
                 csv += "Number:" + vbTab + vbTab + txtBlockDetailsNumber.Text + Environment.NewLine
                 csv += "Hash:" + vbTab + vbTab + txtBlockDetailsHash.Text + Environment.NewLine
                 csv += "Parent Hash:" + vbTab + txtBlockDetailsParentHash.Text + Environment.NewLine
@@ -1287,11 +1292,11 @@ Public Class Form1
 
             End If
 
-            'Get filename and location
+            'Get filename and location from user
             SaveCSVDialog.ShowDialog()
             Path = SaveCSVDialog.FileName
 
-            'Save file
+            'Save file if selected
             If Path <> "" Then
                 IO.File.WriteAllText(Path, csv)
             End If
