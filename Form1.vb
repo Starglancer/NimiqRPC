@@ -1267,6 +1267,26 @@ Public Class Form1
 
             End If
 
+            If TabControl.SelectedTab Is tabBlockDetail Then
+
+                csv += "Number:" + vbTab + vbTab + txtBlockDetailsNumber.Text + Environment.NewLine
+                csv += "Hash:" + vbTab + vbTab + txtBlockDetailsHash.Text + Environment.NewLine
+                csv += "Parent Hash:" + vbTab + txtBlockDetailsParentHash.Text + Environment.NewLine
+                csv += "Miner:" + vbTab + vbTab + txtBlockDetailsMiner.Text + Environment.NewLine
+                csv += "Miner Address:" + vbTab + txtBlockDetailsMinerAddress.Text + Environment.NewLine
+                csv += "Exra Data:" + vbTab + txtBlockDetailsExtraData.Text + Environment.NewLine
+                csv += "Nonce:" + vbTab + vbTab + txtBlockDetailsNonce.Text + Environment.NewLine
+                csv += "Accounts Hash:" + vbTab + txtBlockDetailsAccountsHash.Text + Environment.NewLine
+                csv += "Body Hash:" + vbTab + txtBlockDetailsBodyHash.Text + Environment.NewLine
+                csv += "Confirmations:" + vbTab + txtBlockDetailsConfirmations.Text + Environment.NewLine
+                csv += "Difficulty:" + vbTab + txtBlockDetailsDifficulty.Text + Environment.NewLine
+                csv += "Pow:" + vbTab + vbTab + txtBlockDetailsPow.Text + Environment.NewLine
+                csv += "Size:" + vbTab + vbTab + txtBlockDetailsSize.Text + Environment.NewLine
+                csv += "Timestamp:" + vbTab + txtBlockDetailsTimestamp.Text + Environment.NewLine
+                csv += "Transactions:" + vbTab + txtBlockDetailsTransactions.Text + Environment.NewLine
+
+            End If
+
             'Get filename and location
             SaveCSVDialog.ShowDialog()
             Path = SaveCSVDialog.FileName

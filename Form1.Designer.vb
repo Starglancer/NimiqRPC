@@ -40,6 +40,8 @@ Partial Class Form1
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.TabControl = New System.Windows.Forms.TabControl()
+        Me.CSVContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.mnuExportCSV = New System.Windows.Forms.ToolStripMenuItem()
         Me.tabStatus = New System.Windows.Forms.TabPage()
         Me.btnDownloadNimiqCore = New System.Windows.Forms.Button()
         Me.txtConsensus = New System.Windows.Forms.TextBox()
@@ -188,10 +190,9 @@ Partial Class Form1
         Me.NotifyIcon = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.NotifyMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuExit = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CSVContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.mnuExportCSV = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveCSVDialog = New System.Windows.Forms.SaveFileDialog()
         Me.TabControl.SuspendLayout()
+        Me.CSVContextMenu.SuspendLayout()
         Me.tabStatus.SuspendLayout()
         CType(Me.pbxStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabBlockNumber.SuspendLayout()
@@ -223,7 +224,6 @@ Partial Class Form1
         Me.gbxPool.SuspendLayout()
         Me.gbxLogin.SuspendLayout()
         Me.NotifyMenu.SuspendLayout()
-        Me.CSVContextMenu.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl
@@ -244,6 +244,18 @@ Partial Class Form1
         Me.TabControl.SelectedIndex = 0
         Me.TabControl.Size = New System.Drawing.Size(800, 450)
         Me.TabControl.TabIndex = 0
+        '
+        'CSVContextMenu
+        '
+        Me.CSVContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuExportCSV})
+        Me.CSVContextMenu.Name = "CSVContextMenu"
+        Me.CSVContextMenu.Size = New System.Drawing.Size(133, 26)
+        '
+        'mnuExportCSV
+        '
+        Me.mnuExportCSV.Name = "mnuExportCSV"
+        Me.mnuExportCSV.Size = New System.Drawing.Size(132, 22)
+        Me.mnuExportCSV.Text = "Export CSV"
         '
         'tabStatus
         '
@@ -483,6 +495,7 @@ Partial Class Form1
         '
         'tabBlockDetail
         '
+        Me.tabBlockDetail.ContextMenuStrip = Me.CSVContextMenu
         Me.tabBlockDetail.Controls.Add(Me.gbxBlockDetails)
         Me.tabBlockDetail.Controls.Add(Me.gbxSearch)
         Me.tabBlockDetail.Location = New System.Drawing.Point(4, 22)
@@ -1781,18 +1794,6 @@ Partial Class Form1
         Me.mnuExit.Size = New System.Drawing.Size(93, 22)
         Me.mnuExit.Text = "Exit"
         '
-        'CSVContextMenu
-        '
-        Me.CSVContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuExportCSV})
-        Me.CSVContextMenu.Name = "CSVContextMenu"
-        Me.CSVContextMenu.Size = New System.Drawing.Size(133, 26)
-        '
-        'mnuExportCSV
-        '
-        Me.mnuExportCSV.Name = "mnuExportCSV"
-        Me.mnuExportCSV.Size = New System.Drawing.Size(132, 22)
-        Me.mnuExportCSV.Text = "Export CSV"
-        '
         'SaveCSVDialog
         '
         Me.SaveCSVDialog.Title = "Save CSV File"
@@ -1810,6 +1811,7 @@ Partial Class Form1
         Me.ShowInTaskbar = False
         Me.Text = "Nimiq RPC"
         Me.TabControl.ResumeLayout(False)
+        Me.CSVContextMenu.ResumeLayout(False)
         Me.tabStatus.ResumeLayout(False)
         Me.tabStatus.PerformLayout()
         CType(Me.pbxStatus, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1857,7 +1859,6 @@ Partial Class Form1
         Me.gbxLogin.ResumeLayout(False)
         Me.gbxLogin.PerformLayout()
         Me.NotifyMenu.ResumeLayout(False)
-        Me.CSVContextMenu.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
