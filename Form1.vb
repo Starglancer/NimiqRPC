@@ -1175,6 +1175,7 @@ Public Class Form1
         Try
             Dim Path As String = ""
             Dim csv As String = ""
+            Dim Minute As String = ""
 
             If TabControl.SelectedTab Is tabBlockList Then
 
@@ -1238,6 +1239,27 @@ Public Class Form1
                         'Add the Data rows.
                         csv += cell.Value.ToString().Replace(",", ";") & ","c
                     Next
+
+                    'Add new line.
+                    csv += Environment.NewLine
+                Next
+
+            End If
+
+            If TabControl.SelectedTab Is tabBlockNumber Or TabControl.SelectedTab Is tabPeerCount Or TabControl.SelectedTab Is tabMining Then
+
+                'Add the Header row for CSV file.
+                csv += "Minute,Block Number,Peer Count,Hash Rate"
+
+                'Add new line.
+                csv += Environment.NewLine
+
+                'Adding the Rows
+                For N As Integer = 0 To DataPointer - 1
+                    'Add the data rows
+                    Minute = (N * UpdateIntervalSeconds / 60).ToString
+                    If Minute.Length > 4 Then Minute = Minute.Substring(0, 4)
+                    csv += Minute + "," + DataArray(N, 0).ToString + "," + DataArray(N, 1).ToString + "," + DataArray(N, 2).ToString
 
                     'Add new line.
                     csv += Environment.NewLine
