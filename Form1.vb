@@ -592,7 +592,6 @@ Public Class Form1
             If Me.WindowState = FormWindowState.Minimized Then
                 Me.Show()
                 Me.WindowState = FormWindowState.Normal
-                Me.TopMost = True
             Else
                 Me.WindowState = FormWindowState.Minimized
             End If
@@ -965,15 +964,21 @@ Public Class Form1
 
         Dim Valid As Boolean
 
-        If Input = "" Then
-            'Its an empty string
+        Try
+            If Input = "" Then
+                'Its an empty string
+                Valid = False
+            ElseIf Not Regex.IsMatch(Input, "[A-Fa-f0-9]{64}") Then
+                'Its not a valid sha256 hash
+                Valid = False
+            Else
+                Valid = True
+            End If
+
+        Catch ex As Exception
+            Log_Error(ex)
             Valid = False
-        ElseIf Not Regex.IsMatch(Input, "[A-Fa-f0-9]{64}") Then
-            'Its not a valid sha256 hash
-            Valid = False
-        Else
-            Valid = True
-        End If
+        End Try
 
         Return Valid
 
@@ -983,15 +988,21 @@ Public Class Form1
 
         Dim Valid As Boolean
 
-        If Input = "" Then
-            'Its an empty string
+        Try
+            If Input = "" Then
+                'Its an empty string
+                Valid = False
+            ElseIf Not Regex.IsMatch(Input, "N{1}Q{1}\d{2}(\s[A-Z0-9]{4}){8}") Then
+                'Its not a valid wallet address
+                Valid = False
+            Else
+                Valid = True
+            End If
+
+        Catch ex As Exception
+            Log_Error(ex)
             Valid = False
-        ElseIf Not Regex.IsMatch(Input, "N{1}Q{1}\d{2}(\s[A-Z0-9]{4}){8}") Then
-            'Its not a valid wallet address
-            Valid = False
-        Else
-            Valid = True
-        End If
+        End Try
 
         Return Valid
 
@@ -999,89 +1010,124 @@ Public Class Form1
 
     Private Sub btnDownloadNimiqCore_Click(sender As Object, e As EventArgs) Handles btnDownloadNimiqCore.Click
 
-        Process.Start(My.Settings.DownloadCore)
+        Try
+            Process.Start(My.Settings.DownloadCore)
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub txtMiningAddress_MouseClick(sender As Object, e As MouseEventArgs) Handles txtMiningAddress.MouseClick
 
-        txtAccountAddress.Text = txtMiningAddress.Text
-        txtBlockNumberSearch.Text = ""
-        Transaction_Search()
-        TabControl.SelectedTab = tabTransactionList
+        Try
+            txtAccountAddress.Text = txtMiningAddress.Text
+            txtBlockNumberSearch.Text = ""
+            Transaction_Search()
+            TabControl.SelectedTab = tabTransactionList
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub grdBlocks_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdBlocks.CellClick
 
-        If e.ColumnIndex = 0 Then 'Block Number
-            txtBlock_Number.Text = grdBlocks.Rows(e.RowIndex).Cells(0).Value
-            txtBlock_Hash.Text = ""
-            Block_Search()
-            TabControl.SelectedTab = tabBlockDetail
-        ElseIf e.ColumnIndex = 1 Then 'Transactions
-            txtBlockNumberSearch.Text = grdBlocks.Rows(e.RowIndex).Cells(0).Value
-            txtAccountAddress.Text = ""
-            Transaction_Search()
-            TabControl.SelectedTab = tabTransactionList
-        ElseIf e.ColumnIndex = 4 Then 'Miner Address
-            txtBlockNumberSearch.Text = ""
-            txtAccountAddress.Text = grdBlocks.Rows(e.RowIndex).Cells(4).Value
-            Transaction_Search()
-            TabControl.SelectedTab = tabTransactionList
-        Else
-            'Do nothing
-        End If
+        Try
+            If e.ColumnIndex = 0 Then 'Block Number
+                txtBlock_Number.Text = grdBlocks.Rows(e.RowIndex).Cells(0).Value
+                txtBlock_Hash.Text = ""
+                Block_Search()
+                TabControl.SelectedTab = tabBlockDetail
+            ElseIf e.ColumnIndex = 1 Then 'Transactions
+                txtBlockNumberSearch.Text = grdBlocks.Rows(e.RowIndex).Cells(0).Value
+                txtAccountAddress.Text = ""
+                Transaction_Search()
+                TabControl.SelectedTab = tabTransactionList
+            ElseIf e.ColumnIndex = 4 Then 'Miner Address
+                txtBlockNumberSearch.Text = ""
+                txtAccountAddress.Text = grdBlocks.Rows(e.RowIndex).Cells(4).Value
+                Transaction_Search()
+                TabControl.SelectedTab = tabTransactionList
+            Else
+                'Do nothing
+            End If
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub txtBlocknumber_MouseClick(sender As Object, e As MouseEventArgs) Handles txtBlocknumber.MouseClick
 
-        txtBlock_Number.Text = txtBlocknumber.Text
-        txtBlock_Hash.Text = ""
-        Block_Search()
-        TabControl.SelectedTab = tabBlockDetail
+        Try
+            txtBlock_Number.Text = txtBlocknumber.Text
+            txtBlock_Hash.Text = ""
+            Block_Search()
+            TabControl.SelectedTab = tabBlockDetail
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub txtBlockDetailsTransactions_MouseClick(sender As Object, e As MouseEventArgs) Handles txtBlockDetailsTransactions.MouseClick
 
-        txtBlockNumberSearch.Text = txtBlockDetailsNumber.Text
-        txtAccountAddress.Text = ""
-        Transaction_Search()
-        TabControl.SelectedTab = tabTransactionList
+        Try
+            txtBlockNumberSearch.Text = txtBlockDetailsNumber.Text
+            txtAccountAddress.Text = ""
+            Transaction_Search()
+            TabControl.SelectedTab = tabTransactionList
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub txtBlockDetailsMinerAddress_MouseClick(sender As Object, e As MouseEventArgs) Handles txtBlockDetailsMinerAddress.MouseClick
 
-        txtBlockNumberSearch.Text = ""
-        txtAccountAddress.Text = txtBlockDetailsMinerAddress.Text
-        Transaction_Search()
-        TabControl.SelectedTab = tabTransactionList
+        Try
+            txtBlockNumberSearch.Text = ""
+            txtAccountAddress.Text = txtBlockDetailsMinerAddress.Text
+            Transaction_Search()
+            TabControl.SelectedTab = tabTransactionList
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
     Private Sub grdTransactions_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdTransactions.CellClick
 
-        If e.ColumnIndex = 1 Then 'From address
-            txtBlockNumberSearch.Text = ""
-            txtAccountAddress.Text = grdTransactions.Rows(e.RowIndex).Cells(1).Value
-            Transaction_Search()
-            TabControl.SelectedTab = tabTransactionList
-        ElseIf e.ColumnIndex = 2 Then 'To Address
-            txtBlockNumberSearch.Text = ""
-            txtAccountAddress.Text = grdTransactions.Rows(e.RowIndex).Cells(2).Value
-            Transaction_Search()
-            TabControl.SelectedTab = tabTransactionList
-        ElseIf e.ColumnIndex = 6 Then 'Block number
-            txtBlock_Number.Text = grdTransactions.Rows(e.RowIndex).Cells(6).Value
-            txtBlock_Hash.Text = ""
-            Block_Search()
-            TabControl.SelectedTab = tabBlockDetail
-        Else
-            'Do nothing
-        End If
+        Try
+            If e.ColumnIndex = 1 Then 'From address
+                txtBlockNumberSearch.Text = ""
+                txtAccountAddress.Text = grdTransactions.Rows(e.RowIndex).Cells(1).Value
+                Transaction_Search()
+                TabControl.SelectedTab = tabTransactionList
+            ElseIf e.ColumnIndex = 2 Then 'To Address
+                txtBlockNumberSearch.Text = ""
+                txtAccountAddress.Text = grdTransactions.Rows(e.RowIndex).Cells(2).Value
+                Transaction_Search()
+                TabControl.SelectedTab = tabTransactionList
+            ElseIf e.ColumnIndex = 6 Then 'Block number
+                txtBlock_Number.Text = grdTransactions.Rows(e.RowIndex).Cells(6).Value
+                txtBlock_Hash.Text = ""
+                Block_Search()
+                TabControl.SelectedTab = tabBlockDetail
+            Else
+                'Do nothing
+            End If
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
 
@@ -1112,7 +1158,13 @@ Public Class Form1
 
     Private Sub btnClearLog_Click(sender As Object, e As EventArgs) Handles btnClearLog.Click
 
-        txtErrorLog.Text = ""
+        Try
+            txtErrorLog.Text = ""
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
 
     End Sub
+
 End Class
