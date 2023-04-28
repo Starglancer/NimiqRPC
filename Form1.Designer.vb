@@ -228,7 +228,6 @@ Partial Class Form1
         '
         'TabControl
         '
-        Me.TabControl.ContextMenuStrip = Me.CSVContextMenu
         Me.TabControl.Controls.Add(Me.tabStatus)
         Me.TabControl.Controls.Add(Me.tabBlockNumber)
         Me.TabControl.Controls.Add(Me.tabBlockList)
@@ -1581,7 +1580,7 @@ Partial Class Form1
         Me.gbxErrorLog.Size = New System.Drawing.Size(739, 212)
         Me.gbxErrorLog.TabIndex = 10
         Me.gbxErrorLog.TabStop = False
-        Me.gbxErrorLog.Text = "Error Log"
+        Me.gbxErrorLog.Text = "Nimiq RPC Error Log"
         '
         'btnClearLog
         '
