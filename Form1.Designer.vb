@@ -357,7 +357,7 @@ Partial Class Form1
         '
         'pbxStatus
         '
-        Me.pbxStatus.Image = Global.NimiqRPC.My.Resources.Resources.Red
+        Me.pbxStatus.Image = Global.NimiqRPC.My.Resources.Resources.Amber
         Me.pbxStatus.Location = New System.Drawing.Point(33, 76)
         Me.pbxStatus.Name = "pbxStatus"
         Me.pbxStatus.Size = New System.Drawing.Size(210, 182)

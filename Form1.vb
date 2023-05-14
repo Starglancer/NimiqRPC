@@ -81,6 +81,9 @@ Public Class Form1
             'Configure filter for save CSV dialog box
             SaveCSVDialog.Filter = "CSV File|*.csv|Text File|*.txt"
 
+            'Set default tray icon
+            NotifyIcon.Icon = My.Resources.Nimiq
+
             'Initial data update
             Update_Data()
 
@@ -295,14 +298,17 @@ Public Class Form1
             'Update the image colour, icon colour and icon text
             If Running = False Then
                 pbxStatus.Image = My.Resources.Red
+                Me.Icon = My.Resources.Red1
                 NotifyIcon.Icon = My.Resources.Red1
                 NotifyIcon.Text = "Nimiq Stopped"
             ElseIf Consensus = "established" Then
                 pbxStatus.Image = My.Resources.Green
+                Me.Icon = My.Resources.Green1
                 NotifyIcon.Icon = My.Resources.Green1
                 NotifyIcon.Text = "Nimiq Running"
             Else
                 pbxStatus.Image = My.Resources.Amber
+                Me.Icon = My.Resources.Nimiq
                 NotifyIcon.Icon = My.Resources.Nimiq
                 NotifyIcon.Text = "Nimiq Establishing Concensus"
             End If
