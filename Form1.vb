@@ -85,7 +85,6 @@ Public Class Form1
             Update_Data()
 
             'Initiate data timer
-            timUpdateData.Interval = txtUpdateInterval.Text * 1000
             timUpdateData.Enabled = True
 
             'Centre Form on screen
@@ -132,6 +131,8 @@ Public Class Form1
             DataPointer = 0
             MaxDataPointer = Convert.ToInt32(txtTrendDuration.Text * 60 / txtUpdateInterval.Text)
             ReDim DataArray(MaxDataPointer + 1, 3)
+
+            timUpdateData.Interval = txtUpdateInterval.Text * 1000
 
         Catch ex As Exception
             Log_Error(ex)
