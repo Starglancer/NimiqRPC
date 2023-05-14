@@ -26,5 +26,11 @@
     <Setting Name="DownloadCore" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://repo.nimiq.com/win/x64/</Value>
     </Setting>
+    <Setting Name="TrendDurationMinutes" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="UpdateIntervalSeconds" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

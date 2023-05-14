@@ -146,6 +146,30 @@ Namespace My
                 Return CType(Me("DownloadCore"),String)
             End Get
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property TrendDurationMinutes() As Integer
+            Get
+                Return CType(Me("TrendDurationMinutes"),Integer)
+            End Get
+            Set
+                Me("TrendDurationMinutes") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property UpdateIntervalSeconds() As Integer
+            Get
+                Return CType(Me("UpdateIntervalSeconds"),Integer)
+            End Get
+            Set
+                Me("UpdateIntervalSeconds") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

@@ -13,8 +13,6 @@ Public Class Form1
     Dim DataArray(,) As Integer
     Dim DataPointer As Integer
     Dim MaxDataPointer As Integer
-    Dim TrendDurationMinutes As Integer
-    Dim UpdateIntervalSeconds As Integer
     Dim UserUpdate As Boolean
     Dim PoolList As String
     Dim BlockNumber As Integer
@@ -35,6 +33,8 @@ Public Class Form1
             txtPort.Text = My.Settings.Port
             txtUser.Text = My.Settings.User
             txtPassword.Text = My.Settings.Password
+            txtTrendDuration.Text = My.Settings.TrendDurationMinutes
+            txtUpdateInterval.Text = My.Settings.UpdateIntervalSeconds
 
             'Populate default peer list dropdown options
             cmbType.Text = "--all--"
@@ -45,14 +45,18 @@ Public Class Form1
             'Populate pool dropdown
             Populate_Pool_Dropdown()
 
-            'Set constants
-            TrendDurationMinutes = 60
-            UpdateIntervalSeconds = 10
+            'Set constants if persistent values not set
+            If txtTrendDuration.Text = 0 Then txtTrendDuration.Text = 60
+            If txtUpdateInterval.Text = 0 Then txtUpdateInterval.Text = 10
+
+            'Set slider positions
+            UserUpdate = False
+            tbrUpdateInterval.Value = 100 * Math.Log10(txtUpdateInterval.Text)
+            tbrTrendDuration.Value = txtTrendDuration.Text
+            UserUpdate = True
 
             'Initialise Data Capture
-            DataPointer = 0
-            MaxDataPointer = Convert.ToInt32(TrendDurationMinutes * 60 / UpdateIntervalSeconds)
-            ReDim DataArray(MaxDataPointer + 1, 3)
+            Initialise_Data_Capture()
 
             'Configure client
             Configure_Client()
@@ -81,7 +85,7 @@ Public Class Form1
             Update_Data()
 
             'Initiate data timer
-            timUpdateData.Interval = UpdateIntervalSeconds * 1000
+            timUpdateData.Interval = txtUpdateInterval.Text * 1000
             timUpdateData.Enabled = True
 
             'Centre Form on screen
@@ -115,6 +119,19 @@ Public Class Form1
 
             'Create client
             Client = New NimiqClient(Cfg)
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
+
+    End Sub
+
+    Private Sub Initialise_Data_Capture()
+
+        Try
+            DataPointer = 0
+            MaxDataPointer = Convert.ToInt32(txtTrendDuration.Text * 60 / txtUpdateInterval.Text)
+            ReDim DataArray(MaxDataPointer + 1, 3)
 
         Catch ex As Exception
             Log_Error(ex)
@@ -340,7 +357,7 @@ Public Class Form1
                 .BorderDashStyle = ChartDashStyle.Solid
 
                 For N As Integer = 0 To DataPointer
-                    .Points.AddXY(N * UpdateIntervalSeconds / 60, DataArray(N, 0))
+                    .Points.AddXY(N * txtUpdateInterval.Text / 60, DataArray(N, 0))
                 Next
 
             End With
@@ -420,7 +437,7 @@ Public Class Form1
                 .BorderDashStyle = ChartDashStyle.Solid
 
                 For N As Integer = 0 To DataPointer
-                    .Points.AddXY(N * UpdateIntervalSeconds / 60, DataArray(N, 1))
+                    .Points.AddXY(N * txtUpdateInterval.Text / 60, DataArray(N, 1))
                 Next
 
             End With
@@ -583,7 +600,7 @@ Public Class Form1
                 .BorderDashStyle = ChartDashStyle.Solid
 
                 For N As Integer = 0 To DataPointer
-                    .Points.AddXY(N * UpdateIntervalSeconds / 60, DataArray(N, 2))
+                    .Points.AddXY(N * txtUpdateInterval.Text / 60, DataArray(N, 2))
                 Next
 
             End With
@@ -651,6 +668,8 @@ Public Class Form1
             My.Settings.User = txtUser.Text
             My.Settings.Password = txtPassword.Text
             My.Settings.LoggingLevel = cmbLoggingLevel.Text
+            My.Settings.TrendDurationMinutes = txtTrendDuration.Text
+            My.Settings.UpdateIntervalSeconds = txtUpdateInterval.Text
 
         Catch ex As Exception
             Log_Error(ex)
@@ -1177,7 +1196,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub btnClearLog_Click(sender As Object, e As EventArgs) Handles btnClearLog.Click
+    Private Sub btnClearLog_Click(sender As Object, e As EventArgs)
 
         Try
             txtErrorLog.Text = ""
@@ -1277,7 +1296,7 @@ Public Class Form1
                 'Adding the Rows
                 For N As Integer = 0 To DataPointer - 1
                     'Add the data rows
-                    Minute = (N * UpdateIntervalSeconds / 60).ToString
+                    Minute = (N * txtUpdateInterval.Text / 60).ToString
                     If Minute.Length > 4 Then Minute = Minute.Substring(0, 4)
                     csv += Minute + "," + DataArray(N, 0).ToString + "," + DataArray(N, 1).ToString + "," + DataArray(N, 2).ToString
 
@@ -1315,6 +1334,38 @@ Public Class Form1
             'Save file if selected
             If Path <> "" Then
                 IO.File.WriteAllText(Path, csv)
+            End If
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
+
+    End Sub
+
+    Private Sub tbrTrendDuration_ValueChanged(sender As Object, e As EventArgs) Handles tbrTrendDuration.ValueChanged
+
+        Try
+            'Only action if its a user initiated change
+            If UserUpdate = True Then
+                txtTrendDuration.Text = tbrTrendDuration.Value
+                'Reset data capture
+                Initialise_Data_Capture()
+            End If
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
+
+    End Sub
+
+    Private Sub tbrUpdateInterval_ValueChanged(sender As Object, e As EventArgs) Handles tbrUpdateInterval.ValueChanged
+
+        Try
+            'Only action if its a user initiated change
+            If UserUpdate = True Then
+                txtUpdateInterval.Text = Convert.ToInt32(Math.Pow(10, tbrUpdateInterval.Value / 100))
+                'Reset data capture
+                Initialise_Data_Capture()
             End If
 
         Catch ex As Exception
