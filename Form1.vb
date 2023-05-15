@@ -1,9 +1,37 @@
-﻿Imports System.Text.RegularExpressions
+﻿Imports System.Net
+Imports System.Text.RegularExpressions
 Imports System.Windows.Forms.DataVisualization.Charting
 Imports Nimiq
 Imports Nimiq.Models
 
 Public Class Form1
+
+    'New class based on webclient that allows timeout to be changed
+    Public Class WebDownload
+
+        Inherits WebClient
+
+        Public Property Timeout As Integer
+
+        Public Sub New()
+            Me.New(60000)
+        End Sub
+
+        Public Sub New(ByVal timeout As Integer)
+            Me.Timeout = timeout
+        End Sub
+
+        Protected Overrides Function GetWebRequest(ByVal address As Uri) As WebRequest
+            Dim request = MyBase.GetWebRequest(address)
+
+            If request IsNot Nothing Then
+                request.Timeout = Me.Timeout
+            End If
+
+            Return request
+        End Function
+
+    End Class
 
     'Global Variables
     Dim Cfg As Config
@@ -275,49 +303,47 @@ Public Class Form1
         Try
             Dim Consensus As String = ""
 
-            'Update the status fields
-            Try
+            Running = Check_Connectivity()
+
+            If Running = True Then
                 Consensus = Client.Consensus()
-                Running = True
-            Catch
-                Running = False
-            End Try
+            End If
 
             'Update the image colour, icon colour and icon text
             If Running = False Then
-                    'Nimiq not running
-                    pbxStatus.Image = My.Resources.Red
-                    Me.Icon = My.Resources.Red1
-                    NotifyIcon.Icon = My.Resources.Red1
-                    NotifyIcon.Text = "Nimiq Stopped"
-                    txtStatus.Text = "stopped"
-                    txtStatus.BackColor = Color.LightSalmon
-                    txtConsensus.Text = ""
-                    txtConsensus.BackColor = Color.LightSalmon
-                ElseIf Consensus = "established" Then
-                    'Nimiq running and consensus established
-                    pbxStatus.Image = My.Resources.Green
-                    Me.Icon = My.Resources.Green1
-                    NotifyIcon.Icon = My.Resources.Green1
-                    NotifyIcon.Text = "Nimiq Running"
-                    txtStatus.Text = "running"
-                    txtStatus.BackColor = Color.PaleGreen
-                    txtConsensus.Text = Consensus
-                    txtConsensus.BackColor = Color.PaleGreen
-                Else
-                    'Nimiq running but consensus not established
-                    pbxStatus.Image = My.Resources.Amber
-                    Me.Icon = My.Resources.Nimiq
-                    NotifyIcon.Icon = My.Resources.Nimiq
-                    NotifyIcon.Text = "Nimiq Establishing Concensus"
-                    txtStatus.Text = "running"
-                    txtStatus.BackColor = Color.PaleGreen
-                    txtConsensus.Text = Consensus
-                    txtConsensus.BackColor = Color.Khaki
-                End If
+                'Nimiq not running
+                pbxStatus.Image = My.Resources.Red
+                Me.Icon = My.Resources.Red1
+                NotifyIcon.Icon = My.Resources.Red1
+                NotifyIcon.Text = "Nimiq Stopped"
+                txtStatus.Text = "stopped"
+                txtStatus.BackColor = Color.LightSalmon
+                txtConsensus.Text = ""
+                txtConsensus.BackColor = Color.LightSalmon
+            ElseIf Consensus = "established" Then
+                'Nimiq running and consensus established
+                pbxStatus.Image = My.Resources.Green
+                Me.Icon = My.Resources.Green1
+                NotifyIcon.Icon = My.Resources.Green1
+                NotifyIcon.Text = "Nimiq Running"
+                txtStatus.Text = "running"
+                txtStatus.BackColor = Color.PaleGreen
+                txtConsensus.Text = Consensus
+                txtConsensus.BackColor = Color.PaleGreen
+            Else
+                'Nimiq running but consensus not established
+                pbxStatus.Image = My.Resources.Amber
+                Me.Icon = My.Resources.Nimiq
+                NotifyIcon.Icon = My.Resources.Nimiq
+                NotifyIcon.Text = "Nimiq Establishing Concensus"
+                txtStatus.Text = "running"
+                txtStatus.BackColor = Color.PaleGreen
+                txtConsensus.Text = Consensus
+                txtConsensus.BackColor = Color.Khaki
+            End If
 
-            Catch ex As Exception
-                Log_Error(ex)
+        Catch ex As Exception
+            Log_Error(ex)
         End Try
 
     End Sub
@@ -338,9 +364,7 @@ Public Class Form1
         End Try
 
     End Sub
-
     Private Sub Update_Block_Number()
-
         Try
             'Get current block number
             Try
@@ -1383,5 +1407,23 @@ Public Class Form1
         End Try
 
     End Sub
+
+    Private Function Check_Connectivity() As Boolean
+
+        Dim Connected As Boolean
+        Dim DownloadString As String
+        Dim Response As String
+
+        DownloadString = txtScheme.Text + "://" + txtHost.Text + ":" + txtPort.Text
+        Try
+            Response = New WebDownload(2000).DownloadString(DownloadString)
+            Connected = True
+        Catch
+            Connected = False
+        End Try
+
+        Return Connected
+
+    End Function
 
 End Class
