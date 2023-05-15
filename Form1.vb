@@ -279,42 +279,45 @@ Public Class Form1
             Try
                 Consensus = Client.Consensus()
                 Running = True
-                txtStatus.Text = "running"
-                txtStatus.BackColor = Color.PaleGreen
-                txtConsensus.Text = Consensus
-                If Consensus = "established" Then
-                    txtConsensus.BackColor = Color.PaleGreen
-                Else
-                    txtConsensus.BackColor = Color.Khaki
-                End If
             Catch
                 Running = False
-                txtStatus.Text = "stopped"
-                txtStatus.BackColor = Color.LightSalmon
-                txtConsensus.Text = ""
-                txtConsensus.BackColor = Color.LightSalmon
             End Try
 
             'Update the image colour, icon colour and icon text
             If Running = False Then
-                pbxStatus.Image = My.Resources.Red
-                Me.Icon = My.Resources.Red1
-                NotifyIcon.Icon = My.Resources.Red1
-                NotifyIcon.Text = "Nimiq Stopped"
-            ElseIf Consensus = "established" Then
-                pbxStatus.Image = My.Resources.Green
-                Me.Icon = My.Resources.Green1
-                NotifyIcon.Icon = My.Resources.Green1
-                NotifyIcon.Text = "Nimiq Running"
-            Else
-                pbxStatus.Image = My.Resources.Amber
-                Me.Icon = My.Resources.Nimiq
-                NotifyIcon.Icon = My.Resources.Nimiq
-                NotifyIcon.Text = "Nimiq Establishing Concensus"
-            End If
+                    'Nimiq not running
+                    pbxStatus.Image = My.Resources.Red
+                    Me.Icon = My.Resources.Red1
+                    NotifyIcon.Icon = My.Resources.Red1
+                    NotifyIcon.Text = "Nimiq Stopped"
+                    txtStatus.Text = "stopped"
+                    txtStatus.BackColor = Color.LightSalmon
+                    txtConsensus.Text = ""
+                    txtConsensus.BackColor = Color.LightSalmon
+                ElseIf Consensus = "established" Then
+                    'Nimiq running and consensus established
+                    pbxStatus.Image = My.Resources.Green
+                    Me.Icon = My.Resources.Green1
+                    NotifyIcon.Icon = My.Resources.Green1
+                    NotifyIcon.Text = "Nimiq Running"
+                    txtStatus.Text = "running"
+                    txtStatus.BackColor = Color.PaleGreen
+                    txtConsensus.Text = Consensus
+                    txtConsensus.BackColor = Color.PaleGreen
+                Else
+                    'Nimiq running but consensus not established
+                    pbxStatus.Image = My.Resources.Amber
+                    Me.Icon = My.Resources.Nimiq
+                    NotifyIcon.Icon = My.Resources.Nimiq
+                    NotifyIcon.Text = "Nimiq Establishing Concensus"
+                    txtStatus.Text = "running"
+                    txtStatus.BackColor = Color.PaleGreen
+                    txtConsensus.Text = Consensus
+                    txtConsensus.BackColor = Color.Khaki
+                End If
 
-        Catch ex As Exception
-            Log_Error(ex)
+            Catch ex As Exception
+                Log_Error(ex)
         End Try
 
     End Sub
