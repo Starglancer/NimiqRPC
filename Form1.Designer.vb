@@ -171,7 +171,7 @@ Partial Class Form1
         Me.btnClearLog = New System.Windows.Forms.Button()
         Me.txtErrorLog = New System.Windows.Forms.TextBox()
         Me.tabSettings = New System.Windows.Forms.TabPage()
-        Me.gbxTimings = New System.Windows.Forms.GroupBox()
+        Me.gbxTrending = New System.Windows.Forms.GroupBox()
         Me.txtTrendDuration = New System.Windows.Forms.TextBox()
         Me.lblUpdateInterval = New System.Windows.Forms.Label()
         Me.tbrTrendDuration = New System.Windows.Forms.TrackBar()
@@ -201,6 +201,8 @@ Partial Class Form1
         Me.NotifyMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveCSVDialog = New System.Windows.Forms.SaveFileDialog()
+        Me.chkAutoUpdate = New System.Windows.Forms.CheckBox()
+        Me.btnUpdateNow = New System.Windows.Forms.Button()
         Me.TabControl.SuspendLayout()
         Me.tabStatus.SuspendLayout()
         CType(Me.pbxStatus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -231,7 +233,7 @@ Partial Class Form1
         Me.tabLog.SuspendLayout()
         Me.gbxErrorLog.SuspendLayout()
         Me.tabSettings.SuspendLayout()
-        Me.gbxTimings.SuspendLayout()
+        Me.gbxTrending.SuspendLayout()
         CType(Me.tbrTrendDuration, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbrUpdateInterval, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxLogging.SuspendLayout()
@@ -250,8 +252,8 @@ Partial Class Form1
         Me.TabControl.Controls.Add(Me.tabPeerList)
         Me.TabControl.Controls.Add(Me.tabMining)
         Me.TabControl.Controls.Add(Me.tabTransactionList)
-        Me.TabControl.Controls.Add(Me.tabLog)
         Me.TabControl.Controls.Add(Me.tabSettings)
+        Me.TabControl.Controls.Add(Me.tabLog)
         Me.TabControl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControl.Location = New System.Drawing.Point(0, 0)
         Me.TabControl.Name = "TabControl"
@@ -1602,7 +1604,7 @@ Partial Class Form1
         Me.tabLog.Name = "tabLog"
         Me.tabLog.Size = New System.Drawing.Size(792, 424)
         Me.tabLog.TabIndex = 10
-        Me.tabLog.Text = "NimiqRPC Log"
+        Me.tabLog.Text = "Error Log"
         Me.tabLog.UseVisualStyleBackColor = True
         '
         'gbxErrorLog
@@ -1638,7 +1640,7 @@ Partial Class Form1
         '
         'tabSettings
         '
-        Me.tabSettings.Controls.Add(Me.gbxTimings)
+        Me.tabSettings.Controls.Add(Me.gbxTrending)
         Me.tabSettings.Controls.Add(Me.gbxLogging)
         Me.tabSettings.Controls.Add(Me.gbxPool)
         Me.tabSettings.Controls.Add(Me.gbxLogin)
@@ -1649,25 +1651,27 @@ Partial Class Form1
         Me.tabSettings.Text = "Settings"
         Me.tabSettings.UseVisualStyleBackColor = True
         '
-        'gbxTimings
+        'gbxTrending
         '
-        Me.gbxTimings.Controls.Add(Me.txtTrendDuration)
-        Me.gbxTimings.Controls.Add(Me.lblUpdateInterval)
-        Me.gbxTimings.Controls.Add(Me.tbrTrendDuration)
-        Me.gbxTimings.Controls.Add(Me.lblTrendDuration)
-        Me.gbxTimings.Controls.Add(Me.txtUpdateInterval)
-        Me.gbxTimings.Controls.Add(Me.tbrUpdateInterval)
-        Me.gbxTimings.Location = New System.Drawing.Point(28, 214)
-        Me.gbxTimings.Name = "gbxTimings"
-        Me.gbxTimings.Size = New System.Drawing.Size(740, 75)
-        Me.gbxTimings.TabIndex = 10
-        Me.gbxTimings.TabStop = False
-        Me.gbxTimings.Text = "Timings"
+        Me.gbxTrending.Controls.Add(Me.btnUpdateNow)
+        Me.gbxTrending.Controls.Add(Me.chkAutoUpdate)
+        Me.gbxTrending.Controls.Add(Me.txtTrendDuration)
+        Me.gbxTrending.Controls.Add(Me.lblUpdateInterval)
+        Me.gbxTrending.Controls.Add(Me.tbrTrendDuration)
+        Me.gbxTrending.Controls.Add(Me.lblTrendDuration)
+        Me.gbxTrending.Controls.Add(Me.txtUpdateInterval)
+        Me.gbxTrending.Controls.Add(Me.tbrUpdateInterval)
+        Me.gbxTrending.Location = New System.Drawing.Point(28, 214)
+        Me.gbxTrending.Name = "gbxTrending"
+        Me.gbxTrending.Size = New System.Drawing.Size(740, 134)
+        Me.gbxTrending.TabIndex = 10
+        Me.gbxTrending.TabStop = False
+        Me.gbxTrending.Text = "Trending"
         '
         'txtTrendDuration
         '
         Me.txtTrendDuration.BackColor = System.Drawing.Color.White
-        Me.txtTrendDuration.Location = New System.Drawing.Point(692, 29)
+        Me.txtTrendDuration.Location = New System.Drawing.Point(686, 72)
         Me.txtTrendDuration.Name = "txtTrendDuration"
         Me.txtTrendDuration.ReadOnly = True
         Me.txtTrendDuration.Size = New System.Drawing.Size(42, 20)
@@ -1677,7 +1681,7 @@ Partial Class Form1
         'lblUpdateInterval
         '
         Me.lblUpdateInterval.AutoSize = True
-        Me.lblUpdateInterval.Location = New System.Drawing.Point(6, 28)
+        Me.lblUpdateInterval.Location = New System.Drawing.Point(9, 75)
         Me.lblUpdateInterval.Name = "lblUpdateInterval"
         Me.lblUpdateInterval.Size = New System.Drawing.Size(129, 13)
         Me.lblUpdateInterval.TabIndex = 13
@@ -1686,7 +1690,7 @@ Partial Class Form1
         'tbrTrendDuration
         '
         Me.tbrTrendDuration.LargeChange = 60
-        Me.tbrTrendDuration.Location = New System.Drawing.Point(521, 16)
+        Me.tbrTrendDuration.Location = New System.Drawing.Point(515, 63)
         Me.tbrTrendDuration.Maximum = 1440
         Me.tbrTrendDuration.Minimum = 5
         Me.tbrTrendDuration.Name = "tbrTrendDuration"
@@ -1698,7 +1702,7 @@ Partial Class Form1
         'lblTrendDuration
         '
         Me.lblTrendDuration.AutoSize = True
-        Me.lblTrendDuration.Location = New System.Drawing.Point(392, 29)
+        Me.lblTrendDuration.Location = New System.Drawing.Point(387, 75)
         Me.lblTrendDuration.Name = "lblTrendDuration"
         Me.lblTrendDuration.Size = New System.Drawing.Size(123, 13)
         Me.lblTrendDuration.TabIndex = 14
@@ -1707,7 +1711,7 @@ Partial Class Form1
         'txtUpdateInterval
         '
         Me.txtUpdateInterval.BackColor = System.Drawing.Color.White
-        Me.txtUpdateInterval.Location = New System.Drawing.Point(312, 26)
+        Me.txtUpdateInterval.Location = New System.Drawing.Point(315, 73)
         Me.txtUpdateInterval.Name = "txtUpdateInterval"
         Me.txtUpdateInterval.ReadOnly = True
         Me.txtUpdateInterval.Size = New System.Drawing.Size(50, 20)
@@ -1717,7 +1721,7 @@ Partial Class Form1
         'tbrUpdateInterval
         '
         Me.tbrUpdateInterval.LargeChange = 10
-        Me.tbrUpdateInterval.Location = New System.Drawing.Point(141, 16)
+        Me.tbrUpdateInterval.Location = New System.Drawing.Point(144, 63)
         Me.tbrUpdateInterval.Maximum = 300
         Me.tbrUpdateInterval.Minimum = 100
         Me.tbrUpdateInterval.Name = "tbrUpdateInterval"
@@ -1924,6 +1928,25 @@ Partial Class Form1
         '
         Me.SaveCSVDialog.Title = "Save CSV File"
         '
+        'chkAutoUpdate
+        '
+        Me.chkAutoUpdate.AutoSize = True
+        Me.chkAutoUpdate.Location = New System.Drawing.Point(184, 29)
+        Me.chkAutoUpdate.Name = "chkAutoUpdate"
+        Me.chkAutoUpdate.Size = New System.Drawing.Size(116, 17)
+        Me.chkAutoUpdate.TabIndex = 17
+        Me.chkAutoUpdate.Text = "Automatic Updates"
+        Me.chkAutoUpdate.UseVisualStyleBackColor = True
+        '
+        'btnUpdateNow
+        '
+        Me.btnUpdateNow.Location = New System.Drawing.Point(462, 25)
+        Me.btnUpdateNow.Name = "btnUpdateNow"
+        Me.btnUpdateNow.Size = New System.Drawing.Size(75, 23)
+        Me.btnUpdateNow.TabIndex = 18
+        Me.btnUpdateNow.Text = "Update Now"
+        Me.btnUpdateNow.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1980,8 +2003,8 @@ Partial Class Form1
         Me.gbxErrorLog.ResumeLayout(False)
         Me.gbxErrorLog.PerformLayout()
         Me.tabSettings.ResumeLayout(False)
-        Me.gbxTimings.ResumeLayout(False)
-        Me.gbxTimings.PerformLayout()
+        Me.gbxTrending.ResumeLayout(False)
+        Me.gbxTrending.PerformLayout()
         CType(Me.tbrTrendDuration, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbrUpdateInterval, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gbxLogging.ResumeLayout(False)
@@ -2153,8 +2176,10 @@ Partial Class Form1
     Friend WithEvents txtTrendDuration As TextBox
     Friend WithEvents lblTrendDuration As Label
     Friend WithEvents tbrTrendDuration As TrackBar
-    Friend WithEvents gbxTimings As GroupBox
+    Friend WithEvents gbxTrending As GroupBox
     Friend WithEvents lblUpdateInterval As Label
     Friend WithEvents txtUpdateInterval As TextBox
     Friend WithEvents tbrUpdateInterval As TrackBar
+    Friend WithEvents chkAutoUpdate As CheckBox
+    Friend WithEvents btnUpdateNow As Button
 End Class

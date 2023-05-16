@@ -63,6 +63,7 @@ Public Class Form1
             txtPassword.Text = My.Settings.Password
             txtTrendDuration.Text = My.Settings.TrendDurationMinutes
             txtUpdateInterval.Text = My.Settings.UpdateIntervalSeconds
+            chkAutoUpdate.Checked = My.Settings.AutoUpdate
 
             'Populate default peer list dropdown options
             cmbType.Text = "--all--"
@@ -256,8 +257,10 @@ Public Class Form1
 
     Private Sub timUpdateData_Tick(sender As Object, e As EventArgs) Handles timUpdateData.Tick
 
-        'Update all the data fields according to the timer
-        Update_Data()
+        'Update all the data fields according to the timer if auto update is checked
+        If chkAutoUpdate.Checked = True Then
+            Update_Data()
+        End If
 
     End Sub
 
@@ -307,6 +310,9 @@ Public Class Form1
 
             If Running = True Then
                 Consensus = Client.Consensus()
+                timUpdateData.Interval = txtUpdateInterval.Text * 1000
+            Else
+                timUpdateData.Interval = 10000
             End If
 
             'Update the image colour, icon colour and icon text
@@ -704,6 +710,7 @@ Public Class Form1
             My.Settings.LoggingLevel = cmbLoggingLevel.Text
             My.Settings.TrendDurationMinutes = txtTrendDuration.Text
             My.Settings.UpdateIntervalSeconds = txtUpdateInterval.Text
+            My.Settings.AutoUpdate = chkAutoUpdate.Checked
 
         Catch ex As Exception
             Log_Error(ex)
@@ -1425,5 +1432,16 @@ Public Class Form1
         Return Connected
 
     End Function
+
+    Private Sub btnUpdateNow_Click(sender As Object, e As EventArgs) Handles btnUpdateNow.Click
+
+        Try
+            Update_Data()
+
+        Catch ex As Exception
+            Log_Error(ex)
+        End Try
+
+    End Sub
 
 End Class
