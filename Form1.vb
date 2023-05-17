@@ -64,6 +64,7 @@ Public Class Form1
             txtTrendDuration.Text = My.Settings.TrendDurationMinutes
             txtUpdateInterval.Text = My.Settings.UpdateIntervalSeconds
             chkAutoUpdate.Checked = My.Settings.AutoUpdate
+            txtTimeout.Text = My.Settings.Timeout
 
             'Populate default peer list dropdown options
             cmbType.Text = "--all--"
@@ -77,6 +78,7 @@ Public Class Form1
             'Set constants if persistent values not set
             If txtTrendDuration.Text = 0 Then txtTrendDuration.Text = 60
             If txtUpdateInterval.Text = 0 Then txtUpdateInterval.Text = 10
+            If txtTimeout.Text = 0 Then txtTimeout.Text = 3000
 
             'Set slider positions
             UserUpdate = False
@@ -711,6 +713,7 @@ Public Class Form1
             My.Settings.TrendDurationMinutes = txtTrendDuration.Text
             My.Settings.UpdateIntervalSeconds = txtUpdateInterval.Text
             My.Settings.AutoUpdate = chkAutoUpdate.Checked
+            My.Settings.Timeout = txtTimeout.Text
 
         Catch ex As Exception
             Log_Error(ex)
@@ -1423,7 +1426,7 @@ Public Class Form1
 
         DownloadString = txtScheme.Text + "://" + txtHost.Text + ":" + txtPort.Text
         Try
-            Response = New WebDownload(2000).DownloadString(DownloadString)
+            Response = New WebDownload(txtTimeout.Text).DownloadString(DownloadString)
             Connected = True
         Catch
             Connected = False

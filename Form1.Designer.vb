@@ -166,12 +166,10 @@ Partial Class Form1
         Me.txtAccountAddress = New System.Windows.Forms.TextBox()
         Me.lblAccountAddress = New System.Windows.Forms.Label()
         Me.btnTransactionSearch = New System.Windows.Forms.Button()
-        Me.tabLog = New System.Windows.Forms.TabPage()
-        Me.gbxErrorLog = New System.Windows.Forms.GroupBox()
-        Me.btnClearLog = New System.Windows.Forms.Button()
-        Me.txtErrorLog = New System.Windows.Forms.TextBox()
         Me.tabSettings = New System.Windows.Forms.TabPage()
         Me.gbxTrending = New System.Windows.Forms.GroupBox()
+        Me.btnUpdateNow = New System.Windows.Forms.Button()
+        Me.chkAutoUpdate = New System.Windows.Forms.CheckBox()
         Me.txtTrendDuration = New System.Windows.Forms.TextBox()
         Me.lblUpdateInterval = New System.Windows.Forms.Label()
         Me.tbrTrendDuration = New System.Windows.Forms.TrackBar()
@@ -196,13 +194,17 @@ Partial Class Form1
         Me.lblPort = New System.Windows.Forms.Label()
         Me.lblHost = New System.Windows.Forms.Label()
         Me.lblScheme = New System.Windows.Forms.Label()
+        Me.tabLog = New System.Windows.Forms.TabPage()
+        Me.gbxErrorLog = New System.Windows.Forms.GroupBox()
+        Me.btnClearLog = New System.Windows.Forms.Button()
+        Me.txtErrorLog = New System.Windows.Forms.TextBox()
         Me.timUpdateData = New System.Windows.Forms.Timer(Me.components)
         Me.NotifyIcon = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.NotifyMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveCSVDialog = New System.Windows.Forms.SaveFileDialog()
-        Me.chkAutoUpdate = New System.Windows.Forms.CheckBox()
-        Me.btnUpdateNow = New System.Windows.Forms.Button()
+        Me.lblTimeout = New System.Windows.Forms.Label()
+        Me.txtTimeout = New System.Windows.Forms.TextBox()
         Me.TabControl.SuspendLayout()
         Me.tabStatus.SuspendLayout()
         CType(Me.pbxStatus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -230,8 +232,6 @@ Partial Class Form1
         CType(Me.grdTransactions, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxAccountDetails.SuspendLayout()
         Me.gbxAccountSearch.SuspendLayout()
-        Me.tabLog.SuspendLayout()
-        Me.gbxErrorLog.SuspendLayout()
         Me.tabSettings.SuspendLayout()
         Me.gbxTrending.SuspendLayout()
         CType(Me.tbrTrendDuration, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -239,6 +239,8 @@ Partial Class Form1
         Me.gbxLogging.SuspendLayout()
         Me.gbxPool.SuspendLayout()
         Me.gbxLogin.SuspendLayout()
+        Me.tabLog.SuspendLayout()
+        Me.gbxErrorLog.SuspendLayout()
         Me.NotifyMenu.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -1597,47 +1599,6 @@ Partial Class Form1
         Me.btnTransactionSearch.Text = "Search"
         Me.btnTransactionSearch.UseVisualStyleBackColor = True
         '
-        'tabLog
-        '
-        Me.tabLog.Controls.Add(Me.gbxErrorLog)
-        Me.tabLog.Location = New System.Drawing.Point(4, 22)
-        Me.tabLog.Name = "tabLog"
-        Me.tabLog.Size = New System.Drawing.Size(792, 424)
-        Me.tabLog.TabIndex = 10
-        Me.tabLog.Text = "Error Log"
-        Me.tabLog.UseVisualStyleBackColor = True
-        '
-        'gbxErrorLog
-        '
-        Me.gbxErrorLog.Controls.Add(Me.btnClearLog)
-        Me.gbxErrorLog.Controls.Add(Me.txtErrorLog)
-        Me.gbxErrorLog.Location = New System.Drawing.Point(8, 14)
-        Me.gbxErrorLog.Name = "gbxErrorLog"
-        Me.gbxErrorLog.Size = New System.Drawing.Size(776, 402)
-        Me.gbxErrorLog.TabIndex = 11
-        Me.gbxErrorLog.TabStop = False
-        Me.gbxErrorLog.Text = "Nimiq RPC Error Log"
-        '
-        'btnClearLog
-        '
-        Me.btnClearLog.Location = New System.Drawing.Point(351, 363)
-        Me.btnClearLog.Name = "btnClearLog"
-        Me.btnClearLog.Size = New System.Drawing.Size(75, 23)
-        Me.btnClearLog.TabIndex = 1
-        Me.btnClearLog.Text = "Clear Log"
-        Me.btnClearLog.UseVisualStyleBackColor = True
-        '
-        'txtErrorLog
-        '
-        Me.txtErrorLog.BackColor = System.Drawing.Color.White
-        Me.txtErrorLog.Location = New System.Drawing.Point(10, 21)
-        Me.txtErrorLog.Multiline = True
-        Me.txtErrorLog.Name = "txtErrorLog"
-        Me.txtErrorLog.ReadOnly = True
-        Me.txtErrorLog.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.txtErrorLog.Size = New System.Drawing.Size(751, 336)
-        Me.txtErrorLog.TabIndex = 0
-        '
         'tabSettings
         '
         Me.tabSettings.Controls.Add(Me.gbxTrending)
@@ -1653,6 +1614,8 @@ Partial Class Form1
         '
         'gbxTrending
         '
+        Me.gbxTrending.Controls.Add(Me.txtTimeout)
+        Me.gbxTrending.Controls.Add(Me.lblTimeout)
         Me.gbxTrending.Controls.Add(Me.btnUpdateNow)
         Me.gbxTrending.Controls.Add(Me.chkAutoUpdate)
         Me.gbxTrending.Controls.Add(Me.txtTrendDuration)
@@ -1663,10 +1626,29 @@ Partial Class Form1
         Me.gbxTrending.Controls.Add(Me.tbrUpdateInterval)
         Me.gbxTrending.Location = New System.Drawing.Point(28, 214)
         Me.gbxTrending.Name = "gbxTrending"
-        Me.gbxTrending.Size = New System.Drawing.Size(740, 134)
+        Me.gbxTrending.Size = New System.Drawing.Size(740, 178)
         Me.gbxTrending.TabIndex = 10
         Me.gbxTrending.TabStop = False
         Me.gbxTrending.Text = "Trending"
+        '
+        'btnUpdateNow
+        '
+        Me.btnUpdateNow.Location = New System.Drawing.Point(462, 25)
+        Me.btnUpdateNow.Name = "btnUpdateNow"
+        Me.btnUpdateNow.Size = New System.Drawing.Size(75, 23)
+        Me.btnUpdateNow.TabIndex = 18
+        Me.btnUpdateNow.Text = "Update Now"
+        Me.btnUpdateNow.UseVisualStyleBackColor = True
+        '
+        'chkAutoUpdate
+        '
+        Me.chkAutoUpdate.AutoSize = True
+        Me.chkAutoUpdate.Location = New System.Drawing.Point(184, 29)
+        Me.chkAutoUpdate.Name = "chkAutoUpdate"
+        Me.chkAutoUpdate.Size = New System.Drawing.Size(116, 17)
+        Me.chkAutoUpdate.TabIndex = 17
+        Me.chkAutoUpdate.Text = "Automatic Updates"
+        Me.chkAutoUpdate.UseVisualStyleBackColor = True
         '
         'txtTrendDuration
         '
@@ -1903,6 +1885,47 @@ Partial Class Form1
         Me.lblScheme.TabIndex = 2
         Me.lblScheme.Text = "Scheme"
         '
+        'tabLog
+        '
+        Me.tabLog.Controls.Add(Me.gbxErrorLog)
+        Me.tabLog.Location = New System.Drawing.Point(4, 22)
+        Me.tabLog.Name = "tabLog"
+        Me.tabLog.Size = New System.Drawing.Size(792, 424)
+        Me.tabLog.TabIndex = 10
+        Me.tabLog.Text = "Error Log"
+        Me.tabLog.UseVisualStyleBackColor = True
+        '
+        'gbxErrorLog
+        '
+        Me.gbxErrorLog.Controls.Add(Me.btnClearLog)
+        Me.gbxErrorLog.Controls.Add(Me.txtErrorLog)
+        Me.gbxErrorLog.Location = New System.Drawing.Point(8, 14)
+        Me.gbxErrorLog.Name = "gbxErrorLog"
+        Me.gbxErrorLog.Size = New System.Drawing.Size(776, 402)
+        Me.gbxErrorLog.TabIndex = 11
+        Me.gbxErrorLog.TabStop = False
+        Me.gbxErrorLog.Text = "Nimiq RPC Error Log"
+        '
+        'btnClearLog
+        '
+        Me.btnClearLog.Location = New System.Drawing.Point(351, 363)
+        Me.btnClearLog.Name = "btnClearLog"
+        Me.btnClearLog.Size = New System.Drawing.Size(75, 23)
+        Me.btnClearLog.TabIndex = 1
+        Me.btnClearLog.Text = "Clear Log"
+        Me.btnClearLog.UseVisualStyleBackColor = True
+        '
+        'txtErrorLog
+        '
+        Me.txtErrorLog.BackColor = System.Drawing.Color.White
+        Me.txtErrorLog.Location = New System.Drawing.Point(10, 21)
+        Me.txtErrorLog.Multiline = True
+        Me.txtErrorLog.Name = "txtErrorLog"
+        Me.txtErrorLog.ReadOnly = True
+        Me.txtErrorLog.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.txtErrorLog.Size = New System.Drawing.Size(751, 336)
+        Me.txtErrorLog.TabIndex = 0
+        '
         'timUpdateData
         '
         '
@@ -1928,24 +1951,22 @@ Partial Class Form1
         '
         Me.SaveCSVDialog.Title = "Save CSV File"
         '
-        'chkAutoUpdate
+        'lblTimeout
         '
-        Me.chkAutoUpdate.AutoSize = True
-        Me.chkAutoUpdate.Location = New System.Drawing.Point(184, 29)
-        Me.chkAutoUpdate.Name = "chkAutoUpdate"
-        Me.chkAutoUpdate.Size = New System.Drawing.Size(116, 17)
-        Me.chkAutoUpdate.TabIndex = 17
-        Me.chkAutoUpdate.Text = "Automatic Updates"
-        Me.chkAutoUpdate.UseVisualStyleBackColor = True
+        Me.lblTimeout.AutoSize = True
+        Me.lblTimeout.Location = New System.Drawing.Point(181, 134)
+        Me.lblTimeout.Name = "lblTimeout"
+        Me.lblTimeout.Size = New System.Drawing.Size(167, 13)
+        Me.lblTimeout.TabIndex = 19
+        Me.lblTimeout.Text = "Connection Timeout (milliseconds)"
         '
-        'btnUpdateNow
+        'txtTimeout
         '
-        Me.btnUpdateNow.Location = New System.Drawing.Point(462, 25)
-        Me.btnUpdateNow.Name = "btnUpdateNow"
-        Me.btnUpdateNow.Size = New System.Drawing.Size(75, 23)
-        Me.btnUpdateNow.TabIndex = 18
-        Me.btnUpdateNow.Text = "Update Now"
-        Me.btnUpdateNow.UseVisualStyleBackColor = True
+        Me.txtTimeout.Location = New System.Drawing.Point(349, 131)
+        Me.txtTimeout.Name = "txtTimeout"
+        Me.txtTimeout.Size = New System.Drawing.Size(64, 20)
+        Me.txtTimeout.TabIndex = 20
+        Me.txtTimeout.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Form1
         '
@@ -1999,9 +2020,6 @@ Partial Class Form1
         Me.gbxAccountDetails.PerformLayout()
         Me.gbxAccountSearch.ResumeLayout(False)
         Me.gbxAccountSearch.PerformLayout()
-        Me.tabLog.ResumeLayout(False)
-        Me.gbxErrorLog.ResumeLayout(False)
-        Me.gbxErrorLog.PerformLayout()
         Me.tabSettings.ResumeLayout(False)
         Me.gbxTrending.ResumeLayout(False)
         Me.gbxTrending.PerformLayout()
@@ -2013,6 +2031,9 @@ Partial Class Form1
         Me.gbxPool.PerformLayout()
         Me.gbxLogin.ResumeLayout(False)
         Me.gbxLogin.PerformLayout()
+        Me.tabLog.ResumeLayout(False)
+        Me.gbxErrorLog.ResumeLayout(False)
+        Me.gbxErrorLog.PerformLayout()
         Me.NotifyMenu.ResumeLayout(False)
         Me.ResumeLayout(False)
 
@@ -2182,4 +2203,6 @@ Partial Class Form1
     Friend WithEvents tbrUpdateInterval As TrackBar
     Friend WithEvents chkAutoUpdate As CheckBox
     Friend WithEvents btnUpdateNow As Button
+    Friend WithEvents txtTimeout As TextBox
+    Friend WithEvents lblTimeout As Label
 End Class
