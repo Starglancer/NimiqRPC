@@ -1240,17 +1240,6 @@ Public Class Form1
 
     End Sub
 
-    Private Sub btnClearLog_Click(sender As Object, e As EventArgs)
-
-        Try
-            txtErrorLog.Text = ""
-
-        Catch ex As Exception
-            Log_Error(ex)
-        End Try
-
-    End Sub
-
     Private Sub mnuExportCSV_Click(sender As Object, e As EventArgs) Handles mnuExportCSV.Click
 
         Try
@@ -1443,6 +1432,16 @@ Public Class Form1
 
         Catch ex As Exception
             Log_Error(ex)
+        End Try
+
+    End Sub
+
+    Private Sub btnClearLog_Click(sender As Object, e As EventArgs) Handles btnClearLog.Click
+
+        Try
+            txtErrorLog.Text = ""
+        Catch
+            'Ignore error as it could cause infinite loop
         End Try
 
     End Sub

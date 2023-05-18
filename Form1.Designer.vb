@@ -168,6 +168,8 @@ Partial Class Form1
         Me.btnTransactionSearch = New System.Windows.Forms.Button()
         Me.tabSettings = New System.Windows.Forms.TabPage()
         Me.gbxTrending = New System.Windows.Forms.GroupBox()
+        Me.txtTimeout = New System.Windows.Forms.TextBox()
+        Me.lblTimeout = New System.Windows.Forms.Label()
         Me.btnUpdateNow = New System.Windows.Forms.Button()
         Me.chkAutoUpdate = New System.Windows.Forms.CheckBox()
         Me.txtTrendDuration = New System.Windows.Forms.TextBox()
@@ -203,8 +205,6 @@ Partial Class Form1
         Me.NotifyMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveCSVDialog = New System.Windows.Forms.SaveFileDialog()
-        Me.lblTimeout = New System.Windows.Forms.Label()
-        Me.txtTimeout = New System.Windows.Forms.TextBox()
         Me.TabControl.SuspendLayout()
         Me.tabStatus.SuspendLayout()
         CType(Me.pbxStatus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1631,6 +1631,23 @@ Partial Class Form1
         Me.gbxTrending.TabStop = False
         Me.gbxTrending.Text = "Trending"
         '
+        'txtTimeout
+        '
+        Me.txtTimeout.Location = New System.Drawing.Point(349, 131)
+        Me.txtTimeout.Name = "txtTimeout"
+        Me.txtTimeout.Size = New System.Drawing.Size(64, 20)
+        Me.txtTimeout.TabIndex = 20
+        Me.txtTimeout.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblTimeout
+        '
+        Me.lblTimeout.AutoSize = True
+        Me.lblTimeout.Location = New System.Drawing.Point(181, 134)
+        Me.lblTimeout.Name = "lblTimeout"
+        Me.lblTimeout.Size = New System.Drawing.Size(167, 13)
+        Me.lblTimeout.TabIndex = 19
+        Me.lblTimeout.Text = "Connection Timeout (milliseconds)"
+        '
         'btnUpdateNow
         '
         Me.btnUpdateNow.Location = New System.Drawing.Point(462, 25)
@@ -1950,23 +1967,6 @@ Partial Class Form1
         'SaveCSVDialog
         '
         Me.SaveCSVDialog.Title = "Save CSV File"
-        '
-        'lblTimeout
-        '
-        Me.lblTimeout.AutoSize = True
-        Me.lblTimeout.Location = New System.Drawing.Point(181, 134)
-        Me.lblTimeout.Name = "lblTimeout"
-        Me.lblTimeout.Size = New System.Drawing.Size(167, 13)
-        Me.lblTimeout.TabIndex = 19
-        Me.lblTimeout.Text = "Connection Timeout (milliseconds)"
-        '
-        'txtTimeout
-        '
-        Me.txtTimeout.Location = New System.Drawing.Point(349, 131)
-        Me.txtTimeout.Name = "txtTimeout"
-        Me.txtTimeout.Size = New System.Drawing.Size(64, 20)
-        Me.txtTimeout.TabIndex = 20
-        Me.txtTimeout.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Form1
         '
