@@ -311,7 +311,11 @@ Public Class Form1
             Running = Check_Connectivity()
 
             If Running = True Then
-                Consensus = Client.Consensus()
+                Try
+                    Consensus = Client.Consensus()
+                Catch
+                    'Ignore any failure
+                End Try
                 timUpdateData.Interval = txtUpdateInterval.Text * 1000
             Else
                 timUpdateData.Interval = 10000
